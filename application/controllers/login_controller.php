@@ -769,7 +769,81 @@ class login_controller extends CI_Controller
 		$this->load->view('postgraduate');
 	}
 
-	//------------------------------------------------------------------------------------------------------------------
+	public function External_Deg(){
+		$this->load->view('external_deg');
+	}
+
+
+	public function insertExternal()
+	{
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('category', 'Category', 'required');
+
+		if ($this->form_validation->run()) {
+
+			$cat=strtolower($this->input->post('category'));
+			$name=str_replace(' ', '_', $cat);
+
+			$this->load->model('user_model');
+			$data = array(
+				"id" => rand(0, 100),
+				"category" => $name
+			);
+			?>
+			<script>
+                alert('One category is successfully inserted');
+                window.location.href = '<?php echo base_url();?>login_controller/external_deg';
+			</script>
+
+			<?php
+
+			$name=str_replace(' ', '_', $this->input->post("category"));
+
+			$this->user_model->insert_external($data);
+			$this->load->model('user_model');
+			$this->user_model->create_tables($name);
+
+
+		}else{
+			$this->external_deg();
+		}
+	}
+
+	public function insertPostgraduate()
+	{
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('category', 'Category', 'required');
+
+		if ($this->form_validation->run()) {
+
+			$cat=strtolower($this->input->post('category'));
+			$name=str_replace(' ', '_', $cat);
+
+			$this->load->model('user_model');
+			$data = array(
+				"id" => rand(0, 100),
+				"category" => $name
+			);
+			?>
+			<script>
+                alert('One category is successfully inserted');
+                window.location.href = '<?php echo base_url();?>login_controller/Post_Graduate';
+			</script>
+
+			<?php
+
+			$name=str_replace(' ', '_', $this->input->post("category"));
+
+			$this->user_model->insert_postgraduate($data);
+			$this->load->model('user_model');
+			$this->user_model->create_tables($name);
+
+
+		}else{
+			$this->Post_Graduate();
+		}
+	}
+
 
 
 }

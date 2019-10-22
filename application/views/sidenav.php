@@ -39,7 +39,7 @@ $url= basename($actual_link);
 					<?php
 					if($this->session->userdata('type')!='head_of_institute'){
 						?>
-						<li class="<?php if($url == "Document_Settings" || $url == "add_subject"|| $url == "View_cat_details" ||$url == "insertCat" ||$url == 'reopen_View_cat_details'){echo 'active';} ?>"><a href="<?php echo base_url()?>login_controller/Document_Settings"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span> Document Settings</a></li>
+						<li class="<?php if($url == "Document_Settings" || $url == "add_subject"|| $url == "View_cat_details" ||$url == "insertCat" ||$url == 'reopen_View_cat_details'||$url == 'Post_Graduate'||$url == 'External_Deg'){echo 'active';} ?>"><a href="<?php echo base_url()?>login_controller/Document_Settings"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span> Document Settings</a></li>
 						<?php
 					}
 				}

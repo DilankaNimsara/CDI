@@ -318,4 +318,11 @@ class user_model extends CI_Model
 		return $query;
 	}
 
+	function insert_External($data){
+		$this->db->insert("external",$data);
+	}
+	function insert_Postgraduate($data){
+		$this->db->insert("postgraduate",$data);
+	}
+
 }

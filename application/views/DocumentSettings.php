@@ -19,7 +19,7 @@
 					<div class="btn-group btn-group-justified" style="width: 95%;">
 						<a class="btn btn-primary">Under Graduate</a>
 						<a href="<?php echo base_url('login_controller/Post_Graduate'); ?>" class="btn btn-info">Post Graduate</a>
-						<a href="<?php echo base_url('login_controller/'); ?>" class="btn btn-info">External</a>
+						<a href="<?php echo base_url('login_controller/External_Deg'); ?>" class="btn btn-info">External</a>
 					</div>
 				</center>
 			</div>
