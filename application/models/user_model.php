@@ -192,6 +192,28 @@ class user_model extends CI_Model
         return $this->db->get();
     }
 
+    function fetch_postgraduate($query)
+    {
+        $this->db->select("*");
+        $this->db->from("postgraduate");
+        if ($query != '') {
+            $this->db->like('category', $query);
+        }
+        $this->db->order_by('category', 'ASC');
+        return $this->db->get();
+    }
+
+    function fetch_external($query)
+    {
+        $this->db->select("*");
+        $this->db->from("extenal");
+        if ($query != '') {
+            $this->db->like('category', $query);
+        }
+        $this->db->order_by('category', 'ASC');
+        return $this->db->get();
+    }
+
     function fetch_doc($query)
     {
         $this->db->select("*");

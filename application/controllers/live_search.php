@@ -96,6 +96,85 @@ class live_search extends CI_Controller{
         echo $output;
     }
 
+    
+    public function fetchPostgraduate()
+    {
+        $output = '';
+        $query = '';
+        $this->load->model('user_model');
+        if ($this->input->post('query')) {
+            $query = $this->input->post('query');
+        }
+        $data = $this->user_model->fetch_postgraduate($query);
+        $output .= '
+  <div class="table-responsive">
+     <table class="table table-hover">
+      <tr bgcolor="white">
+       <th>Category</th>
+       <th align="center">View / Details / Edit</th>
+      </tr>
+  ';
+        if ($data->num_rows() > 0) {
+            foreach ($data->result() as $row) {
+                $output .= '
+      <tr>
+       <td>' .strtoupper($name=str_replace('_', ' ', $row->category) ). '</td>
+       <td align="center">
+        <form method="post" action="'.base_url("login_controller/View_cat_details").'">
+            <button class="btn btn-info" style="width: 80px;" type="submit" name="Submit" id="' . $row->category . '" value="' . $row->category . '"> View </a></button>
+        </form>
+       </td>
+      </tr>
+    ';
+            }
+        } else {
+            $output .= '<tr>
+       <td colspan="2">No Data Found</td>
+      </tr>';
+        }
+        $output .= '</table>';
+        echo $output;
+    }
+
+    public function fetchExternal()
+    {
+        $output = '';
+        $query = '';
+        $this->load->model('user_model');
+        if ($this->input->post('query')) {
+            $query = $this->input->post('query');
+        }
+        $data = $this->user_model->fetch_external($query);
+        $output .= '
+  <div class="table-responsive">
+     <table class="table table-hover">
+      <tr bgcolor="white">
+       <th>Category</th>
+       <th align="center">View / Details / Edit</th>
+      </tr>
+  ';
+        if ($data->num_rows() > 0) {
+            foreach ($data->result() as $row) {
+                $output .= '
+      <tr>
+       <td>' .strtoupper($name=str_replace('_', ' ', $row->external) ). '</td>
+       <td align="center">
+        <form method="post" action="'.base_url("login_controller/View_cat_details").'">
+            <button class="btn btn-info" style="width: 80px;" type="submit" name="Submit" id="' . $row->external . '" value="' . $row->external . '"> View </a></button>
+        </form>
+       </td>
+      </tr>
+    ';
+            }
+        } else {
+            $output .= '<tr>
+       <td colspan="2">No Data Found</td>
+      </tr>';
+        }
+        $output .= '</table>';
+        echo $output;
+    }
+
     public function fetchDoc()
     {
         $output = '';
@@ -205,20 +284,6 @@ class live_search extends CI_Controller{
         $output .= '</table>';
         echo $output;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
