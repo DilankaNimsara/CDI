@@ -91,7 +91,7 @@
         function load_data(query)
         {
             $.ajax({
-                url:"<?php echo base_url(); ?>live_search/fetchCategory",
+                url:"<?php echo base_url(); ?>live_search/Fetch_External",
                 method:"POST",
                 data:{query:query},
                 success:function(data){
