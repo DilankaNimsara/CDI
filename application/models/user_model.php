@@ -86,6 +86,15 @@ class user_model extends CI_Model
         $query = $this->db->get("category_data");
         return $query;
     }
+	function fetch_cat_postgraduate(){
+		$query = $this->db->get("postgraduate");
+		return $query;
+	}
+
+	function fetch_cat_External(){
+		$query = $this->db->get("external");
+		return $query;
+	}
 	function fetch_accounts(){
 		$query = $this->db->get("user");
 		return $query;
@@ -106,6 +115,11 @@ class user_model extends CI_Model
         $this->db->where("category",$category);
         $this->db->delete('category_data');
     }
+
+	function delete_cat_postgraduate($category){
+		$this->db->where("category",$category);
+		$this->db->delete('postgraduate');
+	}
 
     public function create_tables($name){
 
@@ -241,6 +255,14 @@ class user_model extends CI_Model
         return $query;
     }
 
+	function fetch_data_cat_table_post_graduate($cat){
+		$this->db->order_by('year', 'ASC');
+		$this->db->order_by('semester', 'ASC');
+		$this->db->order_by('subject_code', 'ASC');
+		$query = $this->db->get($cat);
+		return $query;
+	}
+
     function rename_category($Oldname,$Newname){
         $this->load->dbforge();
         $this->dbforge->rename_table($Oldname, $Newname);
@@ -251,6 +273,11 @@ class user_model extends CI_Model
         $this->db->update("category_data",$Newname);
     }
 
+	function update_data_category_postgraduate($Oldname,$Newname){
+		$this->db->where('category', $Oldname);
+		$this->db->update("postgraduate",$Newname);
+	}
+
     function delete_cat_data($subject,$category){
         $this->db->where("subject_code",$subject);
         $this->db->delete($category);
@@ -259,7 +286,7 @@ class user_model extends CI_Model
     function fetch_subject_cat($query){
         $this->db->select("*");
         $this->db->from($_SESSION['x']);
-        if ($query != '') {
+        if($query != ''){
             $this->db->like('subject_code', $query);
             $this->db->or_like('subject_name', $query);
         }
@@ -269,6 +296,20 @@ class user_model extends CI_Model
 
         return $this->db->get();
     }
+
+	function fetch_subject_cat_post_graduate($query){
+		$this->db->select("*");
+		$this->db->from($_SESSION['pg']);
+		if ($query != '') {
+			$this->db->like('subject_code', $query);
+			$this->db->or_like('subject_name', $query);
+		}
+		$this->db->order_by('year', 'ASC');
+		$this->db->order_by('semester', 'ASC');
+		$this->db->order_by('subject_code', 'ASC');
+
+		return $this->db->get();
+	}
 
     function update_category_date($tname,$data,$old_subject_code){
         $this->db->where('subject_code', $old_subject_code);

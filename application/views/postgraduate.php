@@ -30,6 +30,15 @@
 
 		<div class="col-sm-5">
 
+			<?php
+			$count=0;
+			if ($fetch_data->num_rows() > 0) {
+				foreach ($fetch_data->result() as $row) {
+					$count=$count+1;
+				}
+			}
+			?>
+
 			<br/>
 			<br/>
 			<div class="container ">
@@ -40,6 +49,7 @@
 					</div>
 				</div>
 				<br/>
+				<span align="right"><b>Total number of Categories - <?php echo $count;?></b></span>
 				<br/>
 				<br/>
 				<div style="width: 600px;" id="result"></div>

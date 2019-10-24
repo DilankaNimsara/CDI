@@ -499,8 +499,8 @@ class login_controller extends CI_Controller
 
     public function Document_Settings()
     {
-        $this->load->model('user_model');
-        $data["fetch_data"] = $this->user_model->fetch_cat();
+		$this->load->model('user_model');
+		$data["fetch_data"] = $this->user_model->fetch_cat();
         $this->load->view('DocumentSettings',$data);
     }
     public function insertCat()
@@ -532,7 +532,6 @@ class login_controller extends CI_Controller
             $this->load->model('user_model');
             $this->user_model->create_tables($name);
 
-
         }else{
             $this->Document_Settings();
         }
@@ -548,6 +547,18 @@ class login_controller extends CI_Controller
         }
         redirect(base_url('login_controller/Document_Settings'));
     }
+
+	public function delete_cat_postgraduate()
+	{
+		$category=$_SESSION['pg'];
+		$name=str_replace(' ', '_', $category);
+		$this->load->model('user_model');
+		if ($category != '') {
+			$this->user_model->delete_cat_postgraduate($category);
+			$this->user_model->delete_tables($name);
+		}
+		redirect(base_url('login_controller/Post_Graduate'));
+	}
 
     public function add_subject(){
 
@@ -612,6 +623,15 @@ class login_controller extends CI_Controller
         $this->load->view('viewCategoryDetails',$data);
 
     }
+	public function View_cat_details_post_graduate(){
+
+		$category=$this->input->post("Submit");
+		$this->load->model('user_model');
+		$_SESSION['pg']=$category;
+		$data["fetch_data"] = $this->user_model->fetch_data_cat_table_post_graduate($category);
+		$this->load->view('ViewCategoryDetailsPostGraduate',$data);
+
+	}
 
     public function category_update(){
 
@@ -631,8 +651,6 @@ class login_controller extends CI_Controller
             $this->user_model->update_data_category($Oldname, $data);
             $this->user_model->rename_category($Oldname,$Newname);
 
-
-
             unset($_SESSION['x']);
             $_SESSION['x']=$Newname;
             redirect(base_url() . "login_controller/reopen_View_cat_details");
@@ -642,12 +660,48 @@ class login_controller extends CI_Controller
 
     }
 
+	public function category_update_postgraduate(){
+
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('category', 'category', 'required');
+
+		$oldcat=str_replace(' ', '_', $this->input->post('hide'));
+		$Oldname=strtolower($oldcat);
+		$cat=str_replace(' ', '_', $this->input->post('category'));
+		$Newname=strtolower($cat);
+
+		if ($this->form_validation->run()) {
+			$this->load->model('user_model');
+			$data = array(
+				"category" => $Newname,
+			);
+			$this->user_model->update_data_category_postgraduate($Oldname, $data);
+			$this->user_model->rename_category($Oldname,$Newname);
+
+
+
+			unset($_SESSION['pg']);
+			$_SESSION['pg']=$Newname;
+			redirect(base_url() . "login_controller/reopen_View_cat_details_post_graduate");
+		} else {
+			$this->View_cat_details_post_graduate();
+		}
+
+	}
+
     public function reopen_View_cat_details(){
         $this->load->model('user_model');
         $Newname=$_SESSION['x'];
         $data["fetch_data"] = $this->user_model->fetch_data_cat_table($Newname);
         $this->load->view('viewCategoryDetails',$data);
     }
+
+	public function reopen_View_cat_details_post_graduate(){
+		$this->load->model('user_model');
+		$Newname=$_SESSION['pg'];
+		$data["fetch_data"] = $this->user_model->fetch_data_cat_table($Newname);
+		$this->load->view('ViewCategoryDetailsPostGraduate',$data);
+	}
 
     public function add_subjects_cat(){
         $this->load->library('form_validation');
@@ -680,6 +734,37 @@ class login_controller extends CI_Controller
 
     }
 
+	public function add_subjects_cat_post_graduate(){
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('subject_name', 'Subject Name', 'required');
+		$this->form_validation->set_rules('subject_code', 'Subject Code', 'required');
+		$this->form_validation->set_rules('year', 'Year', 'required');
+		$this->form_validation->set_rules('semester', 'Semester', 'required');
+
+		if ($this->form_validation->run()) {
+			$tname=strtolower($this->input->post('category'));
+			$subject_code=strtoupper($this->input->post("subject_code"));
+			$this->load->model('user_model');
+			$data = array(
+				"subject_code" => $subject_code,
+				"subject_name" => $this->input->post("subject_name"),
+				"year" => $this->input->post("year"),
+				"semester" => $this->input->post("semester")
+			);
+			$this->user_model->insertdata($tname,$data);
+			?>
+
+			<script>
+                alert('One Subject is successfully inserted');
+                window.location.href = '<?php echo base_url();?>login_controller/reopen_View_cat_details_post_graduate';
+			</script>
+			<?php
+		}else{
+			$this->reopen_View_cat_details_post_graduate();
+		}
+
+	}
+
     public function delete_category_dt(){
         $subject = $this->input->post('submit');
         $category = $this->input->post('category');
@@ -688,9 +773,16 @@ class login_controller extends CI_Controller
             $this->user_model->delete_cat_data($subject,$category);
         }
         redirect(base_url() . "login_controller/reopen_View_cat_details");
-
-
     }
+	public function delete_category_dt_postgraduate(){
+		$subject = $this->input->post('submit');
+		$category = $this->input->post('category');
+		$this->load->model('user_model');
+		if ($subject != '') {
+			$this->user_model->delete_cat_data($subject,$category);
+		}
+		redirect(base_url() . "login_controller/reopen_View_cat_details_post_graduate");
+	}
 
     public function Update_subject(){
         $_SESSION['year']=$this->input->post('year');
@@ -698,6 +790,7 @@ class login_controller extends CI_Controller
         $_SESSION['subject_code']=$this->input->post('subject_code');
         $_SESSION['subject_name']=$this->input->post('subject_name');
         $_SESSION['category']=$this->input->post('category');
+		$_SESSION['accounttype']=$this->input->post('type');
 
         $this->load->view('subject_edit');
     }
@@ -722,12 +815,16 @@ class login_controller extends CI_Controller
                 "semester" => $this->input->post("semester")
             );
             $this->user_model->update_category_date($tname,$data,$old_subject_code);
-            ?>
-            <script>
-                alert('A Subject is successfully Updated');
-                window.location.href = '<?php echo base_url();?>login_controller/reopen_View_cat_details';
-            </script>
-            <?php
+			if($_SESSION['accounttype']=="postgraduate"){
+				redirect(base_url('login_controller/reopen_View_cat_details_post_graduate'));
+			}else{
+				?>
+				<script>
+                    alert('A Subject is successfully Updated');
+                    window.location.href = '<?php echo base_url();?>login_controller/reopen_View_cat_details';
+				</script>
+				<?php
+			}
         }else{
             $this->Update_subject();
         }
@@ -766,11 +863,15 @@ class login_controller extends CI_Controller
 	}
 
 	public function Post_Graduate(){
-		$this->load->view('postgraduate');
+		$this->load->model('user_model');
+		$data["fetch_data"] = $this->user_model->fetch_cat_postgraduate();
+		$this->load->view('postgraduate',$data);
 	}
 
 	public function External_Deg(){
-		$this->load->view('external_deg');
+		$this->load->model('user_model');
+		$data["fetch_data"] = $this->user_model->fetch_cat_External();
+		$this->load->view('external_deg',$data);
 	}
 
 
