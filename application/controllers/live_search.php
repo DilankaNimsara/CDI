@@ -265,6 +265,67 @@ class live_search extends CI_Controller{
 		echo $output;
 	}
 
+	function fetchsubject_External(){
+		$output = '';
+		$query = '';
+		$this->load->model('user_model');
+		if ($this->input->post('query')) {
+			$query = $this->input->post('query');
+		}
+		$data = $this->user_model->fetch_subject_cat_external($query);
+		$output .= '
+  <div class="table-responsive">
+     <table class="table table-hover">
+      <tr bgcolor="white">
+       <th>Year</th>
+       <th>Semester</th>
+       <th>Subject Code</th>
+       <th>Subject Name</th>
+       <th>Edit</th>
+       <th>Delete</th>
+      </tr>
+  ';
+		if ($data->num_rows() > 0) {
+			foreach ($data->result() as $row) {
+
+				$output .= '
+
+      <tr>
+      
+       <td bgcolor="5CA9F5">' . $row->year . '</td>
+       <td>' . $row->semester . '</td>
+       <td>' . $row->subject_code . '</td>
+       <td>' . $row->subject_name . '</td>
+       <td>
+           <form method="post" action="'. base_url('login_controller/#').'">
+                <button class="btn btn-info" name="submit" value="Submit">Edit</button>
+                <input type="text" class="hide" name="year" value="' . $row->year . '">
+                <input type="text" class="hide" name="semester" value="' . $row->semester . '">
+                <input type="text" class="hide" name="subject_code" value="' . $row->subject_code . '">
+                <input type="text" class="hide" name="subject_name" value="' . $row->subject_name . '">
+                <input type="text" class="hide" name="category" value="' . $_SESSION['ext'] . '">
+                <input type="text" class="hide" name="type" value="external_deg">
+           </form>
+       </td>
+       <td>
+         <form method="post" action="'.base_url('login_controller/#').'">
+            <button class="btn btn-danger" name="submit" value="' . $row->subject_code . '">Delete</button>
+            <input type="text" class="hide" value="'.$_SESSION['ext'].'" name="category">
+         </form>
+       </td>
+      </tr>
+    ';
+			}
+		} else {
+			$output .= '<tr>
+       <td colspan="9">No Data Found</td>
+      </tr>';
+		}
+		$output .= '</table>';
+		echo $output;
+	}
+
+
 
 	function Fetch_Postgraduate()
 	{
@@ -329,7 +390,7 @@ class live_search extends CI_Controller{
       <tr>
        <td>' . strtoupper($name = str_replace('_', ' ', $row->category)) . '</td>
        <td align="center">
-        <form method="post" action="' . base_url("login_controller/#") . '">
+        <form method="post" action="' . base_url("login_controller/View_cat_details_External") . '">
             <button class="btn btn-info" style="width: 80px;" type="submit" name="Submit" id="' . $row->category . '" value="' . $row->category . '"> View </a></button>
         </form>
        </td>

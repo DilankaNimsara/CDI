@@ -628,7 +628,7 @@ class login_controller extends CI_Controller
 		$category=$this->input->post("Submit");
 		$this->load->model('user_model');
 		$_SESSION['pg']=$category;
-		$data["fetch_data"] = $this->user_model->fetch_data_cat_table_post_graduate($category);
+		$data["fetch_data"] = $this->user_model->fetch_data_cat_table($category);
 		$this->load->view('ViewCategoryDetailsPostGraduate',$data);
 
 	}
@@ -943,6 +943,14 @@ class login_controller extends CI_Controller
 		}else{
 			$this->Post_Graduate();
 		}
+	}
+
+	public function View_cat_details_External(){
+		$category=$this->input->post("Submit");
+		$this->load->model('user_model');
+		$_SESSION['ext']=$category;
+		$data["fetch_data"] = $this->user_model->fetch_data_cat_table($category);
+		$this->load->view('ViewCategoryDetailsExternal',$data);
 	}
 
 

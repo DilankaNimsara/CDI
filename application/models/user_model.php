@@ -254,7 +254,7 @@ class user_model extends CI_Model
         $query = $this->db->get($cat);
         return $query;
     }
-
+/*
 	function fetch_data_cat_table_post_graduate($cat){
 		$this->db->order_by('year', 'ASC');
 		$this->db->order_by('semester', 'ASC');
@@ -262,7 +262,14 @@ class user_model extends CI_Model
 		$query = $this->db->get($cat);
 		return $query;
 	}
-
+	function fetch_data_cat_table_external($cat){
+		$this->db->order_by('year', 'ASC');
+		$this->db->order_by('semester', 'ASC');
+		$this->db->order_by('subject_code', 'ASC');
+		$query = $this->db->get($cat);
+		return $query;
+	}
+*/
     function rename_category($Oldname,$Newname){
         $this->load->dbforge();
         $this->dbforge->rename_table($Oldname, $Newname);
@@ -300,6 +307,20 @@ class user_model extends CI_Model
 	function fetch_subject_cat_post_graduate($query){
 		$this->db->select("*");
 		$this->db->from($_SESSION['pg']);
+		if ($query != '') {
+			$this->db->like('subject_code', $query);
+			$this->db->or_like('subject_name', $query);
+		}
+		$this->db->order_by('year', 'ASC');
+		$this->db->order_by('semester', 'ASC');
+		$this->db->order_by('subject_code', 'ASC');
+
+		return $this->db->get();
+	}
+
+	function fetch_subject_cat_external($query){
+		$this->db->select("*");
+		$this->db->from($_SESSION['ext']);
 		if ($query != '') {
 			$this->db->like('subject_code', $query);
 			$this->db->or_like('subject_name', $query);
