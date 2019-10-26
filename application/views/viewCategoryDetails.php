@@ -29,33 +29,6 @@
 				You are here : <a style="color: wheat;" data-toggle="tooltip" title="Go back" href="<?php echo base_url('login_controller/Document_Settings')?>"> Document Settings </a>  ><a style="color: wheat;" data-toggle="tooltip" title="Go back" href="<?php echo base_url('login_controller/Document_Settings')?>"> Under Graduate </a> > View
 			</div>
 
-
-            <div class="container">
-                <div align="right">
-                <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModal">Delete This Category</button>
-                </div>
-                <div class="modal fade" id="myModal" role="dialog">
-                    <div class="modal-dialog">
-
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Delete</h4>
-                            </div>
-                            <div class="modal-body">
-
-                                <p>
-                                    click here to delete.
-                                    <a href="#" class="delete_data " id="<?php $_SESSION['x']; ?>">Delete</a></p>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
             <h1 style="color: midnightblue;"><?php
                 $catName=str_replace('_', ' ', $_SESSION['x']);
                 echo strtoupper($catName); ?>
@@ -173,12 +146,47 @@
                 <div id="result"></div>
             </div>
             <div style="clear:both"></div>
-
-
+			<?php
+			for($i=0;$i<7;$i++){
+				echo '<br/>';
+			}
+			?>
 
         </div>
-    </div>
+			<div class="col-sm-10">
+
+				<div class="container">
+					<div align="right">
+						<button type="button" class="btn btn-danger " data-toggle="modal" data-target="#myModal">Delete This Category</button>
+					</div>
+					<div class="modal fade" id="myModal" role="dialog">
+						<div class="modal-dialog">
+
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal">&times;</button>
+									<h4 class="modal-title">Delete</h4>
+								</div>
+								<div class="modal-body">
+
+									<p>
+										click here to delete.
+										<a href="#" class="delete_data " id="<?php $_SESSION['x']; ?>">Delete</a></p>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
 </div>
+
 <?php include 'footer.php';?>
 </body>
 </html>

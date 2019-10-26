@@ -15,47 +15,22 @@
 		<div class="col-sm-10">
 
 			<?php
-/*
+
 			$count=0;
 			if ($fetch_data->num_rows() > 0) {
 				foreach ($fetch_data->result() as $row) {
 					$count=$count+1;
 				}
-			}*/
+			}
 			?>
 			<br/>
 
 			<div style="color: wheat;">
-				You are here : Document Settings ><a style="color: wheat;" data-toggle="tooltip" title="Go back" href="<?php echo base_url('login_controller/Post_Graduate')?>"> Post Graduate </a> > View
+				You are here : Document Settings ><a style="color: wheat;" data-toggle="tooltip" title="Go back" href="<?php echo base_url('login_controller/External_Deg')?>"> External </a> > View
 			</div>
 
 
-			<div class="container">
-				<div align="right">
-					<button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#myModal">Delete This Category</button>
-				</div>
-				<div class="modal fade" id="myModal" role="dialog">
-					<div class="modal-dialog">
 
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Delete</h4>
-							</div>
-							<div class="modal-body">
-
-								<p>
-									click here to delete.
-									<a href="#" class="delete_data " id="<?php $_SESSION['ext']; ?>">Delete</a></p>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
 			<h1 style="color: midnightblue;"><?php
 				$catName=str_replace('_', ' ', $_SESSION['ext']);
 				echo strtoupper($catName); ?>
@@ -71,7 +46,7 @@
 							<h4 class="modal-title">Update Category Name</h4>
 						</div>
 						<div class="modal-body">
-							<form method="post" action="<?php echo base_url();?>login_controller/category_update_postgraduate">
+							<form method="post" action="<?php echo base_url();?>login_controller/category_update_external">
 								<div class="form-group">
 									<input type="text" class="form-control" id="<?php echo $_SESSION['ext'];?>" name="category" value="<?php echo strtoupper($catName); ?>"/>
 									<span class="text-danger"><?php echo form_error('category')?></span>
@@ -90,7 +65,7 @@
 
 				</div>
 			</div>
-			<h4><a href="<?php echo base_url()?>login_controller/Post_Graduate"><span style="color: white";> Go Back </span><span style="color: white;" class="glyphicon glyphicon-triangle-left"></span></a></h4>
+			<h4><a href="<?php echo base_url()?>login_controller/External_Deg"><span style="color: white";> Go Back </span><span style="color: white;" class="glyphicon glyphicon-triangle-left"></span></a></h4>
 
 
 			<!--Add Subject----------------------------------------------------------------------------------------------------------------------------------->
@@ -105,7 +80,7 @@
 								<h4 class="modal-title">Add Subject</h4>
 							</div>
 							<div class="modal-body">
-								<form method="post" action="<?php echo base_url();?>login_controller/add_subjects_cat_post_graduate">
+								<form method="post" action="<?php echo base_url();?>login_controller/add_subjects_cat_external">
 
 									<div class="form-group">
 										<label for="username">Subject Name</label>
@@ -155,7 +130,7 @@
 
 			<!--Add Subject close----------------------------------------->
 			<br/>
-			<!--<span align="right"><b>Total <u><?php //echo strtoupper($catName)?></u> Subjects - <?php //echo $count;?></b></span>-->
+			<span align="right"><b>Total <u><?php echo strtoupper($catName)?></u> Subjects - <?php echo $count;?></b></span>
 			<br/>
 			<br/>
 
@@ -172,9 +147,41 @@
 				<div id="result"></div>
 			</div>
 			<div style="clear:both"></div>
+			<?php
+			for($i=0;$i<7;$i++){
+				echo '<br/>';
+			}
+			?>
 
 
+		</div>
+		<div class="col-sm-10">
+			<div class="container">
+				<div align="right">
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Delete This Category</button>
+				</div>
+				<div class="modal fade" id="myModal" role="dialog">
+					<div class="modal-dialog">
 
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Delete</h4>
+							</div>
+							<div class="modal-body">
+
+								<p>
+									click here to delete.
+									<a href="#" class="delete_data " id="<?php $_SESSION['ext']; ?>">Delete</a></p>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -217,7 +224,7 @@
         $('.delete_data').click(function () {
             var id = $(this).attr("id");
             if (confirm("Warning! \n If you delete this category your all data in this category will be lost. You can't undo \n \nAre you sure, You want to delete this Category ")) {
-                window.location = "<?php echo base_url(); ?>login_controller/delete_cat_postgraduate/" + id;
+                window.location = "<?php echo base_url(); ?>login_controller/delete_cat_external/" + id;
             } else {
                 return false;
             }

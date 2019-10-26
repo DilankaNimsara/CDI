@@ -29,12 +29,11 @@
 
 					<div class="form-group">
 						<label for="type">Type</label>
-						<input style="color: #0f18d1;"  type="text" class="form-control" name="type" id="type" value="<?php echo str_ireplace('_',' ',$row->type);?>" readonly>
-						<span class="text-danger"><?php echo form_error('email') ?></span>
+						<input style="color: #0f18d1;"  type="text" class="form-control" name="type" id="type" value="<?php echo strtoupper(str_ireplace('_',' ',$row->type));?>" readonly>
 					</div>
 					<div class="form-group">
 						<label for="post">Post</label>
-						<input style="color: #0f18d1;"  type="text" class="form-control" name="post" id="post" value="<?php echo $row->post;?>" readonly>
+						<input style="color: #0f18d1;"  type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_ireplace('_',' ',$row->post));?>" readonly>
 						<span class="text-danger"><?php echo form_error('email') ?></span>
 					</div>
 					<div class="form-group">

@@ -50,13 +50,35 @@
             <div class="row">
             <center>
 			<div class="btn-group btn-group-justified" style="width: 95%;">
-				<a class="btn btn-primary">Admin Settings</a>
-				<a href="<?php echo base_url('login_controller/userForm'); ?>" class="btn btn-info">Create User Accounts</a>
+
+				<?php
+				if($_SESSION['type']=='head_of_institute'){
+					?>
+					<?php
+				}else{
+					?>
+					<a class="btn btn-primary">Admin Settings</a>
+					<a href="<?php echo base_url('login_controller/userForm'); ?>" class="btn btn-info">Create User Accounts</a>
+				<?php
+				}
+				?>
+
 			</div>
             </center>
             </div>
 			<br/>
-			<h1>User Accounts and Passwords</h1>
+			<?php
+			if($_SESSION['type']=='head_of_institute'){
+				?>
+				<h1>User Accounts</h1>
+				<?php
+			}else{
+				?>
+				<h1>User Accounts and Passwords</h1>
+				<?php
+			}
+			?>
+
 			<br>
 			<?php
 			$count=0;
@@ -65,22 +87,8 @@
 					$count=$count+1;
 				}
 			}
-			$countuser=0;
-			if ($fetch_data_user->num_rows() > 0) {
-				foreach ($fetch_data_user->result() as $row) {
-					$countuser=$countuser+1;
-				}
-			}
-			$countqac=0;
-			if ($fetch_data_qac->num_rows() > 0) {
-				foreach ($fetch_data_qac->result() as $row) {
-					$countqac=$countqac+1;
-				}
-			}
 			?>
-			<span align="right"><b>Total number of Accounts - <?php echo $count;?></b></span> (
-			<span style="color: #4b4b4b;">User Accounts - <?php echo $countuser;?></span> |
-			<span style="color: #4b4b4b;">QAC Accounts - <?php echo $countqac;?></span> )
+			<span align="right"><b>Total number of Accounts - <?php echo $count;?></b></span>
 			<br/><br/>
 			<!-- search -->
             <div class="container ">

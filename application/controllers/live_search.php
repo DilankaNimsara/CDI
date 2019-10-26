@@ -11,7 +11,41 @@ class live_search extends CI_Controller{
             $query = $this->input->post('query');
         }
         $data = $this->user_model->fetch_data($query);
-        $output .= '
+
+		if($_SESSION['type']=='head_of_institute'){
+			$output .= '
+  <div class="table-responsive">
+     <table class="table table-hover">
+      <tr bgcolor="white">
+       <th>User Name</th>
+       <th>Account type</th>
+       <th>E-mail</th>
+        <th>Post</th>
+      </tr>
+  ';
+			if ($data->num_rows() > 0) {
+				foreach ($data->result() as $row) {
+
+					$output .= '
+
+      <tr>
+      
+       <td bgcolor="5CA9F5">' . $row->username . '</td>
+       <td>' .str_replace('_', ' ', $row->type ). '</td>
+       <td>' . $row->email . '</td>
+       <td>' .str_replace('_', ' ',strtoupper( $row->post)) . '</td>
+      </tr>
+    ';
+				}
+			} else {
+				$output .= '<tr>
+       <td colspan="9">No Data Found</td>
+      </tr>';
+			}
+			$output .= '</table>';
+			echo $output;
+		}else{
+			$output .= '
   <div class="table-responsive">
      <table class="table table-hover">
       <tr bgcolor="white">
@@ -23,10 +57,10 @@ class live_search extends CI_Controller{
        <th>Edit / Delete</th>
       </tr>
   ';
-        if ($data->num_rows() > 0) {
-            foreach ($data->result() as $row) {
+			if ($data->num_rows() > 0) {
+				foreach ($data->result() as $row) {
 
-                $output .= '
+					$output .= '
 
       <tr>
       
@@ -47,14 +81,17 @@ class live_search extends CI_Controller{
        </td>
       </tr>
     ';
-            }
-        } else {
-            $output .= '<tr>
+				}
+			} else {
+				$output .= '<tr>
        <td colspan="9">No Data Found</td>
       </tr>';
-        }
-        $output .= '</table>';
-        echo $output;
+			}
+			$output .= '</table>';
+			echo $output;
+		}
+
+
     }
 
     public function fetchCategory()

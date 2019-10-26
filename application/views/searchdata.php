@@ -16,65 +16,8 @@
             <h4><a href="<?php echo base_url()?>login_controller/manageAccount"><span style="color: white";> Go Back </span><span style="color: white;" class="glyphicon glyphicon-triangle-left"></span></a></h4>
         </div>
         <div class="col-sm-10">
-
-
-
                 <span class="text-danger"><?php echo form_error('pw')?></span>
                 <span class="text-danger"><?php echo form_error('confirm_pw')?></span>
-
-                <div class="container">
-                    <div align="right">
-						<?php
-						if(($this->session->userdata('username')==$_SESSION['account_username'])||( $_SESSION['account_type']!='qac')&&($_SESSION['account_type']!='head_of_institute')){
-							?>
-							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete Account</button>
-
-						<?php
-						}
-						?>
-
-                    </div>
-                    <div class="modal fade" id="delete" role="dialog">
-                        <div class="modal-dialog">
-
-
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Delete</h4>
-                                </div>
-                                <div class="modal-body">
-
-                                    <form method="post" action="<?php echo base_url();?>login_controller/delete_conform_account">
-                                        <div class="form-group">
-                                            <label>Password</label>
-                                            <input type="password" class="form-control" id="pw" name="pw" placeholder="Enter admin password">
-                                            <span class="text-danger"><?php echo form_error('pw')?></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <label>Confirm Password</label>
-                                            <input type="password" class="form-control" id="confirm_pw" name="confirm_pw" placeholder="Re-enter admin password"/>
-                                            <span class="text-danger"><?php echo form_error('confirm_pw')?></span>
-                                        </div>
-                                        <input type="text" class="hide" name="admin_password" value="<?php echo $this->session->userdata('password')?>" readonly>
-
-                                        <center>
-                                            <button type="submit" class="btn btn-danger" name="delete" value="Delete">Delete</button>
-                                        </center>
-                                    </form>
-
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-
-
             <hr>
             <h2 style="color: midnightblue;" ><center>Edit</center></h2>
 
@@ -122,6 +65,19 @@
 								</div>
 
 							<?php
+							}elseif ((( $_SESSION['account_type']!='qac')&&($this->session->userdata('username')!=$_SESSION['account_username']))){
+								?>
+								<div class="form-group">
+									<label for="password">Password</label>
+									<input type="password" class="form-control" id="password" name="password" >
+									<span class="text-danger"><?php echo form_error('password')?></span>
+								</div>
+								<div class="form-group">
+									<label for="con_password">Confirm Password</label>
+									<input type="password" class="form-control" name="con_password" id="con_password" >
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
+								</div>
+								<?php
 							}elseif (($this->session->userdata('username')==$_SESSION['account_username'])){
 								?>
 								<div class="form-group">
@@ -255,7 +211,10 @@
 
                                 <br/>
 							<?php
-							if(( $_SESSION['account_type']!='qac')&&($_SESSION['account_type']!='head_of_institute')) {
+							/*$condition1=($_SESSION['account_username'])==($this->session->userdata('username'));
+							$condition2=( $_SESSION['type']=='qac')&&($_SESSION['account_type']=='head_of_institute');
+
+							if(( $_SESSION['type']=='qac')&&($_SESSION['post']=='qac_head')) {
 								?>
 								<center>
 									<button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button>
@@ -267,15 +226,108 @@
 									<button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button>
 								</center>
 							<?php
+
+							}elseif ($condition1 && $condition2){
+								?>
+								<center>
+									<button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button>
+								</center>
+								<?php
+							}elseif (($this->session->userdata('username')==$_SESSION['account_username'])){
+								?>
+
+								<?php
+							}*/
+
+							if ((( $_SESSION['account_type']!='qac')&&($_SESSION['account_type']!='head_of_institute'))){
+								?>
+								<center>
+									<button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button>
+								</center>
+								<?php
+							}elseif ((( $_SESSION['account_type']!='qac')&&($this->session->userdata('username')!=$_SESSION['account_username']))){
+								?>
+								<center>
+									<button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button>
+								</center>
+								<?php
+							}elseif (($this->session->userdata('username')==$_SESSION['account_username'])){
+								?>
+								<center>
+									<button type="submit" class="btn btn-primary" name="submit" value="submit">Update</button>
+								</center>
+								<?php
+							}else{
+
 							}
+
+
 							?>
                             </div>
                             <br/>
                         </form>
 
+
                     </div>
                 </div>
             <hr>
+			<div class="container">
+				<div align="right">
+					<?php
+					if(( $_SESSION['type']=='qac')&&($_SESSION['post']=='qac_head')){
+						?>
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete Account</button>
+						<?php
+					}elseif (($_SESSION['account_username'])==($this->session->userdata('username'))){
+						?>
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete Account</button>
+					<?php
+					}elseif ((( $_SESSION['account_type']!='qac')&&($this->session->userdata('username')!=$_SESSION['account_username']))){
+						?>
+						<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#delete">Delete Account</button>
+						<?php
+					}
+					?>
+
+				</div>
+				<div class="modal fade" id="delete" role="dialog">
+					<div class="modal-dialog">
+
+
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Delete</h4>
+							</div>
+							<div class="modal-body">
+
+								<form method="post" action="<?php echo base_url();?>login_controller/delete_conform_account">
+									<div class="form-group">
+										<label>Password</label>
+										<input type="password" class="form-control" id="pw" name="pw" placeholder="Enter admin password">
+										<span class="text-danger"><?php echo form_error('pw')?></span>
+									</div>
+									<div class="form-group">
+										<label>Confirm Password</label>
+										<input type="password" class="form-control" id="confirm_pw" name="confirm_pw" placeholder="Re-enter admin password"/>
+										<span class="text-danger"><?php echo form_error('confirm_pw')?></span>
+									</div>
+									<input type="text" class="hide" name="admin_password" value="<?php echo $this->session->userdata('password')?>" readonly>
+
+									<center>
+										<button type="submit" class="btn btn-danger" name="delete" value="Delete">Delete</button>
+									</center>
+								</form>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
             </div>
 
 
@@ -326,7 +378,7 @@
                     success:function(data)
                     {
                         $('#a_post').html('<option value=""></option>' +
-                            '<option name="checkpost" value="user">User</option>' +
+                            '<option name="checkpost" value="lecture">Lecture</option>' +
                             '<option name="checkpost" value="head_of_course">Head of Course</option>' +
                             '<option name="checkpost" value="course_coordinator">Course Coordinator</option>');
                     }

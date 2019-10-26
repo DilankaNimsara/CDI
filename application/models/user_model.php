@@ -99,17 +99,6 @@ class user_model extends CI_Model
 		$query = $this->db->get("user");
 		return $query;
 	}
-	function fetch_accounts_user(){
-		$this->db->where("type",'User');
-		$query = $this->db->get("user");
-		return $query;
-	}
-
-	function fetch_accounts_qac(){
-		$this->db->where("type",'qac');
-		$query = $this->db->get("user");
-		return $query;
-	}
 
     function delete_cat($category){
         $this->db->where("category",$category);
@@ -119,6 +108,11 @@ class user_model extends CI_Model
 	function delete_cat_postgraduate($category){
 		$this->db->where("category",$category);
 		$this->db->delete('postgraduate');
+	}
+
+	function delete_cat_external($category){
+		$this->db->where("category",$category);
+		$this->db->delete('external');
 	}
 
     public function create_tables($name){
@@ -283,6 +277,11 @@ class user_model extends CI_Model
 	function update_data_category_postgraduate($Oldname,$Newname){
 		$this->db->where('category', $Oldname);
 		$this->db->update("postgraduate",$Newname);
+	}
+
+	function update_data_category_external($Oldname,$Newname){
+		$this->db->where('category', $Oldname);
+		$this->db->update("external",$Newname);
 	}
 
     function delete_cat_data($subject,$category){
