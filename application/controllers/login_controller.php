@@ -3,8 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class login_controller extends CI_Controller
 {
-
-    //------------------------------------------------------------Login page
+	//----------------------------------------------------------------------Login page validation
     public function login_validation()
     {
         $this->load->library('form_validation');
@@ -15,8 +14,6 @@ class login_controller extends CI_Controller
 
             $username = $this->input->post('username');
             $password = $this->input->post('password');
-           // $type = $this->input->post('type');
-            //---------------------------
 			$this->load->model('user_model');
 
             if ($this->user_model->can_login($username, $password)) {
@@ -43,19 +40,18 @@ class login_controller extends CI_Controller
                 redirect(base_url() . 'login_controller/login');
             }
 
-
         } else {
 
             $this->login();
         }
     }
-
+	//----------------------------------------------------------------------Login page
     public function login()
     {
         $this->load->view('login');
     }
 
-
+	//----------------------------------------------------------------------logged in after validating
     public function enter()
     {
         if ($this->session->userdata('username') != '') {
@@ -65,6 +61,7 @@ class login_controller extends CI_Controller
         }
     }
 
+	//----------------------------------------------------------------------logout
     public function logout()
     {
         $this->session->unset_userdata('username');
@@ -115,6 +112,7 @@ class login_controller extends CI_Controller
 
     //----------------------------------------------------------------------QAC
 
+	//----------------------------------------------------------------------user account validation
     public function user_Create_validation()
     {
         $this->load->library('form_validation');
@@ -146,13 +144,13 @@ class login_controller extends CI_Controller
         }
     }
 
+	//----------------------------------------------------------------------account create page
     public function userForm()
     {
         $this->load->view('userform');
     }
 
-    //----------------------------------------------------------------------User
-
+	//----------------------------------------------------------------------
     public function admin_account_update_validation()
     {
         $this->load->library('form_validation');
@@ -175,6 +173,7 @@ class login_controller extends CI_Controller
         }
     }
 
+	//----------------------------------------------------------------------manage account page
     public function manageAccount()
     {
 		$this->load->model('user_model');
@@ -182,8 +181,7 @@ class login_controller extends CI_Controller
 		$this->load->view('manageaccount', $data);
     }
 
-    //----------------------------------------------------------------------Admin user name and password update
-
+	//----------------------------------------------------------------------update accounts page
     public function update_users()
     {
         $username = $this->uri->segment(3);
@@ -193,6 +191,7 @@ class login_controller extends CI_Controller
         $this->load->view('manageaccount', $data);
     }
 
+	//----------------------------------------------------------------------update and delete accounts
     public function update_and_delete_user_accounts(){
         $this->load->library('form_validation');
 
@@ -221,6 +220,7 @@ class login_controller extends CI_Controller
 
     }
 
+	//----------------------------------------------------------------------account delete confirm
     public function delete_conform_account(){
 
         $this->load->library('form_validation');
@@ -242,11 +242,13 @@ class login_controller extends CI_Controller
             $this->refilter();
         }
     }
-//-----------------------------------------------------------------------------------------
+
+	//----------------------------------------------------------------------re open searchdata.php
     public function refilter(){
         $this->load->view('searchdata');
     }
 
+	//----------------------------------------------------------------------searchdata.php
     public function filter()
     {
         $_SESSION['account_username']=$this->input->post('username');
@@ -256,44 +258,8 @@ class login_controller extends CI_Controller
 		$_SESSION['account_post']=$this->input->post('post');
         $this->load->view('searchdata');
     }
-    //------------------------------------------------------------QAC Account Update page
 
-    public function QAC_account_update_validation()
-    {
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
-        $this->form_validation->set_rules('conpass', 'confirm password', 'required|matches[password]');
-
-        if ($this->form_validation->run()) {
-            $this->load->model('user_model');
-            $data = array(
-                "username" => $this->input->post("username"),
-                "password" => $this->input->post("password"),
-                "email" => $this->input->post("email")
-            );
-
-            $this->user_model->update_data($data, $this->input->post("username"));
-            redirect(base_url() . "login_controller/QACaccountUpdate");
-
-        } else {
-            $this->QACaccountUpdate();
-        }
-    }
-
-    //-----------------------------------------------------------User Account Update page
-
-    public function QACaccountUpdate()
-    {
-        $username = $this->session->userdata('username');
-        $this->load->model('user_model');
-        $data['user_data'] = $this->user_model->fetch_single_data($username);
-        //$data["fetch_data"] = $this->user_model->fetch_data();
-        $this->load->view('QACaccountUpdate', $data);
-    }
-
-    //----------------------------------------------------------------------Admin user name and password update
+	//----------------------------------------------------------------------account password update
 
     public function user_account_update_validation()
     {
@@ -331,6 +297,7 @@ class login_controller extends CI_Controller
         $this->load->view('userAccountUpdate', $data);
     }
 
+	//----------------------------------------------------------------------delete account
     public function delete_data()
     {
         $username = $this->uri->segment(3);
@@ -342,44 +309,7 @@ class login_controller extends CI_Controller
 
     }
 
-//------------------------------------------------------------Sign Up page
-
-    public function sign_validation()
-    {
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required');
-
-        if ($this->form_validation->run()) {
-            $this->load->model('user_model');
-            $data = array(
-                "username" => $this->input->post("username"),
-                "password" => $this->input->post("password"),
-                "type" => "User",
-                "email" => $this->input->post("email")
-            );
-            $this->user_model->insert_data($data);
-            ?>
-            <script>
-                window.location.href = '<?php echo base_url();?>login_controller/login';
-                alert('User Account is created');
-            </script>
-            <?php
-        } else {
-            $this->signUp();
-        }
-    }
-
-    public function signUp()
-    {
-        $this->load->view('signup');
-    }
-
-
-
-//--------------------------------------------------------------------------------upload file
+	//--------------------------------------------------------------------------------upload file
 
     public function do_upload()
     {
@@ -449,6 +379,7 @@ class login_controller extends CI_Controller
 
     }
 
+	//----------------------------------------------------------------------upload page
     public function uploadFile(){
         $this->load->model('user_model');
         $data["fetch_data"] = $this->user_model->fetch_cat();
@@ -456,6 +387,7 @@ class login_controller extends CI_Controller
         $this->load->view('uploadfile', $data, array('error' => ' '));
     }
 
+	//----------------------------------------------------------------------edit page
     public function editFile(){
 		$_SESSION['file_name']= $this->uri->segment(3);
 		$this->load->model('user_model');
@@ -463,12 +395,14 @@ class login_controller extends CI_Controller
 		$this->load->view('edit',$data);
     }
 
+	//----------------------------------------------------------------------re open edit page
     public function reopen_editFile(){
 		$this->load->model('user_model');
 		$data['user_data'] = $this->user_model->fetch_single_file($_SESSION['file_name']);
 		$this->load->view('edit',$data);
 	}
 
+	//----------------------------------------------------------------------download
     public function direct_download(){
 		$this->load->helper('download');
 		if($this->uri->segment(3)) {
@@ -478,6 +412,7 @@ class login_controller extends CI_Controller
 		}
 	}
 
+	//----------------------------------------------------------------------download
 	public function download_file(){
 		$this->load->helper('download');
 		if($this->input->post("submit")) {
@@ -496,6 +431,7 @@ class login_controller extends CI_Controller
 		}
 	}
 
+	//----------------------------------------------------------------------document settings page
     public function Document_Settings()
     {
 		$this->load->model('user_model');
@@ -535,6 +471,8 @@ class login_controller extends CI_Controller
             $this->Document_Settings();
         }
     }
+
+	//----------------------------------------------------------------------delete category(under graduate)
     public function delete_cat()
     {
         $category=$_SESSION['x'];
@@ -547,6 +485,7 @@ class login_controller extends CI_Controller
         redirect(base_url('login_controller/Document_Settings'));
     }
 
+	//----------------------------------------------------------------------delete category(post graduate)
 	public function delete_cat_postgraduate()
 	{
 		$category=$_SESSION['pg'];
@@ -559,6 +498,7 @@ class login_controller extends CI_Controller
 		redirect(base_url('login_controller/Post_Graduate'));
 	}
 
+	//----------------------------------------------------------------------delete category(external degree)
 	public function delete_cat_external()
 	{
 		$category=$_SESSION['ext'];
@@ -571,6 +511,7 @@ class login_controller extends CI_Controller
 		redirect(base_url('login_controller/external_deg'));
 	}
 
+	//----------------------------------------------------------------------add subjects
     public function add_subject(){
 
         $this->load->library('form_validation');
@@ -602,6 +543,7 @@ class login_controller extends CI_Controller
         }
     }
 
+	//----------------------------------------------------------------------get subjects for drop down
     function fetch_sub(){
 
         if($this->input->post('category_name')) {
@@ -610,6 +552,7 @@ class login_controller extends CI_Controller
         }
     }
 
+	//----------------------------------------------------------------------get subjects for drop down
     public function fetch_sub_year(){
         if($this->input->post('year_name')) {
             $this->load->model('user_model');
@@ -617,6 +560,7 @@ class login_controller extends CI_Controller
         }
     }
 
+	//----------------------------------------------------------------------get subjects for drop down
     public function fetch_sub_year_sem(){
         if($this->input->post('semester_name')) {
             $this->load->model('user_model');
@@ -625,6 +569,7 @@ class login_controller extends CI_Controller
 
     }
 
+	//----------------------------------------------------------------------view category details(under graduate)
     public function View_cat_details(){
 
         $category=$this->input->post("Submit");
@@ -634,6 +579,8 @@ class login_controller extends CI_Controller
         $this->load->view('viewCategoryDetails',$data);
 
     }
+
+	//----------------------------------------------------------------------view category details(post graduate)
 	public function View_cat_details_post_graduate(){
 
 		$category=$this->input->post("Submit");
@@ -644,6 +591,16 @@ class login_controller extends CI_Controller
 
 	}
 
+	//----------------------------------------------------------------------view category details(external degree)
+	public function View_cat_details_External(){
+		$category=$this->input->post("Submit");
+		$this->load->model('user_model');
+		$_SESSION['ext']=$category;
+		$data["fetch_data"] = $this->user_model->fetch_data_cat_table($category);
+		$this->load->view('ViewCategoryDetailsExternal',$data);
+	}
+
+	//----------------------------------------------------------------------update category details(under graduate)
     public function category_update(){
 
         $this->load->library('form_validation');
@@ -671,6 +628,7 @@ class login_controller extends CI_Controller
 
     }
 
+	//----------------------------------------------------------------------update category details(post graduate)
 	public function category_update_postgraduate(){
 
 		$this->load->library('form_validation');
@@ -697,6 +655,8 @@ class login_controller extends CI_Controller
 		}
 
 	}
+
+	//----------------------------------------------------------------------update category details(external degree)
 	public function category_update_external(){
 
 		$this->load->library('form_validation');
@@ -724,7 +684,7 @@ class login_controller extends CI_Controller
 
 	}
 
-
+	//----------------------------------------------------------------------re open category details(under graduate)
 	public function reopen_View_cat_details(){
         $this->load->model('user_model');
         $Newname=$_SESSION['x'];
@@ -732,12 +692,15 @@ class login_controller extends CI_Controller
         $this->load->view('viewCategoryDetails',$data);
     }
 
+	//----------------------------------------------------------------------re open category details(post graduate)
 	public function reopen_View_cat_details_post_graduate(){
 		$this->load->model('user_model');
 		$Newname=$_SESSION['pg'];
 		$data["fetch_data"] = $this->user_model->fetch_data_cat_table($Newname);
 		$this->load->view('ViewCategoryDetailsPostGraduate',$data);
 	}
+
+	//----------------------------------------------------------------------re open category details(external degree)
 	public function reopen_View_cat_details_external(){
 		$this->load->model('user_model');
 		$Newname=$_SESSION['ext'];
@@ -745,6 +708,7 @@ class login_controller extends CI_Controller
 		$this->load->view('ViewCategoryDetailsExternal',$data);
 	}
 
+	//----------------------------------------------------------------------add subjects(under graduate)
     public function add_subjects_cat(){
         $this->load->library('form_validation');
         $this->form_validation->set_rules('subject_name', 'Subject Name', 'required');
@@ -776,6 +740,7 @@ class login_controller extends CI_Controller
 
     }
 
+	//----------------------------------------------------------------------add subjects(post graduate)
 	public function add_subjects_cat_post_graduate(){
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('subject_name', 'Subject Name', 'required');
@@ -806,6 +771,7 @@ class login_controller extends CI_Controller
 		}
 	}
 
+	//----------------------------------------------------------------------add subjects(external degree)
 	public function add_subjects_cat_external(){
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('subject_name', 'Subject Name', 'required');
@@ -836,6 +802,7 @@ class login_controller extends CI_Controller
 		}
 	}
 
+	//----------------------------------------------------------------------delete category(under graduate)
     public function delete_category_dt(){
         $subject = $this->input->post('submit');
         $category = $this->input->post('category');
@@ -845,6 +812,8 @@ class login_controller extends CI_Controller
         }
         redirect(base_url() . "login_controller/reopen_View_cat_details");
     }
+
+	//----------------------------------------------------------------------delete category(post graduate)
 	public function delete_category_dt_postgraduate(){
 		$subject = $this->input->post('submit');
 		$category = $this->input->post('category');
@@ -855,6 +824,18 @@ class login_controller extends CI_Controller
 		redirect(base_url() . "login_controller/reopen_View_cat_details_post_graduate");
 	}
 
+	//----------------------------------------------------------------------delete category(external degree)
+	public function delete_category_dt_external(){
+		$subject = $this->input->post('submit');
+		$category = $this->input->post('category');
+		$this->load->model('user_model');
+		if ($subject != '') {
+			$this->user_model->delete_cat_data($subject,$category);
+		}
+		redirect(base_url() . "login_controller/reopen_View_cat_details_external");
+	}
+
+	//----------------------------------------------------------------------update subjects
     public function Update_subject(){
         $_SESSION['year']=$this->input->post('year');
         $_SESSION['semester']=$this->input->post('semester');
@@ -866,6 +847,7 @@ class login_controller extends CI_Controller
         $this->load->view('subject_edit');
     }
 
+	//----------------------------------------------------------------------update subjects(post,under,external)
     public function update_subjects_cat(){
         $this->load->library('form_validation');
         $this->form_validation->set_rules('subject_name', 'Subject Name', 'required');
@@ -888,6 +870,8 @@ class login_controller extends CI_Controller
             $this->user_model->update_category_date($tname,$data,$old_subject_code);
 			if($_SESSION['accounttype']=="postgraduate"){
 				redirect(base_url('login_controller/reopen_View_cat_details_post_graduate'));
+			}elseif($_SESSION['accounttype']=="external_deg"){
+				redirect(base_url('login_controller/reopen_View_cat_details_external'));
 			}else{
 				?>
 				<script>
@@ -900,16 +884,14 @@ class login_controller extends CI_Controller
             $this->Update_subject();
         }
     }
-
+	//---------------------------------------------------------------------- edit file page
     function view_edit_file(){
 		$this->load->model('user_model');
 		$data['fetch_data'] = $this->user_model->fetch_single_file($_SESSION['file_name']);
 		$this->load->view('edit_file',$data);
 	}
 
-	//------------------------------------------------------------------------------------------------------------------
-
-
+	//----------------------------------------------------------------------dropdown
 	function fetch_sub_update(){
 
 		if($this->input->post('category_name')) {
@@ -918,6 +900,7 @@ class login_controller extends CI_Controller
 		}
 	}
 
+	//----------------------------------------------------------------------dropdown
 	public function fetch_sub_year_update(){
 		if($this->input->post('year_name')) {
 			$this->load->model('user_model');
@@ -925,6 +908,7 @@ class login_controller extends CI_Controller
 		}
 	}
 
+	//----------------------------------------------------------------------dropdown
 	public function fetch_sub_year_sem_update(){
 		if($this->input->post('semester_name')) {
 			$this->load->model('user_model');
@@ -933,19 +917,21 @@ class login_controller extends CI_Controller
 
 	}
 
+	//----------------------------------------------------------------------post graduate page
 	public function Post_Graduate(){
 		$this->load->model('user_model');
 		$data["fetch_data"] = $this->user_model->fetch_cat_postgraduate();
 		$this->load->view('postgraduate',$data);
 	}
 
+	//----------------------------------------------------------------------external degree page
 	public function External_Deg(){
 		$this->load->model('user_model');
 		$data["fetch_data"] = $this->user_model->fetch_cat_External();
 		$this->load->view('external_deg',$data);
 	}
 
-
+	//----------------------------------------------------------------------insert category(external degree)
 	public function insertExternal()
 	{
 		$this->load->library('form_validation');
@@ -975,12 +961,12 @@ class login_controller extends CI_Controller
 			$this->load->model('user_model');
 			$this->user_model->create_tables($name);
 
-
 		}else{
 			$this->external_deg();
 		}
 	}
 
+	//----------------------------------------------------------------------insert category(post graduate)
 	public function insertPostgraduate()
 	{
 		$this->load->library('form_validation');
@@ -1016,13 +1002,11 @@ class login_controller extends CI_Controller
 		}
 	}
 
-	public function View_cat_details_External(){
-		$category=$this->input->post("Submit");
-		$this->load->model('user_model');
-		$_SESSION['ext']=$category;
-		$data["fetch_data"] = $this->user_model->fetch_data_cat_table($category);
-		$this->load->view('ViewCategoryDetailsExternal',$data);
+	//----------------------------------------------------------------------report page
+	public function Report(){
+    	$this->load->view('report');
 	}
+
 
 
 

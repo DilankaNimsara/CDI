@@ -51,7 +51,10 @@ $url= basename($actual_link);
 							$url == 'Post_Graduate'||
 							$url == 'External_Deg'){echo 'active';} ?>"><a href="<?php echo base_url()?>login_controller/Document_Settings"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span> Document Settings</a></li>
 						<?php
-					}
+					}?>
+					<li class="<?php if($url == "Report"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/Report"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-folder-open"></span>Report (Posts) </a></li>
+
+					<?php
 				}
 				?>
 				<li class="<?php if($url == "useraccountupdate"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/useraccountupdate"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench"></span>My profile</a></li>

@@ -70,6 +70,18 @@ class user_model extends CI_Model
         return $this->db->get();
 	}
 
+	function fetch_data_for_report($query){
+		$this->db->select("*");
+		$this->db->from("user");
+		if ($query != '') {
+			$this->db->like('username', $query);
+			$this->db->or_like('post', str_replace(' ', '_',$query));
+		}
+
+		$this->db->order_by('type', 'ASC');
+		return $this->db->get();
+	}
+
 	function insert_data($data){
 		$this->db->insert("user",$data); // mysqli_query("insert into user(a,b,c) values("1","2","3"));
 	}
