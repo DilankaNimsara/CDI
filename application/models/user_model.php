@@ -76,6 +76,7 @@ class user_model extends CI_Model
 		if ($query != '') {
 			$this->db->like('username', $query);
 			$this->db->or_like('post', str_replace(' ', '_',$query));
+			$this->db->or_like('course_name', $query);
 		}
 
 		$this->db->order_by('type', 'ASC');
@@ -418,6 +419,28 @@ class user_model extends CI_Model
 	}
 	function insert_Postgraduate($data){
 		$this->db->insert("postgraduate",$data);
+	}
+
+	function fetch_category_type($account_type){
+
+    	$type=str_replace("_",'',$account_type);
+		$this->db->order_by('category', 'ASC');
+		if($account_type=='under_graduate'){
+			$query = $this->db->get('category_data');
+			$output = '<option value=""></option>';
+			foreach($query->result() as $row)
+			{
+				$output .= '<option value="'.$row->category.'">'.$row->category.'</option>';
+			}
+			return $output;
+		}
+		$query = $this->db->get($type);
+		$output = '<option value=""></option>';
+		foreach($query->result() as $row)
+		{
+			$output .= '<option value="'.$row->category.'">'.$row->category.'</option>';
+		}
+		return $output;
 	}
 
 }

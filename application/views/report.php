@@ -15,20 +15,57 @@
 		</div>
 		<div class="col-sm-10">
 
-
+			<h1 style="color: midnightblue;">......... Summary .........</h1>
+<br/>
+			<div class="col-sm-9">
 			<div class="container ">
 				<div class="form-group">
 					<div class="input-group">
 						<span class="input-group-addon" style="height: 50px;">Search</span>
-						<input type="text" name="search_text" id="search_text" placeholder="Search by Subject code or Subject Name" class="form-control" style="width: 450px;" />
+						<input type="text" name="search_text" id="search_text" placeholder="Search by User name or Post" class="form-control" style="width: 450px;" />
 					</div>
 					<br/>
 				</div>
+				<div style="width: 75%;">
+					<div id="result"></div>
+				</div>
 
-				<div id="result"></div>
 			</div>
 			<div style="clear:both"></div>
+			</div>
+			<div class="col-sm-3">
+				<?php
 
+				$count_qac=0;
+				$count_lec_ug=0;
+				$count_lec_pg=0;
+				$count_lec_eg=0;
+				if ($count_data->num_rows() > 0) {
+					foreach ($count_data->result() as $row) {
+						if(($row->post)=='qac'){
+							$count_qac=$count_qac+1;
+						}elseif ((($row->post)=='lecture')&&(($row->type)=='under_graduate')){
+							$count_lec_ug=$count_lec_ug+1;
+						}elseif ((($row->post)=='lecture')&&(($row->type)=='post_graduate')){
+							$count_lec_pg=$count_lec_pg+1;
+						}elseif ((($row->post)=='lecture')&&(($row->type)=='external')){
+							$count_lec_eg=$count_lec_eg+1;
+						}
+					}
+				}
+				?>
+				<div class="panel panel-default">
+					<div class="panel-heading">Number of Accounts</div>
+						<div class="panel-body">
+							<br/>
+							QAC Accounts -	<?php echo $count_qac;?>	 <br/>
+							Under Graduate Lectures -	<?php echo $count_lec_ug;?> <br/>
+							Post Graduate Lectures -	<?php echo $count_lec_pg;?><br/>
+							External Lectures -		<?php echo $count_lec_eg;?> <br/>
+							<br/>
+						</div>
+				</div>
+			</div>
 
 		</div>
 	</div>

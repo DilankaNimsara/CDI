@@ -29,7 +29,7 @@ $url= basename($actual_link);
 				<?php
 				if(($this->session->userdata('type')=='qac')||($this->session->userdata('type')=='head_of_institute')){
 				?>
-					<li class="<?php if($url == "manageAccount"){
+					<li class="<?php if($url == "manageAccount" ||$url == "user_Create_validation"){
 						echo 'active';
 					}elseif ($url == "userForm"){
 						echo 'active';

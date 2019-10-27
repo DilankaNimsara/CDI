@@ -69,49 +69,6 @@ class login_controller extends CI_Controller
         redirect(base_url() . 'login_controller/login');
     }
 
-    /* ---------------------------------------------------------------useless
-    public function QAC_Create_validation()
-    {
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required');
-
-        if ($this->form_validation->run()) {
-            $this->load->model('user_model');
-            $data = array(
-                "username" => $this->input->post("username"),
-                "password" => $this->input->post("password"),
-                "type" => "QAC",
-                "email" => $this->input->post("email")
-            );
-            $this->user_model->insert_data($data);
-            ?>
-            <script>
-                window.location.href = '<?php echo base_url();?>login_controller/manageAccount';
-                alert('QAC Account is created');
-            </script>
-            <?php
-            //	redirect(base_url() . 'login_controller/qacinserted');
-        } else {
-            $this->qacForm();
-        }
-    }*/
-
-	/*-------------------------------------------------------------useless
-	public function qacForm()
-	{
-		$this->load->view('qacform');
-	}*/
-/*-------------------------------------------------------------useless
-	public function qacinserted()
-	{
-		$this->qacForm();
-	}*/
-
-    //----------------------------------------------------------------------QAC
-
 	//----------------------------------------------------------------------user account validation
     public function user_Create_validation()
     {
@@ -130,7 +87,8 @@ class login_controller extends CI_Controller
                 "password" => $this->input->post("password"),
                 "type" => $this->input->post("type"),
                 "email" => $this->input->post("email"),
-				"post" => $this->input->post("post")
+				"post" => $this->input->post("post"),
+				"course_name" =>$this->input->post("course_name")
             );
             $this->user_model->insert_data($data);
             ?>
@@ -256,6 +214,7 @@ class login_controller extends CI_Controller
         $_SESSION['account_type']=$this->input->post('type');
         $_SESSION['account_email']=$this->input->post('email');
 		$_SESSION['account_post']=$this->input->post('post');
+		$_SESSION['report']=$this->input->post('report');
         $this->load->view('searchdata');
     }
 
@@ -1004,8 +963,18 @@ class login_controller extends CI_Controller
 
 	//----------------------------------------------------------------------report page
 	public function Report(){
-    	$this->load->view('report');
+		$this->load->model('user_model');
+		$data["count_data"] = $this->user_model->userdetails();
+    	$this->load->view('report',$data);
 	}
+
+	public function fetch_category_TYPE(){
+		if($this->input->post('account_type')) {
+			$this->load->model('user_model');
+			echo $this->user_model->fetch_category_type($this->input->post('account_type'));
+		}
+	}
+
 
 
 

@@ -53,6 +53,11 @@
 						<span class="text-danger"><?php echo form_error('post')?></span>
 					</div>
 					<div class="form-group">
+						<label >Course</label>
+						<select class="form-control" name="course_name" id="cat4dropdown">
+						</select>
+					</div>
+					<div class="form-group">
 						<label for="username">Username</label>
 						<input type="text" class="form-control" id="username" name="username"
 							   placeholder="Enter username"/>
@@ -92,47 +97,89 @@
 
 <script>
     $(document).ready(function(){
+         $('#a_type').change(function(){
+			 var a_type = $('#a_type').val();
+			if(a_type == 'head_of_institute')
+			 {
+				 $.ajax({
+					 url:"",
+					 method:"POST",
+					 data:{a_type:a_type},
+					 success:function(data)
+					 {
+						 $('#a_post').html('<option value="head_of_institute">Head of institute</option>');
+					 }
+				 });
+			 }
+			 if(a_type == 'qac')
+			 {
+				 $.ajax({
+					 url:"",
+					 method:"POST",
+					 data:{a_type:a_type},
+					 success:function(data)
+					 {
+						 $('#a_post').html('<option value="qac">QAC</option>');
+					 }
+				 });
+			 }
+			 if((a_type != 'qac') && (a_type != 'head_of_institute'))
+			 {
+				 $.ajax({
+					 url:"",
+					 method:"POST",
+					 data:{a_type:a_type},
+					 success:function(data)
+					 {
+						 $('#a_post').html('<option value=""></option>' +
+							 '<option name="post" value="lecture">Lecture</option>' +
+							 '<option name="post" value="head_of_course">Head of Course</option>' +
+							 '<option name="post" value="course_coordinator">Course Coordinator</option>');
+					 }
+				 });
+			 }
+		 });
+
         $('#a_type').change(function(){
-            var a_type = $('#a_type').val();
-            if(a_type == 'head_of_institute')
+            var account_type = $('#a_type').val();
+            if((account_type == 'under_graduate')||(account_type == 'post_graduate')||(account_type == 'external'))
             {
                 $.ajax({
-                    url:"",
+                    url:"<?php echo base_url(); ?>login_controller/fetch_category_TYPE",
                     method:"POST",
-                    data:{a_type:a_type},
+                    data:{account_type:account_type},
                     success:function(data)
                     {
-                        $('#a_post').html('<option value="head_of_institute">Head of institute</option>');
+                        $('#cat4dropdown').html(data);
                     }
                 });
-            }
-            if(a_type == 'qac')
+            }else {
+                $('#cat4dropdown').html('<option value="">This is unnecessary for this post</option>');
+			}
+        });
+
+        $('#a_post').change(function(){
+            var a_post = $('#a_post').val();
+            var account_type = $('#a_type').val();
+            if((a_post == 'course_coordinator'))
             {
                 $.ajax({
-                    url:"",
+                    url:"<?php echo base_url(); ?>login_controller/fetch_category_TYPE",
                     method:"POST",
-                    data:{a_type:a_type},
+                    data:{account_type:account_type},
                     success:function(data)
                     {
-                        $('#a_post').html('<option value="qac">QAC</option>');
+                        $('#cat4dropdown').html(data);
                     }
                 });
-            }
-            if((a_type != 'qac') && (a_type != 'head_of_institute'))
-            {
-                $.ajax({
-                    url:"",
-                    method:"POST",
-                    data:{a_type:a_type},
-                    success:function(data)
-                    {
-                        $('#a_post').html('<option value=""></option>' +
-                            '<option name="post" value="lecture">Lecture</option>' +
-                            '<option name="post" value="head_of_course">Head of Course</option>' +
-                            '<option name="post" value="course_coordinator">Course Coordinator</option>');
-                    }
-                });
+            }else {
+                $('#cat4dropdown').html('<option value="">This is unnecessary for this post</option>');
+
             }
         });
+
+
+
+
     });
 </script>

@@ -90,8 +90,6 @@ class live_search extends CI_Controller{
 			$output .= '</table>';
 			echo $output;
 		}
-
-
     }
 	//---------------------------------------------------------------------- view table on undergradute
     public function fetchCategory()
@@ -367,8 +365,6 @@ class live_search extends CI_Controller{
 		echo $output;
 	}
 
-
-
 	function Fetch_Postgraduate()
 	{
 		$output = '';
@@ -407,7 +403,6 @@ class live_search extends CI_Controller{
 		$output .= '</table>';
 		echo $output;
 	}
-
 
 	function Fetch_External()
 	{
@@ -462,9 +457,8 @@ class live_search extends CI_Controller{
      <table class="table table-hover">
       <tr bgcolor="white">
        <th>User Name</th>
-        <th>Post</th>
-        <th>Type</th>
-        <th>View</th>
+       <th>Type (post)</th>
+       <th>View</th>
       </tr>
   ';
 			if ($data->num_rows() > 0) {
@@ -476,11 +470,16 @@ class live_search extends CI_Controller{
       <tr>
       
        <td bgcolor="5CA9F5">' . $row->username . '</td>
-       <td>' .str_replace('_', ' ',strtoupper( $row->post)) . '</td>
-       <td>' .str_replace('_', ' ', $row->type ). '</td>
+       <td>' .str_replace('_', ' ', strtoupper($row->type )). ' ('.str_replace('_', ' ',strtoupper( $row->post)) .') <b><font color="midnightblue">'.$row->course_name.'</b></font> </td>
        <td>
-       <form method="post" action="' . base_url("login_controller/#") . '">
+       <form method="post" action="' . base_url("login_controller/filter") . '">
             <button class="btn btn-info" style="width: 80px;" type="submit" name="Submit" id="' . $row->username . '" value="' . $row->username . '"> View </a></button>
+            <input type="text" name="username" value="' . $row->username . '" class="hide">
+                <input type="text" name="password" value="' . $row->password . '" class="hide">
+                <input type="text" name="type" value="' . $row->type . '" class="hide">
+                <input type="text" name="email" value="' . $row->email . '" class="hide">
+                <input type="text" name="post" value="' . $row->post . '" class="hide">
+                <input type="text" name="report" value="report" class="hide">
         </form>
 		</td>
       </tr>

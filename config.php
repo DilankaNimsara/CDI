@@ -50,7 +50,8 @@
 		    password VARCHAR(20) NOT NULL,
 		    type VARCHAR(20) NOT NULL,
 		    email VARCHAR(100) NOT NULL,
-		    post VARCHAR(100) NOT NULL
+		    post VARCHAR(100) NOT NULL,
+		    course_name VARCHAR(100) NOT NULL
 			)";  
 
 			if(mysqli_query($link,$sql2)){
@@ -106,7 +107,7 @@
 				//echo "Someting went wrong";
 			}
 			
-			$sql3 = "INSERT INTO user (username,password,type,email,post) VALUES ('$adminname', '$adminpassword','qac','$email','qac_head')";
+			$sql3 = "INSERT INTO user (username,password,type,email,post,course_name) VALUES ('$adminname', '$adminpassword','qac','$email','qac_head','')";
 
 			if(mysqli_query($link,$sql3)){
 				//echo "inserted !!";  	
