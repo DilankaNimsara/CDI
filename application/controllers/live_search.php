@@ -452,6 +452,37 @@ class live_search extends CI_Controller{
 		}
 		$data = $this->user_model->fetch_data_for_report($query);
 
+
+		if($_SESSION['type']=='head_of_institute'){
+			$output .= '
+  <div class="table-responsive">
+     <table class="table table-hover">
+      <tr bgcolor="white">
+       <th>User Name</th>
+       <th>Type (post)</th>
+      </tr>
+  ';
+			if ($data->num_rows() > 0) {
+				foreach ($data->result() as $row) {
+
+					if(($row->post)!='lecture'){
+						$output .= '
+
+      <tr>
+       <td bgcolor="5CA9F5">' . $row->username . '</td>
+       <td>' .str_replace('_', ' ', strtoupper($row->type )). ' ('.str_replace('_', ' ',strtoupper( $row->post)) .') <b><font color="midnightblue">'.$row->course_name.'</b></font> </td>
+      </tr>
+    ';
+					}
+
+				}
+			} else {
+				$output .= '<tr>
+       <td colspan="9">No Data Found</td>
+      </tr>';
+			}
+			$output .= '</table>';
+		}else{
 			$output .= '
   <div class="table-responsive">
      <table class="table table-hover">
@@ -464,8 +495,8 @@ class live_search extends CI_Controller{
 			if ($data->num_rows() > 0) {
 				foreach ($data->result() as $row) {
 
-				if(($row->post)!='lecture'){
-					$output .= '
+					if(($row->post)!='lecture'){
+						$output .= '
 
       <tr>
       
@@ -484,7 +515,7 @@ class live_search extends CI_Controller{
 		</td>
       </tr>
     ';
-				}
+					}
 
 				}
 			} else {
@@ -493,6 +524,9 @@ class live_search extends CI_Controller{
       </tr>';
 			}
 			$output .= '</table>';
+		}
+
+
 			echo $output;
 		}
 

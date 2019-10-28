@@ -121,18 +121,25 @@
 								</div>
 								<div class="form-group">
 									<label for="type">Current Post</label>
-									<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
-								</div>
-								<?php
-								if($_SESSION['account_post']!='qac_head'){
-								?>
-									<div align="right">
-										<button type="button" class="btn btn-success" data-toggle="modal" data-target="#update_post">change post</button>
-									</div>
+								<table>
+									<tr>
+										<td width="375px">
+												<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
 
-									<?php
-								}
-								?>
+										</td>
+										<td width="125px" align="center">
+											<?php
+											if($_SESSION['account_post']!='qac_head'){
+												?>
+														<button type="button" class="btn btn-success" data-toggle="modal" data-target="#update_post">change post</button>
+												<?php
+											}
+											?>
+										</td>
+									</tr>
+								</table>
+								</div>
+
 
 								<div class="form-group">
 									<label for="username">Username</label>
