@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title></title>
+	<title>Update Document</title>
 	<?php include 'header.php';
 	include 'autologout.php';?>
 </head>
@@ -10,16 +10,14 @@
 
 <div class="container-fluid">
 	<div class="row content">
-		<div class="col-sm-2">
-			<?php include 'sidenav.php';?>
-		</div>
-		<div class="col-sm-10">
+		<div class="col-sm-12">
 
 			<br/>
 			<div style="color: wheat;">
 				You are here : <a style="color: wheat;" data-toggle="tooltip" title="Go back" href="<?php echo base_url('Home/viewDocument')?>"> View Document </a>  >
 				<a style="color: wheat;" data-toggle="tooltip" title="Go back" href="<?php echo base_url('login_controller/reopen_editFile')?>"> Details </a> > Edit
 			</div>
+			<br/>
 			<h4><a href="<?php echo base_url()?>login_controller/reopen_editFile"><span style="color: white";> Go Back </span><span style="color: white;" class="glyphicon glyphicon-triangle-left"></span></a></h4>
 
 			<?php
@@ -71,7 +69,10 @@
 			<input type="text" class="hide" value="<?php echo $SUBJECT_CODE; ?>" id="SUB">
 
 			<br/>
-			<h2><?php echo $_SESSION['file_name']?></h2>
+			<center>
+				<h2><?php echo $_SESSION['file_name']?></h2>
+			</center>
+
 			<br/>
 
 			<div class="container" style="margin-left:auto; width: 600px ">

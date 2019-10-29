@@ -9,31 +9,17 @@
 <body>
 <div class="container-fluid">
 	<div class="row content">
-		<div class="col-sm-2">
-			<?php include 'autologout.php';?>
-			<nav>
-				<div class="row content">
-					<div class="sidenav hidden-xs">
-						<h2 style="color: mediumturquoise;"><span class="glyphicon glyphicon-menu-hamburger"></span> Menu</h2>
-						<ul class="nav nav-pills nav-stacked">
-							<li><a href="<?php echo base_url('Home/index')?>"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span> Home</a></li>
-							<li class="active"><a href="<?php echo base_url('Home/viewDocument')?>">View Document <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-search"></span></a></li>
-							<!--<li><a href="<?php echo base_url();?>login_controller/editFile"" > Edit Document <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-edit"></span></a></li>
-							--><li><a href="<?php echo base_url();?>login_controller/uploadFile"> Upload Document<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-upload"></span></a></li>
-							<li><a href="<?php echo base_url();?>login_controller/manageAccount">Manage Accounts<span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cog"></span></a>
-							<li><a href="<?php echo base_url()?>login_controller/Document_Settings"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-asterisk"></span> Document Settings</a></li>
-						</ul><br>
-					</div>
-				</div>
-			</nav>
-		</div>
-		<div class="col-sm-10">
+		<div class="col-sm-12">
 			<br/>
 			<div style="color: wheat;">
 			You are here : <a style="color: wheat;" data-toggle="tooltip" title="Go back" href="<?php echo base_url('Home/viewDocument')?>"> View Document </a>  > Details
 			</div>
-			<br/><br/>
+			<br/>
+			<h4><a href="<?php echo base_url()?>Home/viewDocument"><span style="color: white";> Go Back </span><span style="color: white;" class="glyphicon glyphicon-triangle-left"></span></a></h4>
+			<br/>
+			<center>
 			<h2><?php echo $_SESSION['file_name']?></h2>
+			</center>
 			<br/>
 
 		<table align="center" style="font-weight: bold;">
