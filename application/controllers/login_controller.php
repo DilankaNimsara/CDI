@@ -975,6 +975,27 @@ class login_controller extends CI_Controller
 		}
 	}
 
+	public function update_post(){
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('type', 'type', 'required');
+		$this->form_validation->set_rules('post', 'post', 'required');
+
+		if ($this->form_validation->run()) {
+			$this->load->model('user_model');
+			$data = array(
+				"type" => strtolower((str_replace(' ', '_', $this->input->post("type")))),
+				"post" => strtolower((str_replace(' ', '_', $this->input->post("post"))))
+			);
+			$this->user_model->update_TYPE($data, $this->input->post("username"));
+			redirect(base_url() . "login_controller/refilter");
+
+		}else{
+			$this->refilter();
+		}
+
+	}
+
 
 
 

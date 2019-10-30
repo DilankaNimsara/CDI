@@ -77,7 +77,6 @@
 
 			<br/>
 
-
 <form method="post" action="<?php echo base_url();?>login_controller/download_file">
 	<center>
 		<button style="width: 100px;" class="btn btn-info" name="submit" value="<?php echo $_SESSION['file_name'];?>"><span class="glyphicon glyphicon-download-alt"></span> View</button>
@@ -85,10 +84,6 @@
 		<button style="width: 100px;" class="btn btn-danger" name="delete" value="<?php echo $_SESSION['file_name'];?>"><span class="glyphicon glyphicon-trash"></span> Delete</button>
 	</center>
 </form>
-
-
-
-
 
 		</div>
 	</div>

@@ -131,8 +131,12 @@
 											<?php
 											if($_SESSION['account_post']!='qac_head'){
 												?>
-														<button type="button" class="btn btn-success" data-toggle="modal" data-target="#update_post">change post</button>
+												<button type="button" class="btn btn-success" data-toggle="modal" data-target="#update_post">change post</button>
 												<?php
+											}elseif ($_SESSION['account_post']=='qac_head'){
+												?>
+												<button type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#update_post">change post</button>
+											<?php
 											}
 											?>
 										</td>
@@ -335,7 +339,7 @@
 							</div>
 							<div class="modal-body">
 
-								<form method="post" action="<?php echo base_url();?>login_controller/#">
+								<form method="post" action="<?php echo base_url();?>login_controller/update_post">
 
 									<div class="form-group">
 										<label for="username">New Type</label>
@@ -356,18 +360,11 @@
 										</select>
 										<span class="text-danger"><?php echo form_error('post')?></span>
 									</div>
-
-
-
-
-
-
-
-
-									<input type="text" class="hide" name="admin_password" value="<?php echo $this->session->userdata('password')?>" readonly>
+									<input type="text" class="hide" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>" >
+									<input type="text" class="hide" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>" >
 
 									<center>
-										<button type="submit" class="btn btn-primary" name="update" value="update">Update</button>
+										<button type="submit" class="btn btn-primary" name="submit" value="Submit">Update</button>
 									</center>
 								</form>
 
@@ -387,10 +384,6 @@
 
 			</div>
             </div>
-
-
-
-
 
         </div>
     </div>
