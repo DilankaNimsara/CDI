@@ -123,11 +123,11 @@
 									<label for="type">Current Post</label>
 								<table>
 									<tr>
-										<td width="375px">
+										<td width="390px">
 												<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
 
 										</td>
-										<td width="125px" align="center">
+										<td width="110px" align="right">
 											<?php
 											if($_SESSION['account_post']!='qac_head'){
 												?>
@@ -342,7 +342,8 @@
 								<form method="post" action="<?php echo base_url();?>login_controller/update_post">
 
 									<div class="form-group">
-										<label for="username">New Type</label>
+										<label for="username">Select Type</label>
+										<!--
 										<select class="form-control" name="type" id="a_type">
 											<option class="text-muted"></option>
 											<option name="type" value="under_graduate">Under Graduate</option>
@@ -353,6 +354,48 @@
 										</select>
 										<span class="text-danger"><?php echo form_error('type')?></span>
 									</div>
+-->
+									<?php
+									if($_SESSION['account_type']=="under_graduate"){
+										?>
+									<select class="form-control" name="type" id="a_type">
+										<option class="text-muted"></option>
+										<option name="type" value="under_graduate">Under Graduate</option>
+									</select>
+									<?php
+									}elseif($_SESSION['account_type']=="post_graduate"){
+										?>
+										<select class="form-control" name="type" id="a_type">
+											<option class="text-muted"></option>
+											<option name="type" value="post_graduate">Post Graduate</option>
+										</select>
+									<?php
+									}elseif($_SESSION['account_type']=="external"){
+										?>
+										<select class="form-control" name="type" id="a_type">
+											<option class="text-muted"></option>
+											<option name="type" value="external">External</option>
+										</select>
+										<?php
+									}elseif($_SESSION['account_type']=="qac"){
+										?>
+										<select class="form-control" name="type" id="a_type">
+											<option class="text-muted"></option>
+											<option name="type" value="qac">QAC</option>
+										</select>
+										<?php
+									}elseif($_SESSION['account_type']=="head_of_institute"){
+										?>
+										<select class="form-control" name="type" id="a_type">
+											<option class="text-muted"></option>
+											<option name="type" value="head_of_institute">Head of institute</option>
+										</select>
+										<?php
+									}
+									?>
+										<span class="text-danger"><?php echo form_error('type')?></span>
+									</div>
+
 									<div class="form-group">
 										<label for="username">New Post</label>
 										<select class="form-control" name="post" id="a_post">
@@ -360,8 +403,17 @@
 										</select>
 										<span class="text-danger"><?php echo form_error('post')?></span>
 									</div>
-									<input type="text" class="hide" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>" >
-									<input type="text" class="hide" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>" >
+									<div class="form-group">
+										<label >Course</label>
+										<select class="form-control" name="course_name" id="cat4dropdown">
+										</select>
+									</div>
+
+									<input type="text" class="hide" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>">
+									<input type="text" class="hide" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>">
+									<input type="text" class="hide" name="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>">
+									<input type="text" class="hide" name="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+
 
 									<center>
 										<button type="submit" class="btn btn-primary" name="submit" value="Submit">Update</button>
@@ -416,7 +468,9 @@
                     data:{a_type:a_type},
                     success:function(data)
                     {
-                        $('#a_post').html('<option name="post" value=""></option>' +'<option name="post" value="qac">QAC</option>'+'<option name="post" value="qac_head">QAC Head</option>');
+                        $('#a_post').html('<option name="post" value=""></option>' +
+							'<option name="post" value="qac">QAC</option>'+
+							'<option name="post" value="qac_head">QAC Head</option>');
                     }
                 });
             }
@@ -436,6 +490,26 @@
                 });
             }
         });
+        $('#a_post').change(function(){
+            var a_post = $('#a_post').val();
+            var account_type = $('#a_type').val();
+            if((a_post == 'course_coordinator'))
+            {
+                $.ajax({
+                    url:"<?php echo base_url(); ?>login_controller/fetch_category_TYPE",
+                    method:"POST",
+                    data:{account_type:account_type},
+                    success:function(data)
+                    {
+                        $('#cat4dropdown').html(data);
+                    }
+                });
+            }else {
+                $('#cat4dropdown').html('<option value="">This is unnecessary for this post</option>');
+
+            }
+        });
+
     });
 </script>
 

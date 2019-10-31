@@ -980,6 +980,7 @@ class login_controller extends CI_Controller
 
 		$this->form_validation->set_rules('type', 'type', 'required');
 		$this->form_validation->set_rules('post', 'post', 'required');
+		$this->form_validation->set_rules('course_name', 'course', 'required');
 
 		if ($this->form_validation->run()) {
 			$this->load->model('user_model');
@@ -988,15 +989,21 @@ class login_controller extends CI_Controller
 				"post" => strtolower((str_replace(' ', '_', $this->input->post("post"))))
 			);
 			$this->user_model->update_TYPE($data, $this->input->post("username"));
-			redirect(base_url() . "login_controller/refilter");
 
+			$_SESSION['account_username']=$this->input->post('username');
+			$_SESSION['account_email']=$this->input->post('email');
+			$_SESSION['account_post']=$this->input->post('post');
+			$_SESSION['account_type']=$this->input->post('type');
+			redirect(base_url() . "login_controller/refilter");
 		}else{
+			$_SESSION['account_username']=$this->input->post('username');
+			$_SESSION['account_email']=$this->input->post('email');
+			$_SESSION['account_post']=$this->input->post('post');
+			$_SESSION['account_type']=$this->input->post('type');
 			$this->refilter();
 		}
 
 	}
-
-
 
 
 
