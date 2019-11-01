@@ -215,6 +215,7 @@ class login_controller extends CI_Controller
         $_SESSION['account_email']=$this->input->post('email');
 		$_SESSION['account_post']=$this->input->post('post');
 		$_SESSION['report']=$this->input->post('report');
+		$_SESSION['course_name']=$this->input->post('course_name');
         $this->load->view('searchdata');
     }
 
@@ -980,7 +981,6 @@ class login_controller extends CI_Controller
 
 		$this->form_validation->set_rules('type', 'type', 'required');
 		$this->form_validation->set_rules('post', 'post', 'required');
-		$this->form_validation->set_rules('course_name', 'course', 'required');
 
 		if ($this->form_validation->run()) {
 			$this->load->model('user_model');
@@ -988,6 +988,7 @@ class login_controller extends CI_Controller
 				"type" => strtolower((str_replace(' ', '_', $this->input->post("type")))),
 				"post" => strtolower((str_replace(' ', '_', $this->input->post("post"))))
 			);
+
 			$this->user_model->update_TYPE($data, $this->input->post("username"));
 
 			$_SESSION['account_username']=$this->input->post('username');
@@ -998,7 +999,7 @@ class login_controller extends CI_Controller
 		}else{
 			$_SESSION['account_username']=$this->input->post('username');
 			$_SESSION['account_email']=$this->input->post('email');
-			$_SESSION['account_post']=$this->input->post('post');
+			$_SESSION['account_post']=$this->input->post('post_updated');
 			$_SESSION['account_type']=$this->input->post('type');
 			$this->refilter();
 		}

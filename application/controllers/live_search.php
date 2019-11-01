@@ -68,7 +68,7 @@ class live_search extends CI_Controller{
        <td>' . $row->password . '</td>
        <td>' .str_replace('_', ' ', $row->type ). '</td>
        <td>' . $row->email . '</td>
-       <td>' .str_replace('_', ' ',strtoupper( $row->post)) . '</td>
+       <td>' .str_replace('_', ' ',strtoupper( $row->post)) .'<font color="midnightblue" face="Consolas" size="4px"><b> '. $row->course_name . '</b></font></td>
        <td>
            <form method="post" action="'. base_url('login_controller/filter').'">
                 <button class="btn btn-info" name="submit" value="Submit">View</button>
@@ -76,7 +76,8 @@ class live_search extends CI_Controller{
                 <input type="text" name="password" value="' . $row->password . '" class="hide">
                 <input type="text" name="type" value="' . $row->type . '" class="hide">
                 <input type="text" name="email" value="' . $row->email . '" class="hide">
-                 <input type="text" name="post" value="' . $row->post . '" class="hide">
+                <input type="text" name="post" value="' . $row->post . '" class="hide">
+                <input type="text" name="course_name" value="' . $row->course_name . '" class="hide">
            </form>
        </td>
       </tr>
@@ -501,7 +502,7 @@ class live_search extends CI_Controller{
       <tr>
       
        <td bgcolor="5CA9F5">' . $row->username . '</td>
-       <td>' .str_replace('_', ' ', strtoupper($row->type )). ' ('.str_replace('_', ' ',strtoupper( $row->post)) .') <b><font color="midnightblue">'.$row->course_name.'</b></font> </td>
+       <td>' .str_replace('_', ' ', strtoupper($row->type )). ' ('.str_replace('_', ' ',strtoupper( $row->post)) .') <b><font color="midnightblue" face="Consolas" size="4px"> '.$row->course_name.'</b></font> </td>
        <td>
        <form method="post" action="' . base_url("login_controller/filter") . '">
             <button class="btn btn-info" style="width: 80px;" type="submit" name="Submit" id="' . $row->username . '" value="' . $row->username . '"> View </a></button>
@@ -510,6 +511,7 @@ class live_search extends CI_Controller{
                 <input type="text" name="type" value="' . $row->type . '" class="hide">
                 <input type="text" name="email" value="' . $row->email . '" class="hide">
                 <input type="text" name="post" value="' . $row->post . '" class="hide">
+                <input type="text" name="course_name" value="' . $row->course_name . '" class="hide">
                 <input type="text" name="report" value="report" class="hide">
         </form>
 		</td>

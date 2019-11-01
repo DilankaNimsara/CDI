@@ -49,6 +49,18 @@
 									<label for="type">Post</label>
 									<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
 								</div>
+								<?php
+								if( $_SESSION['account_post']=='course_coordinator'){
+									?>
+									<div class="form-group">
+										<label for="username">Course</label>
+										<input type="text" style="color: black;" class="form-control" id="course_name" name="course_name" value="<?php echo $_SESSION['course_name'];?>" readonly >
+										<span class="text-danger"><?php echo form_error('')?></span>
+									</div>
+									<?php
+								}
+								?>
+
                                 <div class="form-group">
                                     <label for="username">Username</label>
                                     <input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>" >
@@ -131,11 +143,11 @@
 											<?php
 											if($_SESSION['account_post']!='qac_head'){
 												?>
-												<button type="button" class="btn btn-success" data-toggle="modal" data-target="#update_post">change post</button>
+												<button type="button" style="width: 105px;" class="btn btn-success" data-toggle="modal" data-target="#update_post">change post</button>
 												<?php
 											}elseif ($_SESSION['account_post']=='qac_head'){
 												?>
-												<button type="button" class="btn btn-success disabled" data-toggle="modal" data-target="#update_post">change post</button>
+												<button type="button" style="width: 105px;" class="btn btn-success disabled" data-toggle="modal" data-target="#update_post">change post</button>
 											<?php
 											}
 											?>
@@ -143,60 +155,45 @@
 									</tr>
 								</table>
 								</div>
+								<?php
+								if( $_SESSION['account_post']=='course_coordinator'){
+									?>
+									<div class="form-group">
+										<label for="username">Course</label>
+
+									<table>
+										<tr>
+											<td width="390px">
+												<input type="text" style="color: black;" class="form-control" id="course_name" name="course_name" value="<?php echo $_SESSION['course_name'];?>" readonly >
+											</td>
+											<td width="110px" align="right">
+												<?php
+												if($_SESSION['account_post']!='qac_head'){
+													if($_SESSION['course_name']!=''){
+														?>
+														<button type="button" style="width: 105px;" class="btn btn-success" data-toggle="modal" data-target="#edit_course">Edit Course</button>
+														<?php
+													}else{
+														?>
+														<button type="button" style="width: 105px;" class="btn btn-warning" data-toggle="modal" data-target="#edit_course">Add Course</button>
+														<?php
+													}
+													?>
+													<?php
+												}
+												?>
+											</td>
+										</tr>
+									</table>
+										<span class="text-danger"><?php echo form_error('')?></span>
+									</div>
 
 
-								<div class="form-group">
-									<label for="username">Username</label>
-									<input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>" >
-									<span class="text-danger"><?php echo form_error('username')?></span>
-								</div>
 
-								<div class="form-group">
-									<label for="email">E-mail</label>
-									<input type="text" class="form-control" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>" >
-									<span class="text-danger"><?php echo form_error('email')?></span>
-								</div>
-								<div class="form-group">
-									<label for="password">Password</label>
-									<input type="password" class="form-control" id="password" name="password" >
-									<span class="text-danger"><?php echo form_error('password')?></span>
-								</div>
-								<div class="form-group">
-									<label for="con_password">Confirm Password</label>
-									<input type="password" class="form-control" name="con_password" id="con_password" >
-									<span class="text-danger"><?php echo form_error('con_password')?></span>
-								</div>
-							<?php
-							}
-							if ($_SESSION['post']=='head_of_institute'){
+									<?php
+								}
 								?>
-								<div class="form-group">
-									<label for="type">Current Type</label>
-									<input style="color: black;" type="text" class="form-control" name="type" id="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>" readonly>
-								</div>
-								<div class="form-group">
-									<label for="type">Current Post</label>
-									<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
-								</div>
-								<div class="form-group">
-									<label for="username">New Type</label>
-									<select class="form-control" name="type" id="a_type">
-										<option class="text-muted"></option>
-										<option name="type" value="under_graduate">Under Graduate</option>
-										<option name="type" value="post_graduate">Post Graduate</option>
-										<option name="type" value="external">External</option>
-										<option name="type" value="qac">QAC</option>
-										<option name="type" value="head_of_institute">Head of institute</option>
-									</select>
-									<span class="text-danger"><?php echo form_error('type')?></span>
-								</div>
-								<div class="form-group">
-									<label for="username">New Post</label>
-									<select class="form-control" name="post" id="a_post">
-										<option class="text-muted"></option>
-									</select>
-									<span class="text-danger"><?php echo form_error('post')?></span>
-								</div>
+
 								<div class="form-group">
 									<label for="username">Username</label>
 									<input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>" >
@@ -343,8 +340,8 @@
 
 									<div class="form-group">
 										<label for="username">Select Type</label>
-										<!--
-										<select class="form-control" name="type" id="a_type">
+
+								<!--		<select class="form-control" name="type" id="a_type">
 											<option class="text-muted"></option>
 											<option name="type" value="under_graduate">Under Graduate</option>
 											<option name="type" value="post_graduate">Post Graduate</option>
@@ -352,9 +349,11 @@
 											<option name="type" value="qac">QAC</option>
 											<option name="type" value="head_of_institute">Head of institute</option>
 										</select>
-										<span class="text-danger"><?php echo form_error('type')?></span>
+										<span class="text-danger"><?php echo form_error('type');?></span>
 									</div>
--->
+
+									-->
+
 									<?php
 									if($_SESSION['account_type']=="under_graduate"){
 										?>
@@ -391,9 +390,15 @@
 											<option name="type" value="head_of_institute">Head of institute</option>
 										</select>
 										<?php
+									}else{
+										?>
+										<select class="form-control" name="type" id="a_type">
+											<option class="text-muted"></option>
+										</select>
+										<?php
 									}
 									?>
-										<span class="text-danger"><?php echo form_error('type')?></span>
+										<span class="text-danger"><?php echo form_error('type');?></span>
 									</div>
 
 									<div class="form-group">
@@ -401,18 +406,49 @@
 										<select class="form-control" name="post" id="a_post">
 											<option class="text-muted"></option>
 										</select>
-										<span class="text-danger"><?php echo form_error('post')?></span>
-									</div>
-									<div class="form-group">
-										<label >Course</label>
-										<select class="form-control" name="course_name" id="cat4dropdown">
-										</select>
+										<span class="text-danger"><?php echo form_error('post');?></span>
 									</div>
 
 									<input type="text" class="hide" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>">
 									<input type="text" class="hide" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>">
 									<input type="text" class="hide" name="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>">
-									<input type="text" class="hide" name="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+									<!--<input type="text" class="hide" name="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+-->
+
+									<center>
+										<button type="submit" class="btn btn-primary" name="submit" value="Submit">Update</button>
+									</center>
+								</form>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+				<!---------------------------------------------------------add or change course pop up-------------------------->
+				<div class="modal fade" id="edit_course" role="dialog">
+					<div class="modal-dialog">
+
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Delete</h4>
+							</div>
+							<div class="modal-body">
+
+								<form method="post" action="<?php echo base_url();?>login_controller/#">
+									<?php
+									if($_SESSION['account_type']=="under_graduate"){
+
+									}elseif ($_SESSION['account_type']=="post_graduate"){
+
+									}elseif($_SESSION['account_type']=="external"){
+
+									}
+									?>
 
 
 									<center>
@@ -428,7 +464,6 @@
 
 					</div>
 				</div>
-
 
 
 
@@ -488,25 +523,6 @@
                             '<option name="post" value="course_coordinator">Course Coordinator</option>');
                     }
                 });
-            }
-        });
-        $('#a_post').change(function(){
-            var a_post = $('#a_post').val();
-            var account_type = $('#a_type').val();
-            if((a_post == 'course_coordinator'))
-            {
-                $.ajax({
-                    url:"<?php echo base_url(); ?>login_controller/fetch_category_TYPE",
-                    method:"POST",
-                    data:{account_type:account_type},
-                    success:function(data)
-                    {
-                        $('#cat4dropdown').html(data);
-                    }
-                });
-            }else {
-                $('#cat4dropdown').html('<option value="">This is unnecessary for this post</option>');
-
             }
         });
 
