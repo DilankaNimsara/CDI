@@ -985,7 +985,6 @@ class login_controller extends CI_Controller
 		if ($this->form_validation->run()) {
 			$this->load->model('user_model');
 
-
 			if($this->input->post('post')!='course_coordinator'){
 				$data = array(
 					"type" => strtolower((str_replace(' ', '_', $this->input->post("type")))),
@@ -1003,14 +1002,15 @@ class login_controller extends CI_Controller
 
 			$_SESSION['account_username']=$this->input->post('username');
 			$_SESSION['account_email']=$this->input->post('email');
-			$_SESSION['account_post']=$this->input->post('post');
-			$_SESSION['account_type']=$this->input->post('type');
+			$_SESSION['account_post']=strtolower((str_replace(' ', '_', $this->input->post("post"))));
+			$_SESSION['account_type']=strtolower((str_replace(' ', '_', $this->input->post("type"))));
+
 			redirect(base_url() . "login_controller/refilter");
 		}else{
 			$_SESSION['account_username']=$this->input->post('username');
 			$_SESSION['account_email']=$this->input->post('email');
-			$_SESSION['account_post']=$this->input->post('post_updated');
-			$_SESSION['account_type']=$this->input->post('type');
+			$_SESSION['account_post']=strtolower((str_replace(' ', '_', $this->input->post("post"))));
+			$_SESSION['account_type']=strtolower((str_replace(' ', '_', $this->input->post("type"))));
 			$this->refilter();
 		}
 
@@ -1025,7 +1025,7 @@ class login_controller extends CI_Controller
 		if ($this->form_validation->run()) {
 			$this->load->model('user_model');
 			$data = array(
-				"type" => strtolower((str_replace(' ', '_', $this->input->post("type")))),
+				"type" => strtolower(str_replace(' ', '_', $this->input->post("type"))),
 				"course_name" => strtolower((str_replace(' ', '_', $this->input->post("course_name"))))
 			);
 
@@ -1033,14 +1033,14 @@ class login_controller extends CI_Controller
 
 			$_SESSION['account_username']=$this->input->post('username');
 			$_SESSION['account_email']=$this->input->post('email');
-			$_SESSION['account_type']=$this->input->post('type');
-			$_SESSION['course_name']=$this->input->post('course_name');
+			$_SESSION['account_type']=strtolower((str_replace(' ', '_', $this->input->post("type"))));
+			$_SESSION['course_name']=strtolower((str_replace(' ', '_', $this->input->post("course_name"))));
 			redirect(base_url() . "login_controller/refilter");
 		}else{
 			$_SESSION['account_username']=$this->input->post('username');
 			$_SESSION['account_email']=$this->input->post('email');
-			$_SESSION['course_name']=$this->input->post('course_name');
-			$_SESSION['account_type']=$this->input->post('type');
+			$_SESSION['course_name']=strtolower((str_replace(' ', '_', $this->input->post("course_name"))));
+			$_SESSION['account_type']=strtolower((str_replace(' ', '_', $this->input->post("type"))));
 			$this->refilter();
 		}
 

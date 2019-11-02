@@ -47,14 +47,70 @@
 								</div>
 								<div class="form-group">
 									<label for="type">Post</label>
-									<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+									<?php
+									if(($_SESSION['account_post']=='head_of_institute')||($_SESSION['account_post']=='qac_head')){
+										?>
+										<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+										<?php
+									}else{
+										?>
+										<table>
+											<tr>
+												<td width="390px">
+													<input style="color: black;" type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+
+												</td>
+												<td width="110px" align="right">
+													<?php
+													if(($_SESSION['account_post']=='qac_head')||($_SESSION['account_post']=='qac')){
+														?>
+														<button type="button" style="width: 105px;" class="btn btn-success disabled" data-toggle="modal" data-target="#update_post">change post</button>
+														<?php
+													}else{
+														?>
+														<button type="button" style="width: 105px;" class="btn btn-success" data-toggle="modal" data-target="#update_post">change post</button>
+														<?php
+													}
+													?>
+												</td>
+											</tr>
+										</table>
+
+										<?php
+									}
+									?>
+
 								</div>
 								<?php
 								if( $_SESSION['account_post']=='course_coordinator'){
 									?>
 									<div class="form-group">
 										<label for="username">Course</label>
-										<input type="text" style="color: black;" class="form-control" id="course_name" name="course_name" value="<?php echo $_SESSION['course_name'];?>" readonly >
+
+										<table>
+											<tr>
+												<td width="390px">
+													<input type="text" style="color: black;" class="form-control " id="course_name" name="course_name" value="<?php echo strtoupper($_SESSION['course_name']);?>" readonly >
+												</td>
+												<td width="110px" align="right">
+													<?php
+													if($_SESSION['account_post']!='qac_head'){
+														if($_SESSION['course_name']!=''){
+															?>
+															<button type="button" style="width: 105px;" class="btn btn-success" data-toggle="modal" data-target="#edit_course">Edit Course</button>
+															<?php
+														}else{
+															?>
+															<button type="button" style="width: 105px;" class="btn btn-warning" data-toggle="modal" data-target="#edit_course">Add Course</button>
+															<?php
+														}
+														?>
+														<?php
+													}
+													?>
+												</td>
+											</tr>
+										</table>
 										<span class="text-danger"><?php echo form_error('')?></span>
 									</div>
 									<?php
@@ -121,10 +177,6 @@
 								</center>
 							<?php
 							}
-							?>
-
-
-								<?php
 							}elseif ($_SESSION['post']=='qac_head'){
 								?>
 								<div class="form-group">
@@ -164,7 +216,7 @@
 									<table>
 										<tr>
 											<td width="390px">
-												<input type="text" style="color: black;" class="form-control " id="course_name" name="course_name" value="<?php echo $_SESSION['course_name'];?>" readonly >
+												<input type="text" style="color: black;" class="form-control " id="course_name" name="course_name" value="<?php echo strtoupper($_SESSION['course_name']);?>" readonly >
 											</td>
 											<td width="110px" align="right">
 												<?php
@@ -187,19 +239,14 @@
 									</table>
 										<span class="text-danger"><?php echo form_error('')?></span>
 									</div>
-
-
-
 									<?php
 								}
 								?>
-
 								<div class="form-group">
 									<label for="username">Username</label>
 									<input type="text" class="form-control" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>" >
 									<span class="text-danger"><?php echo form_error('username')?></span>
 								</div>
-
 								<div class="form-group">
 									<label for="email">E-mail</label>
 									<input type="text" class="form-control" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>" >
@@ -218,7 +265,6 @@
 							<?php
 							}
 							?>
-
                                 <br/>
 							<?php
 
@@ -249,13 +295,10 @@
 								</center>
 								<?php
 							}
-
 							?>
                             </div>
                             <br/>
                         </form>
-
-
                     </div>
                 </div>
             <hr>
@@ -281,10 +324,10 @@
 						?>
 						<button type="button" class="btn btn-danger disabled" data-toggle="modal" data-target="#delete">Delete Account</button>
 						<?php
+					}elseif($_SESSION['account_post']=='head_of_institute'){
+
 					}
-
 					?>
-
 				</div>
 
 				<!---------------------------------------------------------delete pop uo-------------------------->
@@ -315,7 +358,6 @@
 										<button type="submit" class="btn btn-danger" name="delete" value="Delete">Delete</button>
 									</center>
 								</form>
-
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -340,20 +382,6 @@
 
 									<div class="form-group">
 										<label for="username">Select Type</label>
-
-								<!--		<select class="form-control" name="type" id="a_type">
-											<option class="text-muted"></option>
-											<option name="type" value="under_graduate">Under Graduate</option>
-											<option name="type" value="post_graduate">Post Graduate</option>
-											<option name="type" value="external">External</option>
-											<option name="type" value="qac">QAC</option>
-											<option name="type" value="head_of_institute">Head of institute</option>
-										</select>
-										<span class="text-danger"><?php echo form_error('type');?></span>
-									</div>
-
-									-->
-
 									<?php
 									if($_SESSION['account_type']=="under_graduate"){
 										?>
@@ -412,9 +440,6 @@
 									<input type="text" class="hide" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>">
 									<input type="text" class="hide" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>">
 									<input type="text" class="hide" name="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>">
-									<!--<input type="text" class="hide" name="post" value="<?php //echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
--->
-
 									<center>
 										<button type="submit" class="btn btn-primary" name="submit" value="Submit">Update</button>
 									</center>
@@ -428,6 +453,7 @@
 
 					</div>
 				</div>
+
 				<!---------------------------------------------------------add or change course pop up-------------------------->
 				<div class="modal fade" id="edit_course" role="dialog">
 					<div class="modal-dialog">
@@ -442,7 +468,6 @@
 								<form method="post" action="<?php echo base_url();?>login_controller/update_course">
 									<div class="form-group">
 									<label for="username">Select Type</label>
-
 									<?php
 									if($_SESSION['account_type']=="under_graduate"){
 										?>
@@ -501,7 +526,6 @@
 									<input type="text" class="hide" name="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>">
 									<input type="text" class="hide" name="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>">
 
-
 									<center>
 										<button type="submit" class="btn btn-primary" name="submit" value="Submit">Update</button>
 									</center>
@@ -515,10 +539,6 @@
 
 					</div>
 				</div>
-
-
-
-
 
 			</div>
             </div>

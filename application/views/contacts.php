@@ -23,9 +23,10 @@
 			<!--- type heare---------->
 
 			Contacts
-
+<br>
             <?php
-            echo $this->session->userdata('password');
+			echo $_SESSION['account_post'];
+           // echo $this->session->userdata('password');
             ?>
 
 
