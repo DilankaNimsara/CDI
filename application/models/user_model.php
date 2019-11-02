@@ -441,8 +441,26 @@ class user_model extends CI_Model
 		}
 		return $output;
 	}
+
 	function update_TYPE($data,$username){
 		$this->db->where('username', $username);
 		$this->db->update('user',$data);
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

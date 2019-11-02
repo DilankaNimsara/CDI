@@ -143,7 +143,7 @@
 											<?php
 											if($_SESSION['account_post']!='qac_head'){
 												?>
-												<button type="button" style="width: 105px;" class="btn btn-success" data-toggle="modal" data-target="#update_post">change post</button>
+												<button type="button" style="width: 105px;" class="btn btn-success " data-toggle="modal" data-target="#update_post">change post</button>
 												<?php
 											}elseif ($_SESSION['account_post']=='qac_head'){
 												?>
@@ -164,7 +164,7 @@
 									<table>
 										<tr>
 											<td width="390px">
-												<input type="text" style="color: black;" class="form-control" id="course_name" name="course_name" value="<?php echo $_SESSION['course_name'];?>" readonly >
+												<input type="text" style="color: black;" class="form-control " id="course_name" name="course_name" value="<?php echo $_SESSION['course_name'];?>" readonly >
 											</td>
 											<td width="110px" align="right">
 												<?php
@@ -412,7 +412,7 @@
 									<input type="text" class="hide" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>">
 									<input type="text" class="hide" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>">
 									<input type="text" class="hide" name="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>">
-									<!--<input type="text" class="hide" name="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
+									<!--<input type="text" class="hide" name="post" value="<?php //echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>" readonly>
 -->
 
 									<center>
@@ -435,20 +435,71 @@
 						<div class="modal-content">
 							<div class="modal-header">
 								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Delete</h4>
+								<h4 class="modal-title">Change or add Course</h4>
 							</div>
 							<div class="modal-body">
 
-								<form method="post" action="<?php echo base_url();?>login_controller/#">
+								<form method="post" action="<?php echo base_url();?>login_controller/update_course">
+									<div class="form-group">
+									<label for="username">Select Type</label>
+
 									<?php
 									if($_SESSION['account_type']=="under_graduate"){
-
-									}elseif ($_SESSION['account_type']=="post_graduate"){
-
+										?>
+										<select class="form-control" name="type" id="a_type1">
+											<option class="text-muted"></option>
+											<option name="type" value="under_graduate">Under Graduate</option>
+										</select>
+										<?php
+									}elseif($_SESSION['account_type']=="post_graduate"){
+										?>
+										<select class="form-control" name="type" id="a_type1">
+											<option class="text-muted"></option>
+											<option name="type" value="post_graduate">Post Graduate</option>
+										</select>
+										<?php
 									}elseif($_SESSION['account_type']=="external"){
-
+										?>
+										<select class="form-control" name="type" id="a_type1">
+											<option class="text-muted"></option>
+											<option name="type" value="external">External</option>
+										</select>
+										<?php
+									}elseif($_SESSION['account_type']=="qac"){
+										?>
+										<select class="form-control" name="type" id="a_type1">
+											<option class="text-muted"></option>
+											<option name="type" value="qac">QAC</option>
+										</select>
+										<?php
+									}elseif($_SESSION['account_type']=="head_of_institute"){
+										?>
+										<select class="form-control" name="type" id="a_type1">
+											<option class="text-muted"></option>
+											<option name="type" value="head_of_institute">Head of institute</option>
+										</select>
+										<?php
+									}else{
+										?>
+										<select class="form-control" name="type" id="a_type1">
+											<option class="text-muted"></option>
+										</select>
+										<?php
 									}
 									?>
+									<span class="text-danger"><?php echo form_error('type');?></span>
+									</div>
+									<div class="form-group">
+										<label >Course</label>
+										<select class="form-control" name="course_name" id="cat4dropdown1">
+										</select>
+										<span class="text-danger"><?php echo form_error('course_name');?></span>
+									</div>
+
+									<input type="text" class="hide" id="username" name="username" value="<?php echo $_SESSION['account_username'];?>">
+									<input type="text" class="hide" id="email" name="email" value="<?php echo $_SESSION['account_email'];?>">
+									<input type="text" class="hide" name="type" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_type']));?>">
+									<input type="text" class="hide" name="post" value="<?php echo strtoupper(str_replace('_', ' ', $_SESSION['account_post']));?>">
 
 
 									<center>
@@ -525,6 +576,23 @@
                 });
             }
         });
+
+        $('#a_type1').change(function(){
+            var account_type = $('#a_type1').val();
+            if(account_type != ' ')
+            {
+                $.ajax({
+                    url:"<?php echo base_url(); ?>login_controller/fetch_category_TYPE",
+                    method:"POST",
+                    data:{account_type:account_type},
+                    success:function(data)
+                    {
+                        $('#cat4dropdown1').html(data);
+                    }
+                });
+            }
+        });
+
 
     });
 </script>
