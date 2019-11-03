@@ -25,6 +25,8 @@
 					</div>
 				</center>
 			</div>
+<br/><br/>
+			<span style="size: 13px;" class="text-danger bg-danger"> <?php echo $this->session->flashdata("error");?></span>
 
 			<div class="container" style="margin-left:auto; width: 500px ">
 			<form method="post" action="<?php

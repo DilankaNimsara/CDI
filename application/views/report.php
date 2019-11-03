@@ -42,7 +42,7 @@
 				$count_lec_eg=0;
 				if ($count_data->num_rows() > 0) {
 					foreach ($count_data->result() as $row) {
-						if(($row->post)=='qac'){
+						if(($row->type)=='qac'){
 							$count_qac=$count_qac+1;
 						}elseif ((($row->post)=='lecture')&&(($row->type)=='under_graduate')){
 							$count_lec_ug=$count_lec_ug+1;

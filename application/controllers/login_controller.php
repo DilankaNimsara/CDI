@@ -108,29 +108,6 @@ class login_controller extends CI_Controller
         $this->load->view('userform');
     }
 
-	//----------------------------------------------------------------------
-    public function admin_account_update_validation()
-    {
-        $this->load->library('form_validation');
-
-        $this->form_validation->set_rules('username', 'Username', 'required');
-        $this->form_validation->set_rules('password', 'Password', 'required');
-        $this->form_validation->set_rules('conpass', 'confirm password', 'required|matches[password]');
-
-        if ($this->form_validation->run()) {
-            $this->load->model('user_model');
-            $data = array(
-                "username" => $this->input->post("username"),
-                "password" => $this->input->post("password"),
-                "email" => $this->input->post("email")
-            );
-            $this->user_model->update_data($data, $this->input->post("username"));
-            redirect(base_url() . "login_controller/manageAccount");
-        } else {
-            $this->manageAccount();
-        }
-    }
-
 	//----------------------------------------------------------------------manage account page
     public function manageAccount()
     {
@@ -281,6 +258,7 @@ class login_controller extends CI_Controller
         $this->form_validation->set_rules('semester', 'Semester', 'required');
         $this->form_validation->set_rules('year', 'Year', 'required');
         $this->form_validation->set_rules('category', 'Category', 'required');
+		$this->form_validation->set_rules('category', 'Category', 'required');
 
         if ($this->form_validation->run()) {
 
@@ -300,9 +278,8 @@ class login_controller extends CI_Controller
 
                 $this->load->model('user_model');
                 $data["fetch_data"] = $this->user_model->fetch_cat();
-                $this->load->helper(array('form', 'url'));
-                $error = array('error' => $this->upload->display_errors());
-                $this->load->view('uploadfile', $data, array('error' => $this->upload->display_errors()));
+				$this->session->set_flashdata('errorx', $this->upload->display_errors());
+                $this->load->view('uploadfile', $data);
 
             } else {
 

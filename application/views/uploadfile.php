@@ -34,81 +34,129 @@ $url= basename($actual_link);
 
 
 
-                <?php
+                <?php echo form_open_multipart('login_controller/do_upload');?>
 
-                $error='';
+					<table width="100%">
+						<tr>
+							<td width="25%" height="65px">
+								<div class="form-group">
+									<label>Course Type</label>
+							</td>
+							<td width="75%">
+								<select class="form-control" name="type" id="#">
+									<option class="text-muted"></option>
+									<option name="type" value="under_graduate">Under Graduate</option>
+									<option name="type" value="post_graduate">Post Graduate</option>
+									<option name="type" value="external">External</option>
+								</select>
+								<span class="text-danger"><?php echo form_error('#')?></span>
+							</td>
+						</tr>
+						<tr>
+							<td width="25%" height="65px">
+								<div class="form-group">
+									<label>Category</label>
+							</td>
+							<td width="75%">
 
-                echo form_open_multipart('login_controller/do_upload');?>
+								<select class="form-control" name="category" id="category_data">
+									<option class="text-muted"></option>
+									<?php
+									if ($fetch_data->num_rows() > 0) {
+										foreach ($fetch_data->result() as $row) {
+											?>
+											<option name="category" value="<?php echo $row->category;?>"><?php echo strtoupper(str_replace('_',' ',$row->category));?></option>
+											<?php
+										}
+									}
+									?>
+								</select>
+								<span class="text-danger"><?php echo form_error('category')?></span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td width="25%" height="65px">
+								<div class="form-group">
+									<label>Year</label>
+							</td>
+							<td width="75%">
+								<select class="form-control" name="year" id="yr">
+									<option class="text-muted"></option>
+									<option name="year" value="1">1st year</option>
+									<option name="year" value="2">2nd year</option>
+									<option name="year" value="3">3rd year</option>
+									<option name="year" value="4">4th year</option>
+								</select>
+								<span class="text-danger"><?php echo form_error('year')?></span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td width="25%" height="65px">
+								<div class="form-group">
+									<label>Semester</label>
+							</td>
+							<td width="75%">
+								<select class="form-control" name="semester" id="sem">
+									<option class="text-muted"></option>
+									<option name="semester" value="1sem">1st semester</option>
+									<option name="semester" value="2sem">2nd semester</option>
+								</select>
+								<span class="text-danger"><?php echo form_error('semester')?></span>
+								</div>
+							</td>
+						</tr>
 
-                    <div class="form-group">
-                        <label for="username">Category</label>
-                        <select class="form-control" name="category" id="category_data">
-                            <option class="text-muted"></option>
-                        <?php
-                        if ($fetch_data->num_rows() > 0) {
-                            foreach ($fetch_data->result() as $row) {
-                                ?>
-                                <option name="category" value="<?php echo $row->category;?>"><?php echo strtoupper(str_replace('_',' ',$row->category));?></option>
-                        <?php
-                            }
-                        }
-                        ?>
-                        </select>
-                        <span class="text-danger"><?php echo form_error('category')?></span>
-                    </div>
+						<tr>
+							<td width="25%" height="65px">
+								<div class="form-group">
+									<label>Subject Code</label>
+							</td>
+							<td width="75%">
+									<select name="subject_code" id="subject_code" class="form-control">
+										<option value=""></option>
+									</select>
+								<span class="text-danger"><?php echo form_error('subject_code')?></span>
+								</div>
+							</td>
+						</tr>
 
+						<tr>
+							<td width="25%" height="65px">
+								<div class="form-group">
+									<label>Academic Year</label>
+							</td>
+							<td width="75%">
+								<input type="text" class="form-control" id="academic_year" name="academic_year" placeholder="Enter academic year"/>
+								</div>
+							</td>
+						</tr>
 
-                    <div class="form-group">
-                        <label for="username">Year</label>
-                        <select class="form-control" name="year" id="yr">
-                            <option class="text-muted"></option>
-                            <option name="year" value="1">1st year</option>
-                            <option name="year" value="2">2nd year</option>
-                            <option name="year" value="3">3rd year</option>
-                            <option name="year" value="4">4th year</option>
-                        </select>
-                        <span class="text-danger"><?php echo form_error('year')?></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Semester</label>
-                        <select class="form-control" name="semester" id="sem">
-                        <option class="text-muted"></option>
-                        <option name="semester" value="1sem">1st semester</option>
-                        <option name="semester" value="2sem">2nd semester</option>
-                        </select>
-                        <span class="text-danger"><?php echo form_error('semester')?></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Subject Code</label>
-                        <div class="form-group">
-                            <select name="subject_code" id="subject_code" class="form-control">
-                                <option value=""></option>
-                            </select>
-                        </div>
-                        <span class="text-danger"><?php echo form_error('subject_code')?></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Academic Year</label>
-                        <input type="text" class="form-control" id="academic_year" name="academic_year" placeholder="Enter academic year"/>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">File</label>
-                        <input type="file" class="form-control" name="file_name" size="250" />
-                        <span class="text-danger"><?php echo form_error('file_name');
+						<tr>
+							<td width="25%" height="65px">
+								<div class="form-group" >
+									<label>File</label>
+							</td>
+							<td width="75%">
+								<input type="file" class="form-control" name="file_name">
+								<span class="text-danger"> <?php echo $this->session->flashdata("errorx");?></span>
+								</div>
+							</td>
+						</tr>
 
-                        if($url == "do_upload"){
-                            echo $this->upload->display_errors() ;
-                        }else{
-                            echo $error;
-                        }
+						<tr>
+							<td width="25%" height="65px">
+								<div class="form-group">
+									<label>Comment</label>
+							</td>
+							<td width="75%" height="160px">
+									  <textarea rows="5" cols="50" class="form-control" id="comment" name="comment"> </textarea>
+								</div>
+							</td>
+						</tr>
 
-                        ?></span>
-                    </div>
-                    <div class="form-group">
-                        <label for="username">Comment</label>
-                        <textarea rows="5" cols="50" class="form-control" id="comment" name="comment">
-                        </textarea>
-                    </div>
+					</table>
 
                     <br/>
                     <center><input type="submit" class="btn btn-primary" value="upload" /></center>

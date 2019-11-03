@@ -25,9 +25,16 @@
 			Contacts
 <br>
             <?php
-			echo $_SESSION['account_post'];
-           // echo $this->session->userdata('password');
-            ?>
+
+$password = 'monkey';
+$hash = md5($password);
+echo $hash;
+echo "<br>";
+			echo sha1(($hash));
+			echo ha
+
+
+			?>
 
 
 		</div>
