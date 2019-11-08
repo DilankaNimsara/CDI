@@ -24,17 +24,7 @@
 
 			Contacts
 <br>
-            <?php
 
-$password = 'monkey';
-$hash = md5($password);
-echo $hash;
-echo "<br>";
-			echo sha1(($hash));
-			echo ha
-
-
-			?>
 
 
 		</div>

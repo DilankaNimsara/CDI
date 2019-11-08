@@ -27,6 +27,7 @@ class login_controller extends CI_Controller
 						if(($username==$row->username)&&($password = $row->password)){
 							$_SESSION['type']=$row->type;
 							$_SESSION['post']=$row->post;
+
 						}
 					}
 				}
@@ -250,7 +251,7 @@ class login_controller extends CI_Controller
 
     public function do_upload()
     {
-        $this->load->helper(array('form', 'url'));
+        //$this->load->helper(array('form', 'url'));
         $this->load->library('form_validation');
 
         $this->form_validation->set_rules('academic_year', 'Academic Year', 'required');
@@ -258,9 +259,11 @@ class login_controller extends CI_Controller
         $this->form_validation->set_rules('semester', 'Semester', 'required');
         $this->form_validation->set_rules('year', 'Year', 'required');
         $this->form_validation->set_rules('category', 'Category', 'required');
-		$this->form_validation->set_rules('category', 'Category', 'required');
+		$this->form_validation->set_rules('type', 'Type', 'required');
+		$this->form_validation->set_rules('lecturer', 'Lecturer', 'required');
+		$this->form_validation->set_rules('academic_year', 'Academic Year', 'required');
 
-        if ($this->form_validation->run()) {
+		if ($this->form_validation->run()) {
 
             $config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'pdf';
@@ -277,7 +280,7 @@ class login_controller extends CI_Controller
             if (!$this->upload->do_upload('file_name')) {
 
                 $this->load->model('user_model');
-                $data["fetch_data"] = $this->user_model->fetch_cat();
+                $data["fetch_data"] = $this->user_model->userdetails();
 				$this->session->set_flashdata('errorx', $this->upload->display_errors());
                 $this->load->view('uploadfile', $data);
 
@@ -299,7 +302,8 @@ class login_controller extends CI_Controller
                     "academic_year" => $this->input->post("academic_year"),
                     "subject_code" => $this->input->post("subject_code"),
                     "author" => $this->session->userdata('username'),
-                    "comment" => $this->input->post("comment")
+                    "comment" => $this->input->post("comment"),
+					"lecturer" => $this->input->post("lecturer")
                 );
                 ?>
                 <script>
@@ -319,9 +323,9 @@ class login_controller extends CI_Controller
 	//----------------------------------------------------------------------upload page
     public function uploadFile(){
         $this->load->model('user_model');
-        $data["fetch_data"] = $this->user_model->fetch_cat();
-        $this->load->helper(array('form', 'url'));
-        $this->load->view('uploadfile', $data, array('error' => ' '));
+        $data["fetch_data"] = $this->user_model->userdetails();
+       // $this->load->helper(array('form', 'url'));
+        $this->load->view('uploadfile', $data);
     }
 
 	//----------------------------------------------------------------------edit page

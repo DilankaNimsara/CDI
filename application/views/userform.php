@@ -134,7 +134,7 @@
 					 success:function(data)
 					 {
 						 $('#a_post').html('<option value=""></option>' +
-							 '<option name="post" value="lecture">Lecture</option>' +
+							 '<option name="post" value="lecturer">lecturer</option>' +
 							 '<option name="post" value="head_of_course">Head of Course</option>' +
 							 '<option name="post" value="course_coordinator">Course Coordinator</option>');
 					 }

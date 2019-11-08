@@ -37,17 +37,6 @@
 						<input type="password" class="form-control" name="password" id="password" placeholder="Enter password"/>
 						<span class="text-danger"><?php echo form_error('password')?></span>
 					</div>
-					<!--<div class="form-group">
-						<label for="type">Account type</label>
-						<select class="form-control" name="type">
-							<option class="text-muted">Select Account Type</option>
-							<option name="type" value="qac">QAC</option>
-							<option name="type" value="User">User</option>
-						</select>-->
-
-						<!--<input type="text" class="form-control" name="type" id="type" placeholder="Enter type"/>-->
-						<span class="text-danger"><?php echo form_error('type')?></span>
-					</div>
 					<div class="form-group form-check">
 						<a href="#">Forgot Password?</a>
 					</div>

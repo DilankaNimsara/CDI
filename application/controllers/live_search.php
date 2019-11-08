@@ -18,8 +18,8 @@ class live_search extends CI_Controller{
      <table class="table table-hover">
       <tr bgcolor="white">
        <th>User Name</th>
-       <th>Account type</th>
        <th>E-mail</th>
+       <th>Type</th>
         <th>Post</th>
       </tr>
   ';
@@ -31,8 +31,8 @@ class live_search extends CI_Controller{
       <tr>
       
        <td bgcolor="5CA9F5">' . $row->username . '</td>
-       <td>' .str_replace('_', ' ', $row->type ). '</td>
        <td>' . $row->email . '</td>
+       <td>' . str_replace('_',' ',$row->type) . '</td>
        <td>' .str_replace('_', ' ',strtoupper( $row->post)) . '</td>
       </tr>
     ';
@@ -51,8 +51,8 @@ class live_search extends CI_Controller{
       <tr bgcolor="white">
        <th>User Name</th>
        <th>Password</th>
-       <th>Account type</th>
        <th>E-mail</th>
+       <th>Type</th>
         <th>Post</th>
        <th>Edit / Delete</th>
       </tr>
@@ -66,8 +66,8 @@ class live_search extends CI_Controller{
       
        <td bgcolor="5CA9F5">' . $row->username . '</td>
        <td>' . $row->password . '</td>
-       <td>' .str_replace('_', ' ', $row->type ). '</td>
        <td>' . $row->email . '</td>
+       <td>' . str_replace('_',' ',$row->type) . '</td>
        <td>' .str_replace('_', ' ',strtoupper( $row->post)) .'<font color="midnightblue" face="Consolas" size="4px"><b> '. $row->course_name . '</b></font></td>
        <td>
            <form method="post" action="'. base_url('login_controller/filter').'">
@@ -141,7 +141,9 @@ class live_search extends CI_Controller{
         if ($this->input->post('query')) {
             $query = $this->input->post('query');
         }
-        $data = $this->user_model->fetch_doc($query);
+		$currant_type=$_SESSION['type'];
+		$currant_post=$_SESSION['post'];
+        $data = $this->user_model->fetch_doc($query,$currant_type,$currant_post);
         $output .= '
   <div class="table-responsive">
      <table class="table table-hover">
@@ -155,7 +157,10 @@ class live_search extends CI_Controller{
        <th>Academic year</th>
        <th>Subject Code</th>
        <th>Author</th>
+       <th>Lecturer</th>
        <th>Comment</th>
+       <th>'.$currant_type.'</th>
+       <th>'.$currant_post.'</th>
       </tr>
   ';
         if ($data->num_rows() > 0) {
@@ -171,7 +176,8 @@ class live_search extends CI_Controller{
        <td>' . $row->academic_year . '</td>
        <td>' . $row->subject_code . '</td>
        <td>' . $row->author . '</td>
-       <td>' . $row->comment . '</td>
+       <td>' . $row->lecturer . '</td>
+       <td>' . $row->comment . '</td> <td>' . $row->type . '</td> <td>' . $row->post . '</td>
       </tr>
     ';
             }
@@ -466,7 +472,7 @@ class live_search extends CI_Controller{
 			if ($data->num_rows() > 0) {
 				foreach ($data->result() as $row) {
 
-					if(($row->post)!='lecture'){
+					if(($row->post)!='lecturer'){
 						$output .= '
 
       <tr>
@@ -496,7 +502,7 @@ class live_search extends CI_Controller{
 			if ($data->num_rows() > 0) {
 				foreach ($data->result() as $row) {
 
-					if(($row->post)!='lecture'){
+					if(($row->post)!='lecturer'){
 						$output .= '
 
       <tr>

@@ -234,10 +234,28 @@ class user_model extends CI_Model
 		return $this->db->get();
 	}
 
-    function fetch_doc($query)
+    function fetch_doc($query,$currant_type,$currant_post)
     {
         $this->db->select("*");
         $this->db->from("fileupload");
+		$this->db->join('user', 'fileupload.lecturer = user.username');
+		if(($currant_type=='qac')||($currant_type=='head_of_institute')){
+
+		}
+		elseif(($currant_type=='under_graduate')&&($currant_post=='lecturer')){
+			$this->db->where('type','under_graduate');
+			$this->db->where('username',$this->session->userdata('username'));
+		}
+		elseif(($currant_type=='post_graduate')&&($currant_post=='lecturer')){
+			$this->db->where('type','post_graduate');
+			$this->db->where('username',$this->session->userdata('username'));
+		}
+		elseif(($currant_type=='external')&&($currant_post=='lecturer')){
+			$this->db->where('type','external');
+			$this->db->where('username',$this->session->userdata('username'));
+		}
+
+		//$this->db->where('post','lecturer');
         if ($query != '') {
             $this->db->like('file_name', $query);
             $this->db->or_like('date_created', $query);
@@ -248,8 +266,11 @@ class user_model extends CI_Model
             $this->db->or_like('subject_code', $query);
             $this->db->or_like('author', $query);
             $this->db->or_like('comment', $query);
+            $this->db->or_like('lecturer', $query);
         }
+
         $this->db->order_by('file_name', 'ASC');
+
         return $this->db->get();
     }
 
@@ -446,8 +467,6 @@ class user_model extends CI_Model
 		$this->db->where('username', $username);
 		$this->db->update('user',$data);
 	}
-
-
 
 
 

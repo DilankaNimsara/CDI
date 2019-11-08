@@ -44,11 +44,11 @@
 					foreach ($count_data->result() as $row) {
 						if(($row->type)=='qac'){
 							$count_qac=$count_qac+1;
-						}elseif ((($row->post)=='lecture')&&(($row->type)=='under_graduate')){
+						}elseif ((($row->post)=='lecturer')&&(($row->type)=='under_graduate')){
 							$count_lec_ug=$count_lec_ug+1;
-						}elseif ((($row->post)=='lecture')&&(($row->type)=='post_graduate')){
+						}elseif ((($row->post)=='lecturer')&&(($row->type)=='post_graduate')){
 							$count_lec_pg=$count_lec_pg+1;
-						}elseif ((($row->post)=='lecture')&&(($row->type)=='external')){
+						}elseif ((($row->post)=='lecturer')&&(($row->type)=='external')){
 							$count_lec_eg=$count_lec_eg+1;
 						}
 					}
@@ -59,9 +59,9 @@
 						<div class="panel-body">
 							<br/>
 							QAC Accounts -	<?php echo $count_qac;?>	 <br/>
-							Under Graduate Lectures -	<?php echo $count_lec_ug;?> <br/>
-							Post Graduate Lectures -	<?php echo $count_lec_pg;?><br/>
-							External Lectures -		<?php echo $count_lec_eg;?> <br/>
+							Under Graduate lecturers -	<?php echo $count_lec_ug;?> <br/>
+							Post Graduate lecturers -	<?php echo $count_lec_pg;?><br/>
+							External lecturers -		<?php echo $count_lec_eg;?> <br/>
 							<br/>
 						</div>
 				</div>
