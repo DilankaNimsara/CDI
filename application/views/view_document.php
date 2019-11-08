@@ -24,7 +24,7 @@
             </div>
 
             <br />
-            <div style="width: 100%;" id="result"></div>
+            <div style="width: 100%; font-size: 13px;" id="result"></div>
         </div>
         <div style="clear:both"></div>
 	</div>

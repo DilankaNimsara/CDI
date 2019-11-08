@@ -74,7 +74,8 @@
 		    subject_code VARCHAR(70) NOT NULL,
 		    author VARCHAR(10) NOT NULL,
 		    comment VARCHAR(250) NOT NULL,
-		    lecturer VARCHAR(250) NOT NULL
+		    lecturer VARCHAR(250) NOT NULL,
+		    doc_type VARCHAR(250) NOT NULL
 			)";   
 
 			$sql11 = "CREATE TABLE category_data(

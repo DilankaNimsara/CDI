@@ -234,13 +234,34 @@ class user_model extends CI_Model
 		return $this->db->get();
 	}
 
-    function fetch_doc($query,$currant_type,$currant_post)
+    function fetch_doc($query,$currant_type,$currant_post,$document_type,$course_name)
     {
         $this->db->select("*");
         $this->db->from("fileupload");
 		$this->db->join('user', 'fileupload.lecturer = user.username');
 		if(($currant_type=='qac')||($currant_type=='head_of_institute')){
 
+		}
+		elseif(($currant_type=='under_graduate')&&($currant_post=='head_of_course')){
+			$this->db->where('doc_type',$document_type);
+		}
+		elseif(($currant_type=='external')&&($currant_post=='head_of_course')){
+			$this->db->where('doc_type',$document_type);
+		}
+		elseif(($currant_type=='post_graduate')&&($currant_post=='head_of_course')){
+			$this->db->where('doc_type',$document_type);
+		}
+		elseif(($currant_type=='under_graduate')&&($currant_post=='course_coordinator')){
+			$this->db->where('doc_type',$document_type);
+			$this->db->where('course_name',$course_name);
+		}
+		elseif(($currant_type=='external')&&($currant_post=='course_coordinator')){
+			$this->db->where('doc_type',$document_type);
+			$this->db->where('course_name',$course_name);
+		}
+		elseif(($currant_type=='post_graduate')&&($currant_post=='course_coordinator')){
+			$this->db->where('doc_type',$document_type);
+			$this->db->where('course_name',$course_name);
 		}
 		elseif(($currant_type=='under_graduate')&&($currant_post=='lecturer')){
 			$this->db->where('type','under_graduate');
@@ -468,6 +489,10 @@ class user_model extends CI_Model
 		$this->db->update('user',$data);
 	}
 
+	function upload_details(){
+		$query = $this->db->get('fileupload');
+		return $query;
+	}
 
 
 

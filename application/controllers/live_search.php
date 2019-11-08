@@ -143,7 +143,22 @@ class live_search extends CI_Controller{
         }
 		$currant_type=$_SESSION['type'];
 		$currant_post=$_SESSION['post'];
-        $data = $this->user_model->fetch_doc($query,$currant_type,$currant_post);
+		$course_name=$_SESSION['course_name'];
+
+		if($currant_type=='under_graduate'){
+			$_SESSION['doc_type']='under_graduate';
+		}elseif ($currant_type=='post_graduate'){
+			$_SESSION['doc_type']='post_graduate';
+		}elseif ($currant_type=='external'){
+			$_SESSION['doc_type']='external';
+		}else{
+			$_SESSION['doc_type']='';
+		}
+
+
+		$document_type=$_SESSION['doc_type'];
+
+        $data = $this->user_model->fetch_doc($query,$currant_type,$currant_post,$document_type,$course_name);
         $output .= '
   <div class="table-responsive">
      <table class="table table-hover">
@@ -159,8 +174,6 @@ class live_search extends CI_Controller{
        <th>Author</th>
        <th>Lecturer</th>
        <th>Comment</th>
-       <th>'.$currant_type.'</th>
-       <th>'.$currant_post.'</th>
       </tr>
   ';
         if ($data->num_rows() > 0) {
@@ -177,7 +190,7 @@ class live_search extends CI_Controller{
        <td>' . $row->subject_code . '</td>
        <td>' . $row->author . '</td>
        <td>' . $row->lecturer . '</td>
-       <td>' . $row->comment . '</td> <td>' . $row->type . '</td> <td>' . $row->post . '</td>
+       <td>' . $row->comment . '</td> 
       </tr>
     ';
             }

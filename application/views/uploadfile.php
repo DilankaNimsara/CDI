@@ -42,11 +42,11 @@ $url= basename($actual_link);
 									<label>Course Type</label>
 							</td>
 							<td width="75%">
-								<select class="form-control" name="type" id="tp">
+								<select class="form-control" name="doc_type" id="tp">
 									<option class="text-muted"></option>
-									<option name="type" value="under_graduate">Under Graduate</option>
-									<option name="type" value="post_graduate">Post Graduate</option>
-									<option name="type" value="external">External</option>
+									<option name="doc_type" value="under_graduate">Under Graduate</option>
+									<option name="doc_type" value="post_graduate">Post Graduate</option>
+									<option name="doc_type" value="external">External</option>
 								</select>
 								<span class="text-danger"><?php echo form_error('type')?></span>
 							</td>

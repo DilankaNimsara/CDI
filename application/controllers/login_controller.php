@@ -25,8 +25,16 @@ class login_controller extends CI_Controller
 				if ($data['fetch_data']->num_rows() > 0) {
 					foreach ($data['fetch_data']->result() as $row) {
 						if(($username==$row->username)&&($password = $row->password)){
-							$_SESSION['type']=$row->type;
-							$_SESSION['post']=$row->post;
+							if($row->course_name){
+								$_SESSION['post']=$row->post;
+								$_SESSION['type']=$row->type;
+								$_SESSION['course_name']=$row->course_name;
+							}else{
+								$_SESSION['type']=$row->type;
+								$_SESSION['post']=$row->post;
+								$_SESSION['course_name']='';
+							}
+
 
 						}
 					}
@@ -259,7 +267,7 @@ class login_controller extends CI_Controller
         $this->form_validation->set_rules('semester', 'Semester', 'required');
         $this->form_validation->set_rules('year', 'Year', 'required');
         $this->form_validation->set_rules('category', 'Category', 'required');
-		$this->form_validation->set_rules('type', 'Type', 'required');
+		$this->form_validation->set_rules('doc_type', 'Type', 'required');
 		$this->form_validation->set_rules('lecturer', 'Lecturer', 'required');
 		$this->form_validation->set_rules('academic_year', 'Academic Year', 'required');
 
@@ -288,7 +296,7 @@ class login_controller extends CI_Controller
 
 
                 date_default_timezone_set("Asia/Colombo");
-                $date_time= date("Y-m-d") . "(" . date("h:i: sa") . ")";
+                $date_time= date("Y-m-d") . " (" . date("h:i:sa") . ")";
 
 
                 $up_file_name = $this->upload->data();
@@ -303,7 +311,8 @@ class login_controller extends CI_Controller
                     "subject_code" => $this->input->post("subject_code"),
                     "author" => $this->session->userdata('username'),
                     "comment" => $this->input->post("comment"),
-					"lecturer" => $this->input->post("lecturer")
+					"lecturer" => $this->input->post("lecturer"),
+					"doc_type" => $this->input->post("doc_type")
                 );
                 ?>
                 <script>
