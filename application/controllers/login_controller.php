@@ -566,7 +566,12 @@ class login_controller extends CI_Controller
             $data = array(
                 "category" => $Newname,
             );
+			$data2 = array(
+				"course_name" => $Newname,
+			);
+			$this->user_model->update_data_user($Oldname, $data2);
             $this->user_model->update_data_category($Oldname, $data);
+            $this->user_model->update_data_fileupload($Oldname, $data);
             $this->user_model->rename_category($Oldname,$Newname);
 
             unset($_SESSION['x']);
@@ -594,7 +599,12 @@ class login_controller extends CI_Controller
 			$data = array(
 				"category" => $Newname,
 			);
+			$data2 = array(
+				"course_name" => $Newname,
+			);
+			$this->user_model->update_data_user($Oldname, $data2);
 			$this->user_model->update_data_category_postgraduate($Oldname, $data);
+			$this->user_model->update_data_fileupload($Oldname, $data);
 			$this->user_model->rename_category($Oldname,$Newname);
 
 			unset($_SESSION['pg']);
@@ -622,7 +632,12 @@ class login_controller extends CI_Controller
 			$data = array(
 				"category" => $Newname,
 			);
+			$data2 = array(
+				"course_name" => $Newname,
+			);
+			$this->user_model->update_data_user($Oldname, $data2);
 			$this->user_model->update_data_category_external($Oldname, $data);
+			$this->user_model->update_data_fileupload($Oldname, $data);
 			$this->user_model->rename_category($Oldname,$Newname);
 
 			unset($_SESSION['ext']);
@@ -817,7 +832,13 @@ class login_controller extends CI_Controller
                 "year" => $this->input->post("year"),
                 "semester" => $this->input->post("semester")
             );
-            $this->user_model->update_category_date($tname,$data,$old_subject_code);
+			$data2 = array(
+				"subject_code" => $this->input->post("subject_code")
+			);
+			$this->user_model->update_category_date($tname,$data,$old_subject_code);
+
+            $this->user_model->update_category_fileupload($data2,$old_subject_code);
+
 			if($_SESSION['accounttype']=="postgraduate"){
 				redirect(base_url('login_controller/reopen_View_cat_details_post_graduate'));
 			}elseif($_SESSION['accounttype']=="external_deg"){

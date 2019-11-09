@@ -327,6 +327,14 @@ class user_model extends CI_Model
         $this->db->where('category', $Oldname);
         $this->db->update("category_data",$Newname);
     }
+	function update_data_fileupload($Oldname,$Newname){
+		$this->db->where('category', $Oldname);
+		$this->db->update("fileupload",$Newname);
+	}
+	function update_data_user($Oldname,$Newname){
+		$this->db->where('course_name', $Oldname);
+		$this->db->update("user",$Newname);
+	}
 
 	function update_data_category_postgraduate($Oldname,$Newname){
 		$this->db->where('category', $Oldname);
@@ -389,6 +397,10 @@ class user_model extends CI_Model
         $this->db->where('subject_code', $old_subject_code);
         $this->db->update($tname,$data);
     }
+	function update_category_fileupload($data,$old_subject_code){
+		$this->db->where('subject_code', $old_subject_code);
+		$this->db->update('fileupload',$data);
+	}
 
     function verify_delete($username,$password){
         $this->db->where('username', $username);
