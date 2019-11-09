@@ -273,9 +273,19 @@ class login_controller extends CI_Controller
 
 		if ($this->form_validation->run()) {
 
+				$name1=$this->input->post("category");
+				$name2=$this->input->post("year").'y';
+				$name3=$this->input->post("semester");
+				$name4=$this->input->post("subject_code");
+				$name5=$this->input->post("lecturer");
+
+
             $config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'pdf';
-            $config['max_size'] = '100000';
+            //$config['max_size'] = '100000';
+
+            $config['file_name'] =$name1.$name2.$name3.$name4.$name5;
+
             $config['overwrite'] = true;
             $config['file_ext_tolower'] = true; // convert extension to lowercase
             $config['remove_spaces'] = true;     // remove replace underscore to spaces in file name

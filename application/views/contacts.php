@@ -5,6 +5,8 @@
 	<title>Contacts</title>
 	<?php include 'header.php';
 	include 'autologout.php';?>
+
+
 </head>
 <body>
 
@@ -24,7 +26,6 @@
 
 			Contacts
 <br>
-
 
 
 		</div>

@@ -240,58 +240,104 @@ class user_model extends CI_Model
         $this->db->from("fileupload");
 		$this->db->join('user', 'fileupload.lecturer = user.username');
 		if(($currant_type=='qac')||($currant_type=='head_of_institute')){
-
+			if ($query != '') {
+				$this->db->like('file_name', $query);
+				$this->db->or_like('date_created', $query);
+				$this->db->or_like('category', $query);
+				$this->db->or_like('year', $query);
+				$this->db->or_like('semester', $query);
+				$this->db->or_like('academic_year', $query);
+				$this->db->or_like('subject_code', $query);
+				$this->db->or_like('author', $query);
+				$this->db->or_like('comment', $query);
+				$this->db->or_like('lecturer', $query);
+				$this->db->or_like('email', $query);
+				$this->db->or_like('post', str_replace(' ','_',$query));
+			}
 		}
 		elseif(($currant_type=='under_graduate')&&($currant_post=='head_of_course')){
 			$this->db->where('doc_type',$document_type);
+			if ($query != '') {
+				$this->db->like('file_name', $query);
+				$this->db->or_like('subject_code', $query);
+				$this->db->or_like('lecturer', $query);
+
+			}
 		}
 		elseif(($currant_type=='external')&&($currant_post=='head_of_course')){
 			$this->db->where('doc_type',$document_type);
+			if ($query != '') {
+				$this->db->like('file_name', $query);
+				$this->db->or_like('subject_code', $query);
+				$this->db->or_like('lecturer', $query);
+
+
+			}
 		}
 		elseif(($currant_type=='post_graduate')&&($currant_post=='head_of_course')){
 			$this->db->where('doc_type',$document_type);
+			if ($query != '') {
+				$this->db->like('file_name', $query);
+				$this->db->or_like('subject_code', $query);
+				$this->db->or_like('lecturer', $query);
+			}
 		}
 		elseif(($currant_type=='under_graduate')&&($currant_post=='course_coordinator')){
 			$this->db->where('doc_type',$document_type);
 			$this->db->where('course_name',$course_name);
+			if ($query != '') {
+				$this->db->like('file_name', $query);
+				$this->db->or_like('subject_code', $query);
+				$this->db->or_like('lecturer', $query);
+			}
 		}
 		elseif(($currant_type=='external')&&($currant_post=='course_coordinator')){
 			$this->db->where('doc_type',$document_type);
 			$this->db->where('course_name',$course_name);
+			if ($query != '') {
+				$this->db->like('file_name', $query);
+				$this->db->or_like('subject_code', $query);
+				$this->db->or_like('lecturer', $query);
+			}
 		}
 		elseif(($currant_type=='post_graduate')&&($currant_post=='course_coordinator')){
 			$this->db->where('doc_type',$document_type);
 			$this->db->where('course_name',$course_name);
+			if ($query != '') {
+				$this->db->like('file_name', $query);
+				$this->db->or_like('subject_code', $query);
+				$this->db->or_like('lecturer', $query);
+			}
 		}
 		elseif(($currant_type=='under_graduate')&&($currant_post=='lecturer')){
 			$this->db->where('type','under_graduate');
 			$this->db->where('username',$this->session->userdata('username'));
+			if ($query != '') {
+				$this->db->like('file_name', $query);
+				$this->db->or_like('subject_code', $query);
+				$this->db->or_like('lecturer', $query);
+			}
 		}
 		elseif(($currant_type=='post_graduate')&&($currant_post=='lecturer')){
 			$this->db->where('type','post_graduate');
 			$this->db->where('username',$this->session->userdata('username'));
+			if ($query != '') {
+				$this->db->like('file_name', $query);
+				$this->db->or_like('subject_code', $query);
+				$this->db->or_like('lecturer', $query);
+			}
 		}
 		elseif(($currant_type=='external')&&($currant_post=='lecturer')){
 			$this->db->where('type','external');
 			$this->db->where('username',$this->session->userdata('username'));
+			if ($query != '') {
+				$this->db->like('file_name', $query);
+				$this->db->or_like('subject_code', $query);
+				$this->db->or_like('lecturer', $query);
+			}
 		}
 
-		//$this->db->where('post','lecturer');
-        if ($query != '') {
-            $this->db->like('file_name', $query);
-            $this->db->or_like('date_created', $query);
-            $this->db->or_like('category', $query);
-            $this->db->or_like('year', $query);
-            $this->db->or_like('semester', $query);
-            $this->db->or_like('academic_year', $query);
-            $this->db->or_like('subject_code', $query);
-            $this->db->or_like('author', $query);
-            $this->db->or_like('comment', $query);
-            $this->db->or_like('lecturer', $query);
-        }
-
         $this->db->order_by('file_name', 'ASC');
-
         return $this->db->get();
     }
 
@@ -302,22 +348,7 @@ class user_model extends CI_Model
         $query = $this->db->get($cat);
         return $query;
     }
-/*
-	function fetch_data_cat_table_post_graduate($cat){
-		$this->db->order_by('year', 'ASC');
-		$this->db->order_by('semester', 'ASC');
-		$this->db->order_by('subject_code', 'ASC');
-		$query = $this->db->get($cat);
-		return $query;
-	}
-	function fetch_data_cat_table_external($cat){
-		$this->db->order_by('year', 'ASC');
-		$this->db->order_by('semester', 'ASC');
-		$this->db->order_by('subject_code', 'ASC');
-		$query = $this->db->get($cat);
-		return $query;
-	}
-*/
+
     function rename_category($Oldname,$Newname){
         $this->load->dbforge();
         $this->dbforge->rename_table($Oldname, $Newname);
