@@ -8,6 +8,16 @@
 </head>
 <body>
 
+<?php
+$alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+$pass = array(); //remember to declare $pass as an array
+$alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+for ($i = 0; $i < 8; $i++) {
+	$n = rand(0, $alphaLength);
+	$pass[] = $alphabet[$n];
+}
+echo implode($pass);
+?>
 
 <div class="container-fluid">
 	<div class="row content">
@@ -67,8 +77,7 @@
 					</div>
 					<div class="form-group">
 						<label for="password">Password</label>
-						<input type="password" class="form-control" name="password" id="password"
-							   placeholder="Enter password"/>
+						<input type="password" class="form-control" name="password" id="password" value="<?php echo implode($pass);?>">
 						<span class="text-danger"><?php echo form_error('password') ?></span>
 					</div>
 					<div class="form-group">

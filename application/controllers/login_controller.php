@@ -75,7 +75,7 @@ class login_controller extends CI_Controller
     {
         $this->session->unset_userdata('username');
         session_destroy();
-        redirect(base_url() . 'login_controller/login');
+        redirect(base_url() . 'Home/index');
     }
 
 	//----------------------------------------------------------------------user account validation

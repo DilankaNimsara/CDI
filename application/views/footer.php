@@ -5,7 +5,6 @@
 <!--</footer>-->
 
 <footer>
-
 	<div class="container">
 		<div class="row">
 			<div class="text-center copyright">
@@ -35,5 +34,4 @@
 			</div>
 	</div>
 	</div>
-
 </footer>
