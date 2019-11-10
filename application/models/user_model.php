@@ -21,6 +21,10 @@ class user_model extends CI_Model
 		$query = $this->db->get('user');
 		return $query;
 	}
+	function fileupload_count(){
+		$query = $this->db->get('fileupload');
+		return $query;
+	}
 
 	function update_user_account_data($data,$username){
         $this->db->where('username', $username);
@@ -209,6 +213,27 @@ class user_model extends CI_Model
             $this->db->like('category', $query);
         }
         $this->db->order_by('category', 'ASC');
+        return $this->db->get();
+    }
+
+    function count_category()
+    {
+        $this->db->select("*");
+        $this->db->from("category_data");
+        return $this->db->get();
+    }
+
+    function count_category_p()
+    {
+        $this->db->select("*");
+        $this->db->from("postgraduate");
+        return $this->db->get();
+    }
+
+    function count_category_e()
+    {
+        $this->db->select("*");
+        $this->db->from("external");
         return $this->db->get();
     }
 

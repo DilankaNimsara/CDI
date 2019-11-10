@@ -986,6 +986,10 @@ class login_controller extends CI_Controller
 	public function Report(){
 		$this->load->model('user_model');
 		$data["count_data"] = $this->user_model->userdetails();
+		$data["count_file"] = $this->user_model->fileupload_count();
+		$data["fetch_data_un"] = $this->user_model->count_category();
+		$data["fetch_data_pg"] = $this->user_model->count_category_p();
+		$data["fetch_data_ex"] = $this->user_model->count_category_e();
     	$this->load->view('report',$data);
 	}
 

@@ -17,17 +17,25 @@
 
 <div class="container-fluid">
 	<div class="row content">
-		<div class="col-sm-2">
+
 			<?php
 			if ($this->session->userdata('username') != ''){
+				?>
+				<div class="col-sm-2">
+				<?php
 				include 'sidenav.php';
+				?>
+				</div>
+					<?php
 			}else{ ?>
+
 				<?php
 			}?>
-		</div>
-		<div class="col-sm-10">
-			<img width="50%" src="<?php echo  base_url('public/img/MR2.png');?>">
 
+		<div class="col-sm-10">
+			<center>
+			<img width="50%" src="<?php echo  base_url('public/img/MR2.png');?>">
+			</center>
 			<div class="col-sm-10 text-right">
 				<br/>
 				<br/>

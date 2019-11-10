@@ -34,8 +34,17 @@
 					<div class="form-group">
 						<label for="post">Post</label>
 						<input style="color: #0f18d1;"  type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_ireplace('_',' ',$row->post));?>" readonly>
-						<span class="text-danger"><?php echo form_error('email') ?></span>
 					</div>
+					<?php
+					if($_SESSION['post']=="course_coordinator"){
+						?>
+						<div class="form-group">
+							<label for="post">Course</label>
+							<input style="color: #0f18d1;"  type="text" class="form-control" name="post" id="post" value="<?php echo strtoupper(str_ireplace('_',' ',$row->course_name));?>" readonly>
+						</div>
+					<?php
+					}
+					?>
 					<div class="form-group">
 						<label for="username">Username</label>
 						<input style="color: #0f18d1;" type="text" class="form-control" id="username" name="username" value="<?php echo $row->username;?>" readonly/>
