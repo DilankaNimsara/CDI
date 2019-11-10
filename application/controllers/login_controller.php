@@ -278,18 +278,17 @@ class login_controller extends CI_Controller
 				$name3=$this->input->post("semester");
 				$name4=$this->input->post("subject_code");
 				$name5=$this->input->post("lecturer");
+				$name6=$this->input->post("academic_year");
 
 
             $config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'pdf';
-            //$config['max_size'] = '100000';
 
-            $config['file_name'] =$name1.$name2.$name3.$name4.$name5;
+            $config['file_name'] =$name1.$name2.$name3.$name4.$name5.$name6;
 
             $config['overwrite'] = true;
+            $config['remove_spaces'] = true;
             $config['file_ext_tolower'] = true; // convert extension to lowercase
-            $config['remove_spaces'] = true;     // remove replace underscore to spaces in file name
-
 
             $this->load->library('upload', $config);
 

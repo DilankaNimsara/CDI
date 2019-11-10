@@ -26,7 +26,10 @@
 
 			Contacts
 <br>
+			<?php
 
+			echo $_SESSION['course_name']
+			?>
 
 		</div>
 	</div>
