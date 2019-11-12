@@ -92,7 +92,7 @@
 			}
 			?>
 			<span align="right"><b>Total number of Accounts - <?php echo $count;?></b></span>
-			<br/><br/>
+
 			<!-- search -->
             <div class="container ">
                 <div class="form-group">
@@ -101,17 +101,11 @@
                         <input type="text" name="search_text" id="search_text" placeholder="Search by User Name, Email, Type or Post" class="form-control" style="width: 450px;" />
                     </div>
                 </div>
-
-
 				<div id="result"></div>
             </div>
             <div style="clear:both"></div>
-
 			<br/>
-
 		</div>
-
-
 	</div>
 </div>
 </div>

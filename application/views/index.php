@@ -3,7 +3,7 @@
 
 <head>
 <title>
-
+Index
 </title>
 	<link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,600,400italic,700' rel='stylesheet' type='text/css'>
 	<link rel="stylesheet" href="<?php echo base_url();?>public/temp/css/animate.css">
@@ -64,14 +64,14 @@
 						<div class="col-md-7 col-sm-7">
 							<div class="fh5co-owl-text-wrap">
 								<div class="fh5co-owl-text">
-									<h1 class="fh5co-lead to-animate">Case Study Title</h1>
+									<p class=" to-animate" style="color: midnightblue; font-size: 1500%;">Mr.Doc</p>
 									<!--								<h2 class="fh5co-sub-lead to-animate">100% Free Fully Responsive HTML5 Bootstrap Template. Crafted with love by the fine folks at <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a></h3>-->
-									<p class="to-animate-2"><a href="#" class="btn btn-primary btn-lg">View Case Study</a></p>
+<!--									<p class="to-animate-2"><a href="#" class="btn btn-primary btn-lg">View Case Study</a></p>-->
 								</div>
 							</div>
 						</div>
 						<div class="col-md-4 col-md-push-1 col-sm-4 col-sm-push-1 iphone-image">
-							<div class="iphone to-animate-2"><img src="images/iphone-2.png" alt="Free HTML5 Template by FREEHTML5.co"></div>
+							<div class="iphone to-animate-2"><img src="<?php echo base_url();?>public/img/MR2.png" alt="mrdoc logo"></div>
 						</div>
 
 					</div>
@@ -83,16 +83,10 @@
 						<div class="col-md-7 col-md-push-1 col-md-push-5 col-sm-7 col-sm-push-1 col-sm-push-5">
 							<div class="fh5co-owl-text-wrap">
 								<div class="fh5co-owl-text">
-									<h1 class="fh5co-lead to-animate">Case Study Title</h1>
-									<!--								<h2 class="fh5co-sub-lead to-animate">100% Free Fully Responsive HTML5 Bootstrap Template. Crafted with love by the fine folks at <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a></h3>-->
-									<p class="to-animate-2"><a href="#" class="btn btn-primary btn-lg">View Case Study</a></p>
+									<h1 class="fh5co-lead to-animate" style="color: midnightblue;">Document Management System</h1>
 								</div>
 							</div>
 						</div>
-						<div class="col-md-4 col-md-pull-7 col-sm-4 col-sm-pull-7 iphone-image">
-							<div class="iphone to-animate-2"><img src="images/iphone-1.png" alt="Free HTML5 Template by FREEHTML5.co"></div>
-						</div>
-
 					</div>
 				</div>
 			</div>
@@ -101,12 +95,10 @@
 				<div class="overlay"></div>
 				<div class="container" style="position: relative;">
 					<div class="row">
-						<div class="col-md-8 col-md-offset-2 text-center">
+						<div class="col-md-7 col-md-push-1 col-md-push-5 col-sm-7 col-sm-push-1 col-sm-push-5">
 							<div class="fh5co-owl-text-wrap">
 								<div class="fh5co-owl-text">
-									<h1 class="fh5co-lead to-animate">Grab it now for free!</h1>
-									<!--								<h2 class="fh5co-sub-lead to-animate">100% Free Fully Responsive HTML5 Bootstrap Template. Crafted with love by the fine folks at <a href="http://freehtml5.co/" target="_blank">FREEHTML5.co</a></h3>-->
-									<p class="to-animate-2"><a href="http://freehtml5.co/" target="_blank" class="btn btn-primary btn-lg">Download This Template</a></p>
+									<h1 class="fh5co-lead to-animate" >Easy to manage your documents</h1>
 								</div>
 							</div>
 						</div>
@@ -132,7 +124,7 @@
 						<h2 class="to-animate">About MrDoc</h2>
 						<div class="row">
 							<div class="col-md-8 col-md-offset-2 to-animate">
-								<h3>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</h3>
+								<h3>Store your documents secure and manage your all documents in one place </h3>
 							</div>
 						</div>
 					</div>

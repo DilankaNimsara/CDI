@@ -286,6 +286,7 @@ class login_controller extends CI_Controller
 
             $config['file_name'] =$name1.$name2.$name3.$name4.$name5.$name6;
 
+            $config['max_size'] = 10240;
             $config['overwrite'] = true;
             $config['remove_spaces'] = true;
             $config['file_ext_tolower'] = true; // convert extension to lowercase
@@ -382,12 +383,15 @@ class login_controller extends CI_Controller
 		if($this->input->post("edit")) {
 			redirect(base_url('login_controller/view_edit_file'));
 		}
-		if($this->input->post("delete")) {
-			$path = $_SERVER['DOCUMENT_ROOT'].'/uploads/';
-			$this->load->model('user_model');
-			$this->user_model->deleteFiles($path, $this->input->post("delete"));
 
-		}
+	}
+	public function delete_uploaded_file(){
+
+		unlink("uploads/".$_SESSION['file_name']);
+		$this->load->model('user_model');
+		$this->user_model->deleteFiles($_SESSION['file_name']);
+		$this->session->set_flashdata('delete_massage', 'file "'.$_SESSION['file_name'].'" was deleted');
+		redirect(base_url('Home/viewDocument'));
 	}
 
 	//----------------------------------------------------------------------document settings page

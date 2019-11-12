@@ -6,6 +6,7 @@
 	<title>User Settings</title>
 	<?php include 'header.php';
 	include 'autologout.php';?>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -52,7 +53,8 @@
 					</div>
 					<div class="form-group">
 						<label for="text">Current Password</label>
-						<input style="color: #0f18d1;" type="text" class="form-control" name="cpassword" id="password" placeholder="Enter password" value="<?php echo $row->password;?>" readonly/>
+						<input style="color: #0f18d1;" type="password" class="form-control" name="cpassword" id="password3" placeholder="Enter password" value="<?php echo $row->password;?>" readonly/>
+						<span toggle="#password3" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 					</div>
 					<div class="form-group">
 						<label for="email">E-mail</label>
@@ -61,15 +63,16 @@
 					</div>
 					<div class="form-group">
 						<label for="password">New Password / Current Password</label>
-						<input type="password" class="form-control" name="password" id="password"
-							   placeholder="Enter password"/>
+						<input type="password" class="form-control" name="password" id="password2" placeholder="Enter password"/>
 						<span class="text-danger"><?php echo form_error('password') ?></span>
+						<span toggle="#password2" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 					</div>
 
 					<div class="form-group">
 						<label for="password">Confirm Password</label>
-						<input type="password" class="form-control" name="conpass" id="password" placeholder="Re-enter password"/>
+						<input type="password" class="form-control" name="conpass" id="password1" placeholder="Re-enter password"/>
 						<span class="text-danger"><?php echo form_error('conpass') ?></span>
+						<span toggle="#password1" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 					</div>
 
 
@@ -92,3 +95,18 @@
 <?php include 'footer.php';?>
 </body>
 </html>
+<script>
+    $(document).ready(function(){
+
+        $(".toggle-password").click(function() {
+
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    });
+</script>

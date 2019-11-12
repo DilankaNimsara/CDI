@@ -5,6 +5,7 @@
 	<title>User Settings</title>
 	<?php include 'header.php';
 	include 'autologout.php';?>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -16,7 +17,7 @@ for ($i = 0; $i < 8; $i++) {
 	$n = rand(0, $alphaLength);
 	$pass[] = $alphabet[$n];
 }
-echo implode($pass);
+//echo implode($pass);
 ?>
 
 <div class="container-fluid">
@@ -77,9 +78,11 @@ echo implode($pass);
 					</div>
 					<div class="form-group">
 						<label for="password">Password</label>
-						<input type="password" class="form-control" name="password" id="password" value="<?php echo implode($pass);?>">
+						<input style="color:midnightblue; " type="password" class="form-control" name="password" id="password" value="<?php echo implode($pass);?>" readonly >
 						<span class="text-danger"><?php echo form_error('password') ?></span>
+						<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password" style="color: midnightblue;"></span>
 					</div>
+
 					<div class="form-group">
 						<label for="email">E-mail</label>
 						<input type="email" class="form-control" name="email" id="email"
@@ -96,7 +99,6 @@ echo implode($pass);
 					<span class="text-danger"> <?php echo $this->session->flashdata("error") ?></span>
 				</div>
 			</form>
-
 			</div>
 		</div>
 	</div>
@@ -189,8 +191,17 @@ echo implode($pass);
             }
         });
 
-
-
-
     });
+
+    $(".toggle-password").click(function() {
+
+        $(this).toggleClass("fa-eye fa-eye-slash");
+        var input = $($(this).attr("toggle"));
+        if (input.attr("type") == "password") {
+            input.attr("type", "text");
+        } else {
+            input.attr("type", "password");
+        }
+    });
+
 </script>

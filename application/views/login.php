@@ -4,13 +4,11 @@
 	<meta charset="utf-8">
 	<title>Login</title>
 	<?php include 'header.php';?>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
-
 <body>
 
-
 <div class="container" style="margin-left:auto; width: 500px ">
-
 
 	<div class="row">
 		<div class="col-4 ">
@@ -36,6 +34,7 @@
 						<label for="password">Password</label>
 						<input type="password" class="form-control" name="password" id="password" placeholder="Enter password"/>
 						<span class="text-danger"><?php echo form_error('password')?></span>
+						<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 					</div>
 					<div class="form-group form-check">
 						<a href="#">Forgot Password?</a>
@@ -58,4 +57,21 @@
 </body>
 <?php include 'footer.php';?>
 </html>
+
+<script>
+    $(document).ready(function(){
+
+        $(".toggle-password").click(function() {
+
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+    });
+</script>
+
 

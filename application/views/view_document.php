@@ -14,6 +14,7 @@
 	</div>
 	<div class="col-sm-10 text-left">
 		<!-- content -->
+
         <br/><br/><br/>
         <div class="container ">
             <div class="form-group">
@@ -23,6 +24,8 @@
                 </div>
             </div>
 
+			<span class="text-danger"> <?php echo $this->session->flashdata("delete_massage");?></span>
+			<br/>
             <br />
             <div style="width: 100%; font-size: 13px;" id="result"></div>
         </div>

@@ -88,13 +88,47 @@
 
 			<br/>
 
-<form method="post" action="<?php echo base_url();?>login_controller/download_file">
-	<center>
-		<button style="width: 100px;" class="btn btn-info" name="submit" value="<?php echo $_SESSION['file_name'];?>"><span class="glyphicon glyphicon-download-alt"></span> View</button>
-		<button style="width: 100px;" class="btn btn-primary" name="edit" value="<?php echo $_SESSION['file_name'];?>"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-		<button style="width: 100px;" class="btn btn-danger" name="delete" value="<?php echo $_SESSION['file_name'];?>"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-	</center>
-</form>
+			<table align="center" width="400px">
+				<tr>
+					<td>
+						<form method="post" action="<?php echo base_url();?>login_controller/download_file">
+							<center>
+								<button style="width: 100px;" class="btn btn-info" name="submit" value="<?php echo $_SESSION['file_name'];?>"><span class="glyphicon glyphicon-download-alt"></span> View</button>
+							</center>
+						</form>
+					</td>
+					<td>
+						<?php
+						if(($_SESSION['type']=='qac')||($_SESSION['type']=='head_of_institute')){
+							?>
+							<form method="post" action="<?php echo base_url();?>login_controller/download_file">
+								<center>
+									<button style="width: 100px;" class="btn btn-primary" name="edit" value="<?php echo $_SESSION['file_name'];?>"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+								</center>
+							</form>
+						<?php
+						}else{
+							?>
+							<button style="width: 200px;" class="btn btn-primary" name="" value=""><span class="glyphicon glyphicon-edit"></span> Add Comment</button>
+						<?php
+						}
+						?>
+
+					</td>
+					<td align="right">
+						<?php
+						if(($_SESSION['type']=='qac')||($_SESSION['type']=='head_of_institute')){
+						?>
+						<center>
+							<button style="width: 100px;" class=" btn btn-danger delete_data"  id="<?php $_SESSION['file_name'];?>"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+						</center>
+							<?php
+						}
+						?>
+					</td>
+				</tr>
+			</table>
+
 
 		</div>
 	</div>
@@ -103,3 +137,16 @@
 </body>
 </html>
 
+
+<script>
+    $(document).ready(function(){
+        $('.delete_data').click(function () {
+            var id = $(this).attr("id");
+            if (confirm("Are you sure, You want to delete this document ")) {
+                window.location = "<?php echo base_url(); ?>login_controller/delete_uploaded_file";
+            } else {
+                return false;
+            }
+        });
+    });
+</script>

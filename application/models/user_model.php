@@ -46,13 +46,10 @@ class user_model extends CI_Model
 		$query = $this->db->get("fileupload");
 		return $query;
 	}
-	function deleteFiles($path,$file_name){
-		$files = glob($path.$file_name); // get all file names
-		foreach($files as $file){ // iterate files
-			if(is_file($file))
-				unlink($file); // delete file
-			//echo $file.'file deleted';
-		}
+
+	function deleteFiles($name){
+		$this->db->where("file_name",$name);
+		$this->db->delete('fileupload');
 	}
 
     function update_data($data,$username){
