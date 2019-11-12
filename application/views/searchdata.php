@@ -5,6 +5,7 @@
     <title>Edit Account</title>
     <?php include 'header.php';
     include 'autologout.php';?>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
 
@@ -135,11 +136,13 @@
 									<label for="password">Password</label>
 									<input type="password" class="form-control" id="password" name="password" >
 									<span class="text-danger"><?php echo form_error('password')?></span>
+									<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 								</div>
 								<div class="form-group">
 									<label for="con_password">Confirm Password</label>
 									<input type="password" class="form-control" name="con_password" id="con_password" >
 									<span class="text-danger"><?php echo form_error('con_password')?></span>
+									<span toggle="#con_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 								</div>
 
 							<?php
@@ -149,11 +152,13 @@
 									<label for="password">Password</label>
 									<input type="password" class="form-control" id="password" name="password" >
 									<span class="text-danger"><?php echo form_error('password')?></span>
+									<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 								</div>
 								<div class="form-group">
 									<label for="con_password">Confirm Password</label>
 									<input type="password" class="form-control" name="con_password" id="con_password" >
 									<span class="text-danger"><?php echo form_error('con_password')?></span>
+									<span toggle="#con_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 								</div>
 								<?php
 							}elseif (($this->session->userdata('username')==$_SESSION['account_username'])){
@@ -162,11 +167,13 @@
 									<label for="password">Password</label>
 									<input type="password" class="form-control" id="password" name="password" >
 									<span class="text-danger"><?php echo form_error('password')?></span>
+									<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 								</div>
 								<div class="form-group">
 									<label for="con_password">Confirm Password</label>
 									<input type="password" class="form-control" name="con_password" id="con_password" >
 									<span class="text-danger"><?php echo form_error('con_password')?></span>
+									<span toggle="#con_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 								</div>
 								<?php
 							}else{
@@ -256,11 +263,13 @@
 									<label for="password">Password</label>
 									<input type="password" class="form-control" id="password" name="password" >
 									<span class="text-danger"><?php echo form_error('password')?></span>
+									<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 								</div>
 								<div class="form-group">
 									<label for="con_password">Confirm Password</label>
 									<input type="password" class="form-control" name="con_password" id="con_password" >
 									<span class="text-danger"><?php echo form_error('con_password')?></span>
+									<span toggle="#con_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 								</div>
 							<?php
 							}
@@ -346,11 +355,13 @@
 										<label>Password</label>
 										<input type="password" class="form-control" id="pw" name="pw" placeholder="Enter admin password">
 										<span class="text-danger"><?php echo form_error('pw')?></span>
+										<span toggle="#pw" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 									</div>
 									<div class="form-group">
 										<label>Confirm Password</label>
 										<input type="password" class="form-control" id="confirm_pw" name="confirm_pw" placeholder="Re-enter admin password"/>
 										<span class="text-danger"><?php echo form_error('confirm_pw')?></span>
+										<span toggle="#confirm_pw" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 									</div>
 									<input type="text" class="hide" name="admin_password" value="<?php echo $this->session->userdata('password')?>" readonly>
 
@@ -613,7 +624,16 @@
             }
         });
 
+        $(".toggle-password").click(function() {
 
-    });
+            $(this).toggleClass("fa-eye fa-eye-slash");
+            var input = $($(this).attr("toggle"));
+            if (input.attr("type") == "password") {
+                input.attr("type", "text");
+            } else {
+                input.attr("type", "password");
+            }
+        });
+});
 </script>
 

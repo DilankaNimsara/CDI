@@ -81,7 +81,6 @@
 				<?php
 			}
 			?>
-
 			<br>
 			<?php
 			$count=0;
@@ -94,6 +93,8 @@
 			<span align="right"><b>Total number of Accounts - <?php echo $count;?></b></span>
 
 			<!-- search -->
+
+			<span class="text-danger"> <?php echo $this->session->flashdata("check_availability");?></span>
             <div class="container ">
                 <div class="form-group">
                     <div class="input-group">
@@ -101,10 +102,10 @@
                         <input type="text" name="search_text" id="search_text" placeholder="Search by User Name, Email, Type or Post" class="form-control" style="width: 450px;" />
                     </div>
                 </div>
+				<br/>
 				<div id="result"></div>
             </div>
             <div style="clear:both"></div>
-			<br/>
 		</div>
 	</div>
 </div>

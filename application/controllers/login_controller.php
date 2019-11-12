@@ -99,11 +99,10 @@ class login_controller extends CI_Controller
 				"post" => $this->input->post("post"),
 				"course_name" =>$this->input->post("course_name")
             );
-            $this->user_model->insert_data($data);
+            $this->user_model->insert_data($data,$this->input->post("username"));
             ?>
             <script>
-                window.location.href = '<?php echo base_url();?>login_controller/manageAccount';
-                alert('User Account is created');
+                window.location.href = '<?php echo base_url();?>login_controller/userForm';
             </script>
             <?php
         } else {

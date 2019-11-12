@@ -36,9 +36,8 @@ for ($i = 0; $i < 8; $i++) {
 					</div>
 				</center>
 			</div>
-<br/><br/>
 			<span style="size: 13px;" class="text-danger bg-danger"> <?php echo $this->session->flashdata("error");?></span>
-
+			<span class="text-danger"> <?php echo $this->session->flashdata("check_availability");?></span>
 			<div class="container" style="margin-left:auto; width: 500px ">
 			<form method="post" action="<?php
 			echo base_url(); ?>login_controller/user_Create_validation">
