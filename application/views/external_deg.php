@@ -37,8 +37,7 @@
 				}
 			}
 			?>
-			<br/>
-			<br/>
+
 			<div class="container ">
                 <div class="form-group">
                     <div class="input-group">

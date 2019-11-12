@@ -45,10 +45,13 @@ $url= basename($actual_link);
 							$url == "View_cat_details_External" ||
 							$url == "Document_Settings" ||
 							$url == "add_subject"||
+							$url == "add_subjects_cat_post_graduate"||
+							$url == "add_subjects_cat_external"||
 							$url == "View_cat_details" ||
 							$url == "insertCat" ||
 							$url == 'reopen_View_cat_details'||
 							$url == 'Post_Graduate'||
+							$url == 'add_subjects_cat'||
 							$url == 'External_Deg'){echo 'active';} ?>"><a href="<?php echo base_url()?>login_controller/Document_Settings"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span> Document Settings</a></li>
 						<?php
 					}

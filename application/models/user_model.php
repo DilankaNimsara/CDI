@@ -84,23 +84,16 @@ class user_model extends CI_Model
 	}
 
 	function insert_data($data,$username){
-//		$this->db->select('count(password)');
-//		$this->db->from('user');
-//		$this->db->where('password','123');
-//		$query = $this->db->get();
-
-		$query = $this->db->query('SELECT username FROM user where username="'.$username.'"');
-
+		$this->db->select("username");
+		$this->db->from("user");
+		$this->db->where('username', $username);
+		$query = $this->db->get();
 		if($query->num_rows()==0){
 			$this->db->insert("user",$data);
 			$this->session->set_flashdata('check_availability', 'User account is created.');
 		}else{
 			$this->session->set_flashdata('check_availability', 'This user name is already exists.');
 		}
-
-
-
-
 	}
 
     function insert_file($data){

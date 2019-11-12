@@ -68,71 +68,8 @@
 			<h4><a href="<?php echo base_url()?>login_controller/External_Deg"><span style="color: white";> Go Back </span><span style="color: white;" class="glyphicon glyphicon-triangle-left"></span></a></h4>
 
 
-			<!--Add Subject----------------------------------------------------------------------------------------------------------------------------------->
-			<div class="container">
-
-				<div class="modal fade" id="addSubjects" role="dialog">
-					<div class="modal-dialog">
-
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal">&times;</button>
-								<h4 class="modal-title">Add Subject</h4>
-							</div>
-							<div class="modal-body">
-								<form method="post" action="<?php echo base_url();?>login_controller/add_subjects_cat_external">
-
-									<div class="form-group">
-										<label for="username">Subject Name</label>
-										<input type="text" class="form-control" id="subject_name" name="subject_name" placeholder="Enter Subject Name"/>
-										<span class="text-danger"><?php echo form_error('subject_name')?></span>
-									</div>
-									<div class="form-group">
-										<label for="username">Subject Code</label>
-										<input type="text" class="form-control" id="subject_code" name="subject_code" placeholder="Enter Subject Code"/>
-										<span class="text-danger"><?php echo form_error('subject_code')?></span>
-									</div>
-									<div class="form-group">
-										<label for="username">Year</label>
-										<select class="form-control" name="year">
-											<option class="text-muted"></option>
-											<option name="year" value="1">1st year</option>
-											<option name="year" value="2">2nd year</option>
-											<option name="year" value="3">3rd year</option>
-										</select>
-										<span class="text-danger"><?php echo form_error('year')?></span>
-									</div>
-									<div class="form-group">
-										<label for="username">Semester</label>
-										<select class="form-control" name="semester">
-											<option class="text-muted"></option>
-											<option name="semester" value="1sem">1st semester</option>
-											<option name="semester" value="2sem">2nd semester</option>
-										</select>
-										<span class="text-danger"><?php echo form_error('semester')?></span>
-									</div>
-
-									<input type="text" class="hide" value="<?php echo $_SESSION['ext']; ?>" name="category" id="<?php echo $_SESSION['ext']; ?>">
-									<center>
-										<button style="width: 100px;" class="btn btn-primary" name="Submit" type="submit" value="submit">Add</button>
-									</center>
-
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-							</div>
-						</div>
-
-					</div>
-				</div>
-			</div>
-
-			<!--Add Subject close----------------------------------------->
-			<br/>
+<br/>
 			<span align="right"><b>Total <u><?php echo strtoupper($catName)?></u> Subjects - <?php echo $count;?></b></span>
-			<br/>
-			<br/>
 
 			<div class="container ">
 				<div class="form-group">
@@ -148,7 +85,7 @@
 			</div>
 			<div style="clear:both"></div>
 			<?php
-			for($i=0;$i<7;$i++){
+			for($i=0;$i<10;$i++){
 				echo '<br/>';
 			}
 			?>
@@ -183,6 +120,68 @@
 				</div>
 			</div>
 		</div>
+		<!--Add Subject----------------------------------------------------------------------------------------------------------------------------------->
+		<div class="container">
+
+			<div class="modal fade" id="addSubjects" role="dialog">
+				<div class="modal-dialog">
+
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Add Subject</h4>
+						</div>
+						<div class="modal-body">
+							<form method="post" action="<?php echo base_url();?>login_controller/add_subjects_cat_external">
+
+								<div class="form-group">
+									<label for="username">Subject Name</label>
+									<input type="text" class="form-control" id="subject_name" name="subject_name" placeholder="Enter Subject Name"/>
+									<span class="text-danger"><?php echo form_error('subject_name')?></span>
+								</div>
+								<div class="form-group">
+									<label for="username">Subject Code</label>
+									<input type="text" class="form-control" id="subject_code" name="subject_code" placeholder="Enter Subject Code"/>
+									<span class="text-danger"><?php echo form_error('subject_code')?></span>
+								</div>
+								<div class="form-group">
+									<label for="username">Year</label>
+									<select class="form-control" name="year">
+										<option class="text-muted"></option>
+										<option name="year" value="1">1st year</option>
+										<option name="year" value="2">2nd year</option>
+										<option name="year" value="3">3rd year</option>
+									</select>
+									<span class="text-danger"><?php echo form_error('year')?></span>
+								</div>
+								<div class="form-group">
+									<label for="username">Semester</label>
+									<select class="form-control" name="semester">
+										<option class="text-muted"></option>
+										<option name="semester" value="1sem">1st semester</option>
+										<option name="semester" value="2sem">2nd semester</option>
+									</select>
+									<span class="text-danger"><?php echo form_error('semester')?></span>
+								</div>
+
+								<input type="text" class="hide" value="<?php echo $_SESSION['ext']; ?>" name="category" id="<?php echo $_SESSION['ext']; ?>">
+								<center>
+									<button style="width: 100px;" class="btn btn-primary" name="Submit" type="submit" value="submit">Add</button>
+								</center>
+
+							</form>
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<!--Add Subject close----------------------------------------->
+
 	</div>
 </div>
 <?php include 'footer.php';?>

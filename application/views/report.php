@@ -16,7 +16,7 @@
 		<div class="col-sm-10">
 
 			<h1 style="color: midnightblue;">......... Summary .........</h1>
-<br/>
+
 			<div class="col-sm-9">
 			<div class="container ">
 				<div class="form-group">
@@ -85,6 +85,9 @@
 
 				}
 				?>
+				<br/>
+				<br/>
+				<br/>
 				<div class="panel panel-default">
 					<div class="panel-heading"><b>Number of Accounts</b></div>
 						<div class="panel-body">

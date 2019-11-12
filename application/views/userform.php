@@ -11,8 +11,8 @@
 
 <?php
 $alphabet = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
-$pass = array(); //remember to declare $pass as an array
-$alphaLength = strlen($alphabet) - 1; //put the length -1 in cache
+$pass = array();
+$alphaLength = strlen($alphabet) - 1;
 for ($i = 0; $i < 8; $i++) {
 	$n = rand(0, $alphaLength);
 	$pass[] = $alphabet[$n];
@@ -39,9 +39,7 @@ for ($i = 0; $i < 8; $i++) {
 			<span style="size: 13px;" class="text-danger bg-danger"> <?php echo $this->session->flashdata("error");?></span>
 			<span class="text-danger"> <?php echo $this->session->flashdata("check_availability");?></span>
 			<div class="container" style="margin-left:auto; width: 500px ">
-			<form method="post" action="<?php
-			echo base_url(); ?>login_controller/user_Create_validation">
-
+			<form method="post" action="<?php echo base_url(); ?>login_controller/user_Create_validation">
 				<div class="form">
 					<hr>
 					<span class="form " style="color: midnightblue;"><h2><center>Create User Account</center></h2></span>
