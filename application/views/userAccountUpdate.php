@@ -4,8 +4,10 @@
 <head>
 	<meta charset="utf-8">
 	<title>User Settings</title>
-	<?php include 'header.php';
-	include 'autologout.php';?>
+	<?php
+	include 'autologout.php';
+	include 'header.php';
+	?>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>

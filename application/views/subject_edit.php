@@ -28,16 +28,16 @@
                     <div class="col-4 ">
             <form method="post" action="<?php echo base_url();?>login_controller/update_subjects_cat">
 
-                <div class="form-group">
-                    <label for="username">Subject Name - <font color="gray" ><?php echo $_SESSION['subject_name'];?></font></label>
-                    <input type="text" class="form-control" id="subject_name" name="subject_name" value="<?php echo $_SESSION['subject_name'];?>" />
-                    <span class="text-danger"><?php echo form_error('subject_name')?></span>
-                </div>
-                <div class="form-group">
-                    <label for="username">Subject Code - <font color="gray" ><?php echo $_SESSION['subject_code'];?></font></label>
-                    <input type="text" class="form-control" id="subject_code" name="subject_code" value="<?php echo $_SESSION['subject_code'];?>"/>
-                    <span class="text-danger"><?php echo form_error('subject_code')?></span>
-                </div>
+				<div class="form-group">
+					<label for="username">Subject Code</label>
+					<input type="text" style="color:midnightblue; " class="form-control" id="subject_code" name="subject_code" value="<?php echo $_SESSION['subject_code'];?>"readonly>
+					<span class="text-danger"><?php echo form_error('subject_code')?></span>
+				</div>
+				<div class="form-group">
+					<label for="username">Subject Name - <font color="gray" ><?php echo $_SESSION['subject_name'];?></font></label>
+					<input type="text" class="form-control" id="subject_name" name="subject_name" value="<?php echo $_SESSION['subject_name'];?>" />
+					<span class="text-danger"><?php echo form_error('subject_name')?></span>
+				</div>
                 <div class="form-group">
 					<?php if($_SESSION['year']==1){
 						$s1='selected';

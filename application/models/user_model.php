@@ -27,6 +27,7 @@ class user_model extends CI_Model
 	}
 
 	function update_user_account_data($data,$username){
+
         $this->db->where('username', $username);
         $this->db->update('user',$data);
     }
@@ -107,12 +108,6 @@ class user_model extends CI_Model
 		}else{
 			$this->session->set_flashdata('msg', 'This file is already exists.');
 		}
-
-
-
-
-
-
     }
 
     function insert_cat($data,$cat){
