@@ -27,8 +27,14 @@ $url= basename($actual_link);
 			<?php
 			if($this->session->flashdata('msg')){
 				?>
+				<div class="alert alert-danger">
+					<span class="text-danger"> <?php echo $this->session->flashdata('msg'); ?></span>
+				</div>
+				<?php
+			}if($this->session->flashdata('msg1')){
+				?>
 				<div class="alert alert-success">
-					<span class="text-success"> <?php echo $this->session->flashdata('msg'); ?></span>
+					<span class="text-success"> <?php echo $this->session->flashdata('msg1'); ?></span>
 				</div>
 				<?php
 			}

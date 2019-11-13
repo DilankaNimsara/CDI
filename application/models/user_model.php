@@ -96,12 +96,37 @@ class user_model extends CI_Model
 		}
 	}
 
-    function insert_file($data){
-        $this->db->insert("fileupload",$data);
+    function insert_file($data,$filename){
+		$this->db->select("file_name");
+		$this->db->from("fileupload");
+		$this->db->where('file_name', $filename);
+		$query = $this->db->get();
+		if($query->num_rows()==0){
+			$this->db->insert("fileupload",$data);
+			$this->session->set_flashdata('msg1', 'file successfully uploaded.');
+		}else{
+			$this->session->set_flashdata('msg', 'This file is already exists.');
+		}
+
+
+
+
+
+
     }
 
-    function insert_cat($data){
-        $this->db->insert("category_data",$data);
+    function insert_cat($data,$cat){
+		$this->db->select("category");
+		$this->db->from("category_data");
+		$this->db->where('category', $cat);
+		$query = $this->db->get();
+		if($query->num_rows()==0){
+			$this->db->insert("category_data",$data);
+			$this->session->set_flashdata('msg1', 'Undergraduate course inserted..');
+		}else{
+			$this->session->set_flashdata('msg', '<b>'.str_replace('_','',strtoupper($cat)).'</b> is already exists.');
+		}
+
     }
 
     function fetch_cat(){
@@ -169,8 +194,19 @@ class user_model extends CI_Model
         $this->dbforge->drop_table($category,true);
     }
 
-    function insertdata($tname,$data){
-        $this->db->insert($tname,$data);
+    function insertdata($tname,$data,$subject_code){
+
+		$this->db->select("subject_code");
+		$this->db->from("$tname");
+		$this->db->where('subject_code', $subject_code);
+		$query = $this->db->get();
+		if($query->num_rows()==0){
+			$this->db->insert($tname,$data);
+			$this->session->set_flashdata('msg1', 'New subject is successfully inserted');
+		}else{
+			$this->session->set_flashdata('msg', 'Subject code <b>'.str_replace('_','',strtoupper($subject_code)).'</b> is already exists.');
+		}
+
     }
 
     function fetch_subject($category_name){
@@ -477,11 +513,33 @@ class user_model extends CI_Model
 		return $query;
 	}
 
-	function insert_External($data){
-		$this->db->insert("external",$data);
+	function insert_External($data,$cat){
+
+
+		$this->db->select("category");
+		$this->db->from("external");
+		$this->db->where('category', $cat);
+		$query = $this->db->get();
+		if($query->num_rows()==0){
+			$this->db->insert("external",$data);
+			$this->session->set_flashdata('msg1', 'External course successfully inserted.');
+		}else{
+			$this->session->set_flashdata('msg', '<b>'.str_replace('_','',strtoupper($cat)).'</b> is already exists.');
+		}
+
 	}
-	function insert_Postgraduate($data){
-		$this->db->insert("postgraduate",$data);
+	function insert_Postgraduate($data,$cat){
+		$this->db->select("category");
+		$this->db->from("postgraduate");
+		$this->db->where('category', $cat);
+		$query = $this->db->get();
+		if($query->num_rows()==0){
+			$this->db->insert("postgraduate",$data);
+			$this->session->set_flashdata('msg1', 'Undergraduate course inserted..');
+		}else{
+			$this->session->set_flashdata('msg', '<b>'.str_replace('_','',strtoupper($cat)).'</b> is already exists.');
+		}
+
 	}
 
 	function fetch_category_type($account_type){

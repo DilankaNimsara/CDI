@@ -347,8 +347,8 @@ class login_controller extends CI_Controller
                 </script>
 
                 <?php
-                $this->user_model->insert_file($data);
-				$this->session->set_flashdata('msg', 'file successfully uploaded.');
+                $this->user_model->insert_file($data,$up_file_name['file_name']);
+//				$this->session->set_flashdata('msg', 'file successfully uploaded.');
             }
         } else {
             $this->uploadFile();
@@ -440,10 +440,10 @@ class login_controller extends CI_Controller
             </script>
 
             <?php
-			$this->session->set_flashdata('msg1', 'Undergraduate course inserted.');
+//			$this->session->set_flashdata('msg1', 'Undergraduate course inserted.');
             $name=str_replace(' ', '_', $this->input->post("category"));
 
-            $this->user_model->insert_cat($data);
+            $this->user_model->insert_cat($data,$cat);
             $this->load->model('user_model');
             $this->user_model->create_tables($name);
 
@@ -724,7 +724,7 @@ class login_controller extends CI_Controller
                 "year" => $this->input->post("year"),
                 "semester" => $this->input->post("semester")
             );
-            $this->user_model->insertdata($tname,$data);
+            $this->user_model->insertdata($tname,$data,$subject_code);
             ?>
 
             <script>
@@ -732,7 +732,7 @@ class login_controller extends CI_Controller
                 window.location.href = '<?php echo base_url();?>login_controller/reopen_View_cat_details';
             </script>
             <?php
-			$this->session->set_flashdata('msg1', 'New subject is successfully inserted');
+//			$this->session->set_flashdata('msg1', 'New subject is successfully inserted');
         }else{
 			$this->session->set_flashdata('msg', 'Oops! something went wrong.');
             $this->reopen_View_cat_details();
@@ -759,7 +759,7 @@ class login_controller extends CI_Controller
 				"year" => $this->input->post("year"),
 				"semester" => $this->input->post("semester")
 			);
-			$this->user_model->insertdata($tname,$data);
+			$this->user_model->insertdata($tname,$data,$subject_code);
 			?>
 
 			<script>
@@ -767,7 +767,7 @@ class login_controller extends CI_Controller
                 window.location.href = '<?php echo base_url();?>login_controller/reopen_View_cat_details_post_graduate';
 			</script>
 			<?php
-			$this->session->set_flashdata('msg1', 'New subject is successfully inserted');
+//			$this->session->set_flashdata('msg1', 'New subject is successfully inserted');
 		}else{
 			$this->session->set_flashdata('msg', 'Oops! something went wrong.');
 			$this->reopen_View_cat_details_post_graduate();
@@ -793,7 +793,7 @@ class login_controller extends CI_Controller
 				"year" => $this->input->post("year"),
 				"semester" => $this->input->post("semester")
 			);
-			$this->user_model->insertdata($tname,$data);
+			$this->user_model->insertdata($tname,$data,$subject_code);
 			?>
 
 			<script>
@@ -801,7 +801,7 @@ class login_controller extends CI_Controller
                 window.location.href = '<?php echo base_url();?>login_controller/reopen_View_cat_details_external';
 			</script>
 			<?php
-			$this->session->set_flashdata('msg1', 'New subject is successfully inserted');
+//			$this->session->set_flashdata('msg1', 'New subject is successfully inserted');
 		}else{
 			$this->session->set_flashdata('msg', 'Oops! something went wrong.');
 			$this->reopen_View_cat_details_external();
@@ -972,10 +972,10 @@ class login_controller extends CI_Controller
 			</script>
 
 			<?php
-			$this->session->set_flashdata('msg1', 'External course inserted.');
+//			$this->session->set_flashdata('msg1', 'External course inserted.');
 			$name=str_replace(' ', '_', $this->input->post("category"));
 
-			$this->user_model->insert_external($data);
+			$this->user_model->insert_external($data,$cat);
 			$this->load->model('user_model');
 			$this->user_model->create_tables($name);
 
@@ -1007,10 +1007,10 @@ class login_controller extends CI_Controller
 			</script>
 
 			<?php
-			$this->session->set_flashdata('msg1', 'Postgraduate course inserted.');
+//			$this->session->set_flashdata('msg1', 'Postgraduate course inserted.');
 			$name=str_replace(' ', '_', $this->input->post("category"));
 
-			$this->user_model->insert_postgraduate($data);
+			$this->user_model->insert_postgraduate($data,$cat);
 			$this->load->model('user_model');
 			$this->user_model->create_tables($name);
 
