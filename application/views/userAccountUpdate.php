@@ -16,6 +16,16 @@
 			<?php include 'sidenav.php';?>
 		</div>
 		<div class="col-sm-10">
+			<br/>
+			<?php
+			if($this->session->flashdata('msg')){
+				?>
+				<div class="alert alert-danger">
+					<span class="text-danger"> <?php echo $this->session->flashdata('msg'); ?></span>
+				</div>
+				<?php
+			}
+			?>
 			<div class="container" style="margin-left:auto; width: 500px ">
 				<div class="row">
 					<div class="col-4">
@@ -64,15 +74,15 @@
 					<div class="form-group">
 						<label for="password">New Password / Current Password</label>
 						<input type="password" class="form-control" name="password" id="password2" placeholder="Enter password"/>
-						<span class="text-danger"><?php echo form_error('password') ?></span>
 						<span toggle="#password2" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+						<span class="text-danger"><?php echo form_error('password') ?></span>
 					</div>
 
 					<div class="form-group">
 						<label for="password">Confirm Password</label>
 						<input type="password" class="form-control" name="conpass" id="password1" placeholder="Re-enter password"/>
-						<span class="text-danger"><?php echo form_error('conpass') ?></span>
 						<span toggle="#password1" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+						<span class="text-danger"><?php echo form_error('conpass') ?></span>
 					</div>
 
 

@@ -33,8 +33,8 @@
 					<div class="form-group">
 						<label for="password">Password</label>
 						<input type="password" class="form-control" name="password" id="password" placeholder="Enter password"/>
-						<span class="text-danger"><?php echo form_error('password')?></span>
 						<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+						<span class="text-danger"><?php echo form_error('password')?></span>
 					</div>
 					<div class="form-group form-check">
 						<a href="#">Forgot Password?</a>

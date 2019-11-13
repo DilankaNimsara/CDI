@@ -16,7 +16,15 @@
 		<div class="col-sm-10">
 
 			<h1 style="color: midnightblue;">......... Summary .........</h1>
-
+			<?php
+			if($this->session->flashdata('msg')){
+				?>
+				<div class="alert alert-danger">
+					<span class="text-danger"> <?php echo $this->session->flashdata('msg'); ?></span>
+				</div>
+				<?php
+			}
+			?>
 			<div class="col-sm-9">
 			<div class="container ">
 				<div class="form-group">

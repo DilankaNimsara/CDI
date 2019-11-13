@@ -157,8 +157,11 @@ class login_controller extends CI_Controller
 
             $this->user_model->update_user_account_data($data, $_SESSION['account_username']);
 			$this->session->set_flashdata('msg', 'Username <b>'.$_SESSION['account_username']."</b>'s password updated.");
-            redirect(base_url() . "login_controller/manageAccount");
-
+			if($_SESSION['report']!="report") {
+				redirect(base_url() . "login_controller/manageAccount");
+			}else{
+				redirect(base_url() . "login_controller/report");
+			}
         }else{
             $this->refilter();
         }
@@ -225,10 +228,9 @@ class login_controller extends CI_Controller
                 "password" => $this->input->post("password"),
                 "email" => $this->input->post("email")
             );
-			$this->session->unset_userdata('username');
 
-			$this->session->unset_userdata('username');
             $this->user_model->update_data($data, $this->input->post("username"));
+			$this->session->set_flashdata('msg', 'Account updated.');
             redirect(base_url() . "login_controller/useraccountupdate");
 
         } else {
@@ -750,12 +752,15 @@ class login_controller extends CI_Controller
 			?>
 
 			<script>
-                alert('One Subject is successfully inserted');
+                // alert('One Subject is successfully inserted');
                 window.location.href = '<?php echo base_url();?>login_controller/reopen_View_cat_details_post_graduate';
 			</script>
 			<?php
+			$this->session->set_flashdata('msg', 'New subject is successfully inserted');
 		}else{
+			$this->session->set_flashdata('msg', 'Oops! something went wrong.');
 			$this->reopen_View_cat_details_post_graduate();
+
 		}
 	}
 
@@ -781,11 +786,13 @@ class login_controller extends CI_Controller
 			?>
 
 			<script>
-                alert('One Subject is successfully inserted');
+                // alert('One Subject is successfully inserted');
                 window.location.href = '<?php echo base_url();?>login_controller/reopen_View_cat_details_external';
 			</script>
 			<?php
+			$this->session->set_flashdata('msg', 'New subject is successfully inserted');
 		}else{
+			$this->session->set_flashdata('msg', 'Oops! something went wrong.');
 			$this->reopen_View_cat_details_external();
 		}
 	}
@@ -810,6 +817,7 @@ class login_controller extends CI_Controller
 		if ($subject != '') {
 			$this->user_model->delete_cat_data($subject,$category);
 		}
+		$this->session->set_flashdata('msg', 'Subject '.$subject.' is successfully deleted');
 		redirect(base_url() . "login_controller/reopen_View_cat_details_post_graduate");
 	}
 
@@ -821,6 +829,7 @@ class login_controller extends CI_Controller
 		if ($subject != '') {
 			$this->user_model->delete_cat_data($subject,$category);
 		}
+		$this->session->set_flashdata('msg', 'Subject '.$subject.' is successfully deleted');
 		redirect(base_url() . "login_controller/reopen_View_cat_details_external");
 	}
 
@@ -864,8 +873,10 @@ class login_controller extends CI_Controller
             $this->user_model->update_category_fileupload($data2,$old_subject_code);
 
 			if($_SESSION['accounttype']=="postgraduate"){
+				$this->session->set_flashdata('msg', 'Subject is successfully updated');
 				redirect(base_url('login_controller/reopen_View_cat_details_post_graduate'));
 			}elseif($_SESSION['accounttype']=="external_deg"){
+				$this->session->set_flashdata('msg', 'Subject is successfully updated');
 				redirect(base_url('login_controller/reopen_View_cat_details_external'));
 			}else{
 				?>

@@ -67,7 +67,15 @@
 			</div>
 			<h4><a href="<?php echo base_url()?>login_controller/External_Deg"><span style="color: white";> Go Back </span><span style="color: white;" class="glyphicon glyphicon-triangle-left"></span></a></h4>
 
-
+			<?php
+			if($this->session->flashdata('msg')){
+				?>
+				<div class="alert alert-danger">
+					<span class="text-danger"> <?php echo $this->session->flashdata('msg'); ?></span>
+				</div>
+				<?php
+			}
+			?>
 <br/>
 			<span align="right"><b>Total <u><?php echo strtoupper($catName)?></u> Subjects - <?php echo $count;?></b></span>
 

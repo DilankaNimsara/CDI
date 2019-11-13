@@ -13,6 +13,7 @@
     <div class="row content">
         <br/>
         <br/>
+
         <div class="col-sm-1">
 			<?php
 			if($_SESSION['report']=="report"){
@@ -156,14 +157,14 @@
 								<div class="form-group">
 									<label for="password">Password</label>
 									<input type="password" class="form-control" id="password" name="password" >
-									<span class="text-danger"><?php echo form_error('password')?></span>
 									<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+									<span class="text-danger"><?php echo form_error('password')?></span>
 								</div>
 								<div class="form-group">
 									<label for="con_password">Confirm Password</label>
 									<input type="password" class="form-control" name="con_password" id="con_password" >
-									<span class="text-danger"><?php echo form_error('con_password')?></span>
 									<span toggle="#con_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
 								</div>
 
 							<?php
@@ -172,14 +173,14 @@
 								<div class="form-group">
 									<label for="password">Password</label>
 									<input type="password" class="form-control" id="password" name="password" >
-									<span class="text-danger"><?php echo form_error('password')?></span>
 									<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+									<span class="text-danger"><?php echo form_error('password')?></span>
 								</div>
 								<div class="form-group">
 									<label for="con_password">Confirm Password</label>
 									<input type="password" class="form-control" name="con_password" id="con_password" >
-									<span class="text-danger"><?php echo form_error('con_password')?></span>
 									<span toggle="#con_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
 								</div>
 								<?php
 							}elseif (($this->session->userdata('username')==$_SESSION['account_username'])){
@@ -187,14 +188,14 @@
 								<div class="form-group">
 									<label for="password">Password</label>
 									<input type="password" class="form-control" id="password" name="password" >
-									<span class="text-danger"><?php echo form_error('password')?></span>
 									<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+									<span class="text-danger"><?php echo form_error('password')?></span>
 								</div>
 								<div class="form-group">
 									<label for="con_password">Confirm Password</label>
 									<input type="password" class="form-control" name="con_password" id="con_password" >
-									<span class="text-danger"><?php echo form_error('con_password')?></span>
 									<span toggle="#con_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
 								</div>
 								<?php
 							}else{
@@ -283,14 +284,14 @@
 								<div class="form-group">
 									<label for="password">Password</label>
 									<input type="password" class="form-control" id="password" name="password" >
-									<span class="text-danger"><?php echo form_error('password')?></span>
 									<span toggle="#password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+									<span class="text-danger"><?php echo form_error('password')?></span>
 								</div>
 								<div class="form-group">
 									<label for="con_password">Confirm Password</label>
 									<input type="password" class="form-control" name="con_password" id="con_password" >
-									<span class="text-danger"><?php echo form_error('con_password')?></span>
 									<span toggle="#con_password" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+									<span class="text-danger"><?php echo form_error('con_password')?></span>
 								</div>
 							<?php
 							}
@@ -375,14 +376,14 @@
 									<div class="form-group">
 										<label>Password</label>
 										<input type="password" class="form-control" id="pw" name="pw" placeholder="Enter admin password">
-										<span class="text-danger"><?php echo form_error('pw')?></span>
 										<span toggle="#pw" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+										<span class="text-danger"><?php echo form_error('pw')?></span>
 									</div>
 									<div class="form-group">
 										<label>Confirm Password</label>
 										<input type="password" class="form-control" id="confirm_pw" name="confirm_pw" placeholder="Re-enter admin password"/>
-										<span class="text-danger"><?php echo form_error('confirm_pw')?></span>
 										<span toggle="#confirm_pw" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+										<span class="text-danger"><?php echo form_error('confirm_pw')?></span>
 									</div>
 									<input type="text" class="hide" name="admin_password" value="<?php echo $this->session->userdata('password');?>" readonly>
 
