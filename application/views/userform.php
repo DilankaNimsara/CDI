@@ -44,6 +44,12 @@ for ($i = 0; $i < 8; $i++) {
 					<span class="text-danger"> <?php echo $this->session->flashdata("check_availability");?></span>
 				</div>
 			<?php
+			}elseif ($this->session->flashdata("check_availability1")){
+				?>
+				<div class="alert alert-success">
+					<span class="text-success"> <?php echo $this->session->flashdata("check_availability1");?></span>
+				</div>
+				<?php
 			}
 			?>
 

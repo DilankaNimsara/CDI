@@ -17,10 +17,10 @@
 
 			<h1 style="color: midnightblue;">......... Summary .........</h1>
 			<?php
-			if($this->session->flashdata('msg')){
+			if($this->session->flashdata('msg1')){
 				?>
-				<div class="alert alert-danger">
-					<span class="text-danger"> <?php echo $this->session->flashdata('msg'); ?></span>
+				<div class="alert alert-success">
+					<span class="text-success"> <?php echo $this->session->flashdata('msg1'); ?></span>
 				</div>
 				<?php
 			}

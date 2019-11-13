@@ -57,7 +57,7 @@ $url= basename($actual_link);
 					}
 					?>
 
-					<li class="<?php if($url == "Report"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/Report"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-folder-open"></span>Report (Posts) </a></li>
+					<li class="<?php if($url == "Report" || $url == "report"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/Report"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-folder-open"></span>Report (Posts) </a></li>
 
 					<?php
 				}

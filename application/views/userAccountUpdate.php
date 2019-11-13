@@ -20,8 +20,8 @@
 			<?php
 			if($this->session->flashdata('msg')){
 				?>
-				<div class="alert alert-danger">
-					<span class="text-danger"> <?php echo $this->session->flashdata('msg'); ?></span>
+				<div class="alert alert-success">
+					<span class="text-success"> <?php echo $this->session->flashdata('msg'); ?></span>
 				</div>
 				<?php
 			}

@@ -90,7 +90,7 @@ class user_model extends CI_Model
 		$query = $this->db->get();
 		if($query->num_rows()==0){
 			$this->db->insert("user",$data);
-			$this->session->set_flashdata('check_availability', 'User account is created.');
+			$this->session->set_flashdata('check_availability1', 'User account is created.');
 		}else{
 			$this->session->set_flashdata('check_availability', 'This user name is already exists.');
 		}
