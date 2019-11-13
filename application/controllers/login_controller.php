@@ -155,9 +155,16 @@ class login_controller extends CI_Controller
                 "email" => $this->input->post("email")
             );
 
-            if(($this->input->post("username"))!=$this->session->userdata('username')){
-				$this->session->set_userdata('username',$this->input->post("username"));
+            $p=strtolower((str_replace(' ', '_', $this->input->post("type"))));
+            $t=strtolower((str_replace(' ', '_', $this->input->post("post"))));
+			$_SESSION['post'];
+			$_SESSION['type'];
+			if(($_SESSION['post']==$p)&&($_SESSION['type']==$t)){
+				if(($this->input->post("username"))!=$this->session->userdata('username')){
+					$this->session->set_userdata('username',$this->input->post("username"));
+				}
 			}
+
 
             $this->user_model->update_user_account_data($data, $_SESSION['account_username']);
 			$this->session->set_flashdata('msg1', 'Username <b>'.$_SESSION['account_username']."</b>'s account successfully updated.");
