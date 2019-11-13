@@ -50,6 +50,8 @@
 		<div class="col-sm-10 text-left">
 			<!-- content -->
 			<br/>
+
+
             <div class="row">
             <center>
 			<div class="btn-group btn-group-justified" style="width: 95%;">
@@ -65,11 +67,20 @@
 				<?php
 				}
 				?>
-
 			</div>
             </center>
             </div>
 			<br/>
+			<?php
+			if($this->session->flashdata('msg')){
+				?>
+				<div class="alert alert-danger">
+					<span class="text-danger"> <?php echo $this->session->flashdata('msg'); ?></span>
+				</div>
+				<?php
+			}
+			?>
+
 			<?php
 			if($_SESSION['type']=='head_of_institute'){
 				?>

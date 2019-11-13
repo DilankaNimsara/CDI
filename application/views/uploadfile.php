@@ -23,7 +23,16 @@ $url= basename($actual_link);
 			<?php include 'sidenav.php';?>
 		</div>
 		<div class="col-sm-10">
-
+			<br/>
+			<?php
+			if($this->session->flashdata('msg')){
+				?>
+				<div class="alert alert-danger">
+					<span class="text-danger"> <?php echo $this->session->flashdata('msg'); ?></span>
+				</div>
+				<?php
+			}
+			?>
             <div class="container" style="width: 600px;">
                 <div class="form">
                     <hr>
@@ -31,10 +40,7 @@ $url= basename($actual_link);
                             <center><h1>Upload Document</h1></center>
                         </span>
                     <br/>
-
                 <?php echo form_open_multipart('login_controller/do_upload');?>
-
-
 					<table width="100%">
 						<tr>
 							<td width="25%" height="65px">

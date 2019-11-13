@@ -27,8 +27,29 @@
 			?>
            </div>
         <div class="col-sm-10">
-                <span class="text-danger"><?php echo form_error('pw')?></span>
-                <span class="text-danger"><?php echo form_error('confirm_pw')?></span>
+
+			<?php
+			if(form_error('pw')){
+				?>
+				<div class="alert alert-danger">
+					<span class="text-danger"> <?php echo form_error('pw');?> </span>
+				</div>
+				<?php
+			}elseif (form_error('confirm_pw')){
+				?>
+				<div class="alert alert-danger">
+					<span class="text-danger"> <?php echo form_error('confirm_pw'); ?></span>
+				</div>
+				<?php
+			}
+			if($this->session->flashdata('msg')){
+				?>
+				<div class="alert alert-danger">
+					<span class="text-danger"> <?php echo $this->session->flashdata('msg'); ?></span>
+				</div>
+				<?php
+			}
+			?>
             <hr>
             <h2 style="color: midnightblue;" ><center>Edit</center></h2>
 
@@ -363,7 +384,7 @@
 										<span class="text-danger"><?php echo form_error('confirm_pw')?></span>
 										<span toggle="#confirm_pw" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 									</div>
-									<input type="text" class="hide" name="admin_password" value="<?php echo $this->session->userdata('password')?>" readonly>
+									<input type="text" class="hide" name="admin_password" value="<?php echo $this->session->userdata('password');?>" readonly>
 
 									<center>
 										<button type="submit" class="btn btn-danger" name="delete" value="Delete">Delete</button>

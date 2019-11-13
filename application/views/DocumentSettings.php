@@ -23,7 +23,18 @@
 					</div>
 				</center>
 			</div>
+			<br/>
+			<?php
+			if($this->session->flashdata('msg')){
+				?>
+				<div class="alert alert-danger">
+					<span class="text-danger"> <?php echo $this->session->flashdata('msg'); ?></span>
+				</div>
+				<?php
+			}
+			?>
 		</div>
+
         <div class="col-sm-5">
             <?php
             $count=0;

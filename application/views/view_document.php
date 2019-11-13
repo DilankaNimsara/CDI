@@ -16,6 +16,15 @@
 		<!-- content -->
 
         <br/>
+		<?php
+		if($this->session->flashdata('delete_massage')){
+			?>
+			<div class="alert alert-danger">
+				<span class="text-danger"> <?php echo $this->session->flashdata('delete_massage'); ?></span>
+			</div>
+			<?php
+		}
+		?>
         <div class="container ">
             <div class="form-group">
                 <div class="input-group">
@@ -23,8 +32,6 @@
                     <input type="text" name="search_text" id="search_text" placeholder="Search..." class="form-control" style="width: 350px;" />
                 </div>
             </div>
-
-			<span class="text-danger"> <?php echo $this->session->flashdata("delete_massage");?></span>
 			<br/>
             <div style="width: 100%; font-size: 13px;" id="result"></div>
         </div>
