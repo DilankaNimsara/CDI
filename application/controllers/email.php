@@ -17,7 +17,7 @@ class email extends CI_Controller
 		$mail->isHTML();
 		$mail->Username = 'mrdoc.dms@gmail.com';
 		$mail->Password = 'mrdoc100100100';
-		$mail->setFrom('no-reply@howcode.org');
+		$mail->setFrom('noreply@example.com');
 
 		$mail->Subject = $_SESSION['subject'];
 		$mail->Body = $_SESSION['body'];

@@ -208,7 +208,12 @@
 								?>
 								<br/>
 								<center>
-									<h4 class="text-danger">You cant edit or delete this profile. Contact <a><?php echo $_SESSION['account_username'];?></a> or <a>QAC Head</a></h4>
+									<h4 class="text-danger">You cant edit or delete this profile. Contact <?php if($_SESSION['account_post']=='qac_head'){
+
+										}else{
+											echo ' <a data-toggle="modal" data-target="#send_massage" id="1">'. $_SESSION['account_username'] .'</a> or ';
+										}
+										?><a data-toggle="modal" data-target="#send_massage_qac" id="2">QAC Head</a></h4>
 								</center>
 							<?php
 							}
@@ -578,6 +583,172 @@
 
 					</div>
 				</div>
+				<!-------------------------------------------- add or change course pop up end------------------------------------------------->
+
+				<!-------------------------------------------- send massage pop up ------------------------------------------------->
+
+
+				<div class="modal fade" id="send_massage" role="dialog">
+					<div class="modal-dialog">
+
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Message form</h4>
+							</div>
+							<div class="modal-body">
+
+								<form method="post" action="<?php echo base_url();?>login_controller/contact_user">
+									<table width="100%">
+										<tr>
+											<td width="100px">
+												From
+											</td>
+											<td>
+												<div class="form-group">
+													<input type="text" style="color: midnightblue;" class="form-control" id="from_email" name="from_email" value="<?php echo $_SESSION['myemail'];?>" readonly >
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td width="100px">
+												To
+											</td>
+											<td>
+												<div class="form-group">
+													<input type="text" style="color: midnightblue;" class="form-control" id="to_email" name="to_email" value="<?php echo $_SESSION['account_email'];?>" readonly>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td width="100px">
+												Subject
+											</td>
+											<td>
+												<div class="form-group">
+													<input type="text" style="color: midnightblue;" class="form-control" id="subject" name="subject"  >
+													<span class="text-danger"><?php echo form_error('subject')?></span>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td width="100px">
+												Message
+											</td>
+											<td>
+												<div class="form-group">
+													<textarea rows="5" style="color: midnightblue;" cols="50" class="form-control" id="Message" name="Message"> </textarea>
+													<span class="text-danger"><?php echo form_error('Message')?></span>
+												</div>
+											</td>
+										</tr>
+									</table>
+									<input type="text" name="account_username" class="hide" value="<?php echo $_SESSION['account_username'] ;?>">
+									<input type="text" name="account_email" class="hide" value="<?php echo $_SESSION['account_email'] ;?>">
+
+									<center>
+										<button type="submit" class="btn btn-primary" name="submit" value="Submit">Send Massage</button>
+									</center>
+								</form>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+<!--				---------------------------------------------------------------------------------------------------->
+				<div class="modal fade" id="send_massage_qac" role="dialog">
+					<div class="modal-dialog">
+
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Message form</h4>
+							</div>
+							<div class="modal-body">
+
+								<form method="post" action="<?php echo base_url();?>login_controller/contact_user">
+									<table width="100%">
+										<tr>
+											<td width="100px">
+												From
+											</td>
+											<td>
+												<div class="form-group">
+													<input type="text" style="color: midnightblue;" class="form-control" id="from_email" name="from_email" value="<?php echo $_SESSION['myemail'];?>" readonly >
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td width="100px">
+												To
+											</td>
+											<td>
+												<div class="form-group">
+													<input type="text" style="color: midnightblue;" class="form-control" id="to_email" name="to_email" value="<?php echo $_SESSION['qac_head_email'];?>" readonly>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td width="100px">
+												Subject
+											</td>
+											<td>
+												<div class="form-group">
+													<input type="text" style="color: midnightblue;" class="form-control" id="subject" name="subject"  >
+													<span class="text-danger"><?php echo form_error('subject')?></span>
+												</div>
+											</td>
+										</tr>
+										<tr>
+											<td width="100px">
+												Message
+											</td>
+											<td>
+												<div class="form-group">
+													<textarea rows="5" style="color: midnightblue;" cols="50" class="form-control" id="Message" name="Message"> </textarea>
+													<span class="text-danger"><?php echo form_error('Message')?></span>
+												</div>
+											</td>
+										</tr>
+									</table>
+									<input type="text" name="account_username" class="hide" value="<?php echo $_SESSION['account_username'] ;?>">
+									<input type="text" name="account_email" class="hide" value="<?php echo $_SESSION['account_email'] ;?>">
+
+									<center>
+										<button type="submit" class="btn btn-primary" name="submit" value="Submit">Send Massage</button>
+									</center>
+								</form>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
+
+
+				<!-------------------------------------------- send massage pop up end------------------------------------------------->
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 			</div>
             </div>

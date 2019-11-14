@@ -24,14 +24,19 @@ class login_controller extends CI_Controller
 				$data['fetch_data'] = $this->user_model->userdetails();
 				if ($data['fetch_data']->num_rows() > 0) {
 					foreach ($data['fetch_data']->result() as $row) {
+						if(($row->post)=='qac_head'){
+							$_SESSION['qac_head_email']=$row->email;
+						}
 						if(($username==$row->username)&&($password = $row->password)){
 							if($row->course_name){
 								$_SESSION['post']=$row->post;
+								$_SESSION['myemail']=$row->email;
 								$_SESSION['type']=$row->type;
 								$_SESSION['course_name']=$row->course_name;
 							}else{
 								$_SESSION['type']=$row->type;
 								$_SESSION['post']=$row->post;
+								$_SESSION['myemail']=$row->email;
 								$_SESSION['course_name']='';
 							}
 
@@ -122,7 +127,7 @@ class login_controller extends CI_Controller
 			$mail->isHTML();
 			$mail->Username = 'mrdoc.dms@gmail.com';
 			$mail->Password='mrdoc100100100';
-			$mail->setFrom('no-reply@howcode.org');
+			$mail->setFrom('noreply@example.com');
 
 			$mail->Subject='MrDoc signed up';
 			$mail->Body=$body;
@@ -130,7 +135,6 @@ class login_controller extends CI_Controller
 			if($this->session->flashdata("check")=='check'){
 				$mail->Send();
 			}
-
 
 			redirect(base_url() . "login_controller/userForm");
 
@@ -1133,6 +1137,39 @@ class login_controller extends CI_Controller
 			$this->refilter();
 		}
 
+	}
+	public function contact_user(){
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('subject', 'subject', 'required');
+		$this->form_validation->set_rules('Message', 'Message', 'required');
+
+		if ($this->form_validation->run()) {
+
+			include './public/PHPMailer/PHPMailerAutoload.php';
+
+			$mail=new PHPMailer();
+			$mail->isSMTP();
+			$mail->SMTPAuth = true;
+			$mail->SMTPSecure = 'ssl';
+			$mail->Host = 'smtp.gmail.com';
+			$mail->Port = '465';
+			$mail->isHTML();
+			$mail->Username = 'mrdoc.dms@gmail.com';
+			$mail->Password='mrdoc100100100';
+			$mail->setFrom('noreply@example.com');
+			$mail->Subject=$this->input->post("from_email");
+			$mail->Body= '<b>'.$this->input->post("subject").'</b><br/>'.$this->input->post("account_username").'<br/>'.$this->input->post("account_email").'<br/>'.$this->input->post("Message");
+			$mail->AddAddress($this->input->post("to_email"));
+			if($mail->Send()){
+				$this->session->set_flashdata('msg1', 'Your message has been successfully sent .');
+			}else{
+				$this->session->set_flashdata('msg', 'Oops something went wrong! send fail.');
+			}
+			redirect(base_url().'login_controller/refilter');
+		}else{
+			redirect(base_url().'login_controller/refilter');
+		}
 	}
 
 
