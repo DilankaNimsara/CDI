@@ -93,7 +93,7 @@ class user_model extends CI_Model
 			$this->db->insert("user",$data);
 			$this->session->set_flashdata('msg1', 'User account is created.');
 			$this->session->set_flashdata('check', 'check');
-			
+
 		}else{
 			$this->session->set_flashdata('msg', 'This user name is already exists.');
 		}

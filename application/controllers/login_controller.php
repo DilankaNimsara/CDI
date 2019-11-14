@@ -375,7 +375,7 @@ class login_controller extends CI_Controller
 
                 <?php
                 $this->user_model->insert_file($data,$up_file_name['file_name']);
-				$this->session->set_flashdata('msg', 'file successfully uploaded.');
+//				$this->session->set_flashdata('msg', 'file successfully uploaded.');
             }
         } else {
             $this->uploadFile();
