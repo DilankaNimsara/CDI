@@ -2,6 +2,9 @@
 <!DOCTYPE html>
 
 <head>
+	<?php
+	include 'autologout.php';
+	?>
 <title>
 Index
 </title>

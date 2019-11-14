@@ -100,11 +100,40 @@ class login_controller extends CI_Controller
 				"course_name" =>$this->input->post("course_name")
             );
             $this->user_model->insert_data($data,$this->input->post("username"));
-            ?>
-            <script>
-                window.location.href = '<?php echo base_url();?>login_controller/userForm';
-            </script>
-            <?php
+
+            $body='<center>Your MrDoc account successfully created. </br> Click hear to login "http://localhost/CDI/" <br/> 
+			your password : <font color="blue">'.$this->input->post("password").'</font> and username :<font color="blue">' .$this->input->post("username").'</font> <br/> use this password for login. then you can change it.<br/>
+			 <br/>
+			 <br/>
+			 <br/>
+			 Thank you!<br/>
+			 &copy; Copyright - MrDoc<br/>
+			 2019
+			 </center>';
+
+			include './public/PHPMailer/PHPMailerAutoload.php';
+
+			$mail=new PHPMailer();
+			$mail->isSMTP();
+			$mail->SMTPAuth = true;
+			$mail->SMTPSecure = 'ssl';
+			$mail->Host = 'smtp.gmail.com';
+			$mail->Port = '465';
+			$mail->isHTML();
+			$mail->Username = 'mrdoc.dms@gmail.com';
+			$mail->Password='mrdoc100100100';
+			$mail->setFrom('no-reply@howcode.org');
+
+			$mail->Subject='MrDoc signed up';
+			$mail->Body=$body;
+			$mail->AddAddress($this->input->post("email"));
+			if($this->session->flashdata("check")=='check'){
+				$mail->Send();
+			}
+
+
+			redirect(base_url() . "login_controller/userForm");
+
         } else {
             $this->userForm();
         }

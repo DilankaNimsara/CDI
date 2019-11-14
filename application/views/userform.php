@@ -38,16 +38,16 @@ for ($i = 0; $i < 8; $i++) {
 			</div>
 			<br/>
 			<?php
-			if($this->session->flashdata("check_availability")){
+			if($this->session->flashdata("msg")){
 				?>
 				<div class="alert alert-danger">
-					<span class="text-danger"> <?php echo $this->session->flashdata("check_availability");?></span>
+					<span class="text-danger"> <?php echo $this->session->flashdata("msg");?></span>
 				</div>
 			<?php
-			}elseif ($this->session->flashdata("check_availability1")){
+			}elseif ($this->session->flashdata("msg1")){
 				?>
 				<div class="alert alert-success">
-					<span class="text-success"> <?php echo $this->session->flashdata("check_availability1");?></span>
+					<span class="text-success"> <?php echo $this->session->flashdata("msg1");?></span>
 				</div>
 				<?php
 			}
