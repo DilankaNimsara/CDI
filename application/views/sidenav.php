@@ -56,16 +56,14 @@ $url= basename($actual_link);
 						<?php
 					}
 					?>
-
 					<li class="<?php if($url == "Report" || $url == "report"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/Report"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-folder-open"></span>Report (Posts) </a></li>
-
 					<?php
 				}
 				?>
 
-
-
 				<li class="<?php if($url == "useraccountupdate" || $url == "user_account_update_validation"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/useraccountupdate"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench"></span>My profile</a></li>
+
+				<li class="<?php if($url == "send_message" || $url == "send_message_accounts"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/send_message"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-comment"></span>Message</a></li>
 
 			</ul><br>
 

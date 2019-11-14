@@ -29,7 +29,16 @@
            </div>
         <div class="col-sm-10">
 
+
 			<?php
+			if(form_error('Message')||form_error('subject')){
+				?>
+				<div class="alert alert-danger">
+					<span class="text-danger"><?php echo form_error('Message');?></span>
+					<span class="text-danger"><?php echo form_error('subject');?></span>
+				</div>
+				<?php
+			}
 			if(form_error('pw')){
 				?>
 				<div class="alert alert-danger">
@@ -700,7 +709,6 @@
 											<td>
 												<div class="form-group">
 													<input type="text" style="color: midnightblue;" class="form-control" id="subject" name="subject"  >
-													<span class="text-danger"><?php echo form_error('subject')?></span>
 												</div>
 											</td>
 										</tr>
@@ -711,7 +719,6 @@
 											<td>
 												<div class="form-group">
 													<textarea rows="5" style="color: midnightblue;" cols="50" class="form-control" id="Message" name="Message"> </textarea>
-													<span class="text-danger"><?php echo form_error('Message')?></span>
 												</div>
 											</td>
 										</tr>

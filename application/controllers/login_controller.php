@@ -1140,7 +1140,6 @@ class login_controller extends CI_Controller
 	}
 	public function contact_user(){
 		$this->load->library('form_validation');
-
 		$this->form_validation->set_rules('subject', 'subject', 'required');
 		$this->form_validation->set_rules('Message', 'Message', 'required');
 
@@ -1159,7 +1158,7 @@ class login_controller extends CI_Controller
 			$mail->Password='mrdoc100100100';
 			$mail->setFrom('noreply@example.com');
 			$mail->Subject=$this->input->post("from_email");
-			$mail->Body= '<b>'.$this->input->post("subject").'</b><br/>'.$this->input->post("account_username").'<br/>'.$this->input->post("account_email").'<br/>'.$this->input->post("Message");
+			$mail->Body='from : '. $this->session->userdata('username').'<br/><b>'.$this->input->post("subject").'</b><br/>'.$this->input->post("account_username").'<br/>'.$this->input->post("account_email").'<br/>'.$this->input->post("Message");
 			$mail->AddAddress($this->input->post("to_email"));
 			if($mail->Send()){
 				$this->session->set_flashdata('msg1', 'Your message has been successfully sent .');
@@ -1168,10 +1167,61 @@ class login_controller extends CI_Controller
 			}
 			redirect(base_url().'login_controller/refilter');
 		}else{
-			redirect(base_url().'login_controller/refilter');
+			$this->refilter();
 		}
 	}
 
+	public function send_message(){
+		$this->load->view('message');
+	}
+
+	public function send_message_accounts(){
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('message', 'message', 'required');
+		$this->form_validation->set_rules('select_acc', 'Select category', 'required');
+		$this->load->model('user_model');
+		if($this->input->post('select_acc')==''){
+			$this->session->set_flashdata('box', 'you should select one box or you can select more');
+		}
+		if ($this->form_validation->run()) {
+
+			include './public/PHPMailer/PHPMailerAutoload.php';
+
+			$mail=new PHPMailer();
+			$mail->isSMTP();
+			$mail->SMTPAuth = true;
+			$mail->SMTPSecure = 'ssl';
+			$mail->Host = 'smtp.gmail.com';
+			$mail->Port = '465';
+			$mail->isHTML();
+			$mail->Username = 'mrdoc.dms@gmail.com';
+			$mail->Password='mrdoc100100100';
+			$mail->setFrom('noreply@example.com');
+			$mail->Subject=$this->input->post("from_email");
+			$mail->Body='from : '. $this->session->userdata('username').'('.$_SESSION['post'].')<br/>'.$this->input->post("message");
+//			$mail->AddAddress($this->input->post("to_email"));
+
+
+			if($this->input->post('select_acc')=='to_all'){
+				$data['fetch_data'] = $this->user_model->userdetails();
+				foreach ($data['fetch_data']->result() as $row) {
+					$mail->AddBcc($row->email);
+				}
+			}
+
+
+
+			if($mail->Send()){
+				$this->session->set_flashdata('msg1', 'Your message has been successfully sent .');
+			}else{
+				$this->session->set_flashdata('msg', 'Oops something went wrong! send fail.');
+			}
+			redirect(base_url().'login_controller/send_message');
+
+		}else{
+			$this->send_message();
+		}
+	}
 
 
 
