@@ -106,7 +106,7 @@ class login_controller extends CI_Controller
             );
             $this->user_model->insert_data($data,$this->input->post("username"));
 
-            $body='<center>Your MrDoc account successfully created. </br> Click hear to login "http://localhost/CDI/" <br/> 
+            $body='<center>Your MrDoc account successfully created. </br> Click here to login "http://localhost/CDI/" <br/> 
 			your password : <font color="blue">'.$this->input->post("password").'</font> and username :<font color="blue">' .$this->input->post("username").'</font> <br/> use this password for login. then you can change it.<br/>
 			 <br/>
 			 <br/>
@@ -371,15 +371,58 @@ class login_controller extends CI_Controller
 					"lecturer" => $this->input->post("lecturer"),
 					"doc_type" => $this->input->post("doc_type")
                 );
-                ?>
-                <script>
-                    // alert('Your file was successfully uploaded!');
-                    window.location.href = '<?php echo base_url();?>login_controller/uploadFile';
-                </script>
 
-                <?php
+				$body='<b>'.$_SESSION['myemail'].'</b> <br/>
+				
+				From : '.$this->session->userdata('username'). '('.str_replace('_', ' ', $_SESSION['type']).'-'.str_replace('_', ' ', $_SESSION['post']).')<br/>
+				File Name : '.$up_file_name['file_name'].' <br/>
+				Category : '.$this->input->post("category").'<br/>
+				year : '.$this->input->post("year").'<br/>
+				semester : '.$this->input->post("semester").'<br/>
+				Accademic year : '.$this->input->post("academic_year").'<br/>
+				Subject code : '.$this->input->post("subject_code").'<br/>
+				
+			 New file has been uploaded for your name.  </br> Click here to view "http://localhost/CDI/Home/viewDocument" <br/> 
+			 <br/>
+			 <br/>
+			 <br/>
+			 <center>
+			 Thank you!<br/>
+			 &copy; Copyright - MrDoc<br/>
+			 2019
+			 </center>';
+
                 $this->user_model->insert_file($data,$up_file_name['file_name']);
-//				$this->session->set_flashdata('msg', 'file successfully uploaded.');
+
+
+				include './public/PHPMailer/PHPMailerAutoload.php';
+
+				$mail=new PHPMailer();
+				$mail->isSMTP();
+				$mail->SMTPAuth = true;
+				$mail->SMTPSecure = 'ssl';
+				$mail->Host = 'smtp.gmail.com';
+				$mail->Port = '465';
+				$mail->isHTML();
+				$mail->Username = 'mrdoc.dms@gmail.com';
+				$mail->Password='mrdoc100100100';
+				$mail->setFrom('noreply@example.com');
+
+				$mail->Subject='New file Uploaded';
+				$mail->Body=$body;
+				$mail->addAttachment('uploads/'.$up_file_name['file_name']);
+				$data['fetch_data'] = $this->user_model->userdetails();
+
+				foreach ($data['fetch_data']->result() as $row) {
+					if($row->username==$this->input->post("lecturer")){
+						$mail->AddBcc($row->email);
+					}
+				}
+
+				if($this->session->flashdata("check")=='check'){
+					$mail->Send();
+				}
+				redirect(base_url('login_controller/uploadFile'));
             }
         } else {
             $this->uploadFile();
@@ -1207,7 +1250,7 @@ class login_controller extends CI_Controller
 			$mail->Username = 'mrdoc.dms@gmail.com';
 			$mail->Password='mrdoc100100100';
 			$mail->setFrom('noreply@example.com');
-			$mail->Subject=$this->input->post("from_email");
+			$mail->Subject=$_SESSION['myemail'];
 			$mail->Body='from : '. $this->session->userdata('username').'('.str_replace('_',' ',$_SESSION['post']).')<br/>'.$this->input->post("message").' <br/>
 			 <br/>
 			 <br/><center>
@@ -1352,6 +1395,18 @@ class login_controller extends CI_Controller
 							}
 						}
 					}
+
+
+//					if($this->input->post('select_acc')==('to_all_postgraduate_'.$row2->category)){
+//						$data['fetch_data'] = $this->user_model->userdetails();
+//						foreach ($data['fetch_data']->result() as $row) {
+//							foreach ($data["fetch_file_upload_lec"]->result() as $row3) {
+//								if((($row3->category)==$_SESSION['course_name'])){
+//									$mail->AddBcc($row->email);
+//								}
+//							}
+//						}
+//					}
 
 			}
 

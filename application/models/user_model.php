@@ -110,6 +110,7 @@ class user_model extends CI_Model
 		if($query->num_rows()==0){
 			$this->db->insert("fileupload",$data);
 			$this->session->set_flashdata('msg1', 'file successfully uploaded.');
+			$this->session->set_flashdata('check', 'check');
 		}else{
 			$this->session->set_flashdata('msg', 'This file is already exists.');
 		}

@@ -108,8 +108,26 @@
 										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
 										<?php
 									}
+
+									elseif (($_SESSION['post']=='course_coordinator')) {
+										foreach ($fetch_cat3->result() as $row) {
+											if(($_SESSION['course_name']==$row->category)&&($_SESSION['type']=='post_graduate')){
+												?>
+												<option name="select_acc" value="to_all_postgraduate_<?php echo $row->category;?>"  id="to_all_postgraduate_<?php echo $row->category;?>"> To all postgraduate <?php echo $row->category;?> lecturers</option>
+												<?php
+											}
+										}
+										?>
+
+										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
+										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
+										<?php
+									}
+
+
+
 									?>
-									?>
+
 
 
 
