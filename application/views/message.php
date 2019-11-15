@@ -149,6 +149,28 @@
 										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
 										<?php
 									}
+									elseif (($_SESSION['post']=='lecturer')&&($_SESSION['type']=='under_graduate')) {
+										?>
+										<option name="select_acc" value="to_undergraduate_head"  id="to_undergraduate_head"> To Undergraduate head</option>
+										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
+										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
+										<?php
+									}
+
+									elseif (($_SESSION['post']=='lecturer')&&($_SESSION['type']=='post_graduate')) {
+										?>
+										<option name="select_acc" value="to_postgraduate_head"  id="to_postgraduate_head"> To Postgraduate head</option>
+										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
+										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
+										<?php
+									}
+									elseif (($_SESSION['post']=='lecturer')&&($_SESSION['type']=='external')) {
+										?>
+										<option name="select_acc" value="to_external_head"  id="to_external_head"> To External head</option>
+										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
+										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
+										<?php
+									}
 
 									?>
 

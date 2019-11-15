@@ -1437,8 +1437,6 @@ class login_controller extends CI_Controller
 				}
 			}
 
-
-
 			if($mail->Send()){
 				$this->session->set_flashdata('msg1', 'Your message has been successfully sent .');
 			}else{
