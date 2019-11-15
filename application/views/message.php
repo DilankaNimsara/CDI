@@ -109,22 +109,46 @@
 										<?php
 									}
 
-									elseif (($_SESSION['post']=='course_coordinator')) {
+									elseif (($_SESSION['post']=='course_coordinator')&&($_SESSION['type']=='post_graduate')) {
 										foreach ($fetch_cat3->result() as $row) {
-											if(($_SESSION['course_name']==$row->category)&&($_SESSION['type']=='post_graduate')){
+											if(($_SESSION['course_name']==$row->category)){
 												?>
-												<option name="select_acc" value="to_all_postgraduate_<?php echo $row->category;?>"  id="to_all_postgraduate_<?php echo $row->category;?>"> To all postgraduate <?php echo $row->category;?> lecturers</option>
+												<option name="select_acc" value="to_all_postgraduate_<?php echo $row->category;?>"  id="to_all_postgraduate_<?php echo $row->category;?>"> To all postgraduate <?php echo $row->category;?> lecturers </option>
 												<?php
 											}
 										}
 										?>
-
 										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
 										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
 										<?php
 									}
 
-
+									elseif (($_SESSION['post']=='course_coordinator')&&($_SESSION['type']=='under_graduate')) {
+										foreach ($fetch_cat2->result() as $row) {
+											if(($_SESSION['course_name']==$row->category)){
+												?>
+												<option name="select_acc" value="to_all_undergraduate_<?php echo $row->category;?>"  id="to_all_undergraduate_<?php echo $row->category;?>"> To all undergraduate <?php echo $row->category;?> lecturers </option>
+											<?php
+												}
+										}
+										?>
+										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
+										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
+										<?php
+									}
+									elseif (($_SESSION['post']=='course_coordinator')&&($_SESSION['type']=='external')) {
+										foreach ($fetch_cat->result() as $row) {
+											if(($_SESSION['course_name']==$row->category)){
+												?>
+												<option name="select_acc" value="to_all_external_<?php echo $row->category;?>"  id="to_all_external_<?php echo $row->category;?>"> To all undergraduate <?php echo $row->category;?> lecturers </option>
+												<?php
+											}
+										}
+										?>
+										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
+										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
+										<?php
+									}
 
 									?>
 

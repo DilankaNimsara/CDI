@@ -25,6 +25,13 @@ class user_model extends CI_Model
 		$query = $this->db->get('fileupload');
 		return $query;
 	}
+	function getfileupload(){
+		$this->db->select("*");
+		$this->db->from("fileupload");
+		$this->db->join('user', 'fileupload.lecturer = user.username');
+		$query = $this->db->get();
+		return $query;
+	}
 	function getexternal(){
 		$query = $this->db->get('external');
 		return $query;

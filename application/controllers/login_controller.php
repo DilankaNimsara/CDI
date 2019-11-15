@@ -1372,6 +1372,7 @@ class login_controller extends CI_Controller
 			}
 
 				$data["fetch_cat3"] = $this->user_model->fetch_cat_postgraduate();
+
 				foreach ($data["fetch_cat3"]->result() as $row2) {
 					if($this->input->post('select_acc')==$row2->category.'_course_coordinator'){
 						$data['fetch_data'] = $this->user_model->userdetails();
@@ -1397,20 +1398,44 @@ class login_controller extends CI_Controller
 					}
 
 
-//					if($this->input->post('select_acc')==('to_all_postgraduate_'.$row2->category)){
-//						$data['fetch_data'] = $this->user_model->userdetails();
-//						foreach ($data['fetch_data']->result() as $row) {
-//							foreach ($data["fetch_file_upload_lec"]->result() as $row3) {
-//								if((($row3->category)==$_SESSION['course_name'])){
-//									$mail->AddBcc($row->email);
-//								}
-//							}
-//						}
-//					}
-
+			}
+			foreach ($data["fetch_cat3"]->result() as $row) {
+				if (($_SESSION['course_name'] == $row->category)) {
+					if ($this->input->post('select_acc') == 'to_all_postgraduate_'.$row->category) {
+						$data['fetch_file'] = $this->user_model->getfileupload();
+						foreach ($data["fetch_file"]->result() as $row2) {
+							if (($row2->category) == $_SESSION['course_name']) {
+								$mail->AddBcc($row2->email);
+							}
+						}
+					}
+				}
 			}
 
-
+			foreach ($data["fetch_cat2"]->result() as $row) {
+				if (($_SESSION['course_name'] == $row->category)) {
+					if ($this->input->post('select_acc') == 'to_all_undergraduate_'.$row->category) {
+						$data['fetch_file'] = $this->user_model->getfileupload();
+						foreach ($data["fetch_file"]->result() as $row2) {
+							if (($row2->category) == $_SESSION['course_name']) {
+								$mail->AddBcc($row2->email);
+							}
+						}
+					}
+				}
+			}
+			foreach ($data["fetch_cat"]->result() as $row) {
+				if (($_SESSION['course_name'] == $row->category)) {
+					if ($this->input->post('select_acc') == 'to_all_external_'.$row->category) {
+						$data['fetch_file'] = $this->user_model->getfileupload();
+						foreach ($data["fetch_file"]->result() as $row2) {
+							if (($row2->category) == $_SESSION['course_name']) {
+								$mail->AddBcc($row2->email);
+							}
+						}
+					}
+				}
+			}
 
 
 
