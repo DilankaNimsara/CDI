@@ -1138,6 +1138,8 @@ class login_controller extends CI_Controller
 		}
 
 	}
+//	--------------------------------------contact qac head or user------------------------------------------------------
+
 	public function contact_user(){
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('subject', 'subject', 'required');
@@ -1158,7 +1160,13 @@ class login_controller extends CI_Controller
 			$mail->Password='mrdoc100100100';
 			$mail->setFrom('noreply@example.com');
 			$mail->Subject=$this->input->post("from_email");
-			$mail->Body='from : '. $this->session->userdata('username').'<br/><b>'.$this->input->post("subject").'</b><br/>'.$this->input->post("account_username").'<br/>'.$this->input->post("account_email").'<br/>'.$this->input->post("Message");
+			$mail->Body='from : '. $this->session->userdata('username').'<br/><b>'.$this->input->post("subject").'</b><br/>'.$this->input->post("account_username").'<br/>'.$this->input->post("account_email").'<br/>'.$this->input->post("Message").' <br/>
+			 <br/>
+			 <br/><center>
+			 Thank you!<br/>
+			 &copy; Copyright - MrDoc<br/>
+			 2019
+			 </center>';
 			$mail->AddAddress($this->input->post("to_email"));
 			if($mail->Send()){
 				$this->session->set_flashdata('msg1', 'Your message has been successfully sent .');
@@ -1172,17 +1180,19 @@ class login_controller extends CI_Controller
 	}
 
 	public function send_message(){
-		$this->load->view('message');
+		$this->load->model('user_model');
+		$data["fetch_cat"] = $this->user_model->getexternal();
+		$data["fetch_cat2"] = $this->user_model->fetch_cat();
+		$data["fetch_cat3"] = $this->user_model->fetch_cat_postgraduate();
+		$this->load->view('message',$data);
 	}
 
 	public function send_message_accounts(){
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('message', 'message', 'required');
-		$this->form_validation->set_rules('select_acc', 'Select category', 'required');
+		$this->form_validation->set_rules('select_acc', 'Select Send group', 'required');
 		$this->load->model('user_model');
-		if($this->input->post('select_acc')==''){
-			$this->session->set_flashdata('box', 'you should select one box or you can select more');
-		}
+
 		if ($this->form_validation->run()) {
 
 			include './public/PHPMailer/PHPMailerAutoload.php';
@@ -1198,16 +1208,154 @@ class login_controller extends CI_Controller
 			$mail->Password='mrdoc100100100';
 			$mail->setFrom('noreply@example.com');
 			$mail->Subject=$this->input->post("from_email");
-			$mail->Body='from : '. $this->session->userdata('username').'('.$_SESSION['post'].')<br/>'.$this->input->post("message");
-//			$mail->AddAddress($this->input->post("to_email"));
-
+			$mail->Body='from : '. $this->session->userdata('username').'('.str_replace('_',' ',$_SESSION['post']).')<br/>'.$this->input->post("message").' <br/>
+			 <br/>
+			 <br/><center>
+			 Thank you!<br/>
+			 &copy; Copyright - MrDoc<br/>
+			 2019
+			 </center>';
+//
 
 			if($this->input->post('select_acc')=='to_all'){
 				$data['fetch_data'] = $this->user_model->userdetails();
 				foreach ($data['fetch_data']->result() as $row) {
 					$mail->AddBcc($row->email);
 				}
+			}elseif($this->input->post('select_acc')=='to_head_of_institute'){
+				$data['fetch_data'] = $this->user_model->userdetails();
+				foreach ($data['fetch_data']->result() as $row) {
+					if(($row->post)=='head_of_institute'){
+						$mail->AddBcc($row->email);
+					}
+				}
+			}elseif($this->input->post('select_acc')=='to_external_head'){
+				$data['fetch_data'] = $this->user_model->userdetails();
+				foreach ($data['fetch_data']->result() as $row) {
+					if((($row->type)=='external')&&(($row->post)=='head_of_course')){
+						$mail->AddBcc($row->email);
+					}
+				}
+			} elseif($this->input->post('select_acc')=='to_postgraduate_head'){
+				$data['fetch_data'] = $this->user_model->userdetails();
+				foreach ($data['fetch_data']->result() as $row) {
+					if((($row->type)=='post_graduate')&&(($row->post)=='head_of_course')){
+						$mail->AddBcc($row->email);
+					}
+				}
+			}elseif($this->input->post('select_acc')=='to_undergraduate_head'){
+				$data['fetch_data'] = $this->user_model->userdetails();
+				foreach ($data['fetch_data']->result() as $row) {
+					if((($row->type)=='under_graduate')&&(($row->post)=='head_of_course')){
+						$mail->AddBcc($row->email);
+					}
+				}
 			}
+			elseif($this->input->post('select_acc')=='to_qac'){
+				$data['fetch_data'] = $this->user_model->userdetails();
+				foreach ($data['fetch_data']->result() as $row) {
+					if(($row->post)=='qac'){
+						$mail->AddBcc($row->email);
+					}
+				}
+			}
+			elseif($this->input->post('select_acc')=='to_all_heads'){
+				$data['fetch_data'] = $this->user_model->userdetails();
+				foreach ($data['fetch_data']->result() as $row) {
+					if(($row->post)=='head_of_course'){
+						$mail->AddBcc($row->email);
+					}
+				}
+			}elseif($this->input->post('select_acc')=='to_qac_head'){
+				$data['fetch_data'] = $this->user_model->userdetails();
+				foreach ($data['fetch_data']->result() as $row) {
+					if(($row->post)=='qac_head'){
+						$mail->AddBcc($row->email);
+					}
+				}
+			}
+
+			$this->load->model('user_model');
+			$data["fetch_cat"] = $this->user_model->getexternal();
+			$data["fetch_file_upload_lec"] = $this->user_model->fileupload_count();
+
+			foreach ($data["fetch_cat"]->result() as $row2) {
+				if($this->input->post('select_acc')==$row2->category.'_course_coordinator'){
+					$data['fetch_data'] = $this->user_model->userdetails();
+					foreach ($data['fetch_data']->result() as $row) {
+						if((($row->post)=='course_coordinator')&&(($row2->category)==($row->course_name))){
+							$mail->AddBcc($row->email);
+						}
+					}
+				}if($this->input->post('select_acc')=='to_all_externals'){
+					$data['fetch_data'] = $this->user_model->userdetails();
+					foreach ($data['fetch_data']->result() as $row) {
+						if((($row->type)=='external')&&(($row->post)=='lecturer')){
+							$mail->AddBcc($row->email);
+						}
+						foreach ($data["fetch_file_upload_lec"]->result() as $row3) {
+							if((($row3->category)==$row2->category)){
+								$mail->AddBcc($row->email);
+							}
+						}
+					}
+				}
+			}
+
+			$data["fetch_cat2"] = $this->user_model->fetch_cat();
+			foreach ($data["fetch_cat2"]->result() as $row2) {
+				if ($this->input->post('select_acc') == $row2->category . '_course_coordinator') {
+					$data['fetch_data'] = $this->user_model->userdetails();
+					foreach ($data['fetch_data']->result() as $row) {
+						if ((($row->post) == 'course_coordinator') && (($row2->category) == ($row->course_name))) {
+							$mail->AddBcc($row->email);
+						}
+					}
+
+				}
+				if ($this->input->post('select_acc') == 'to_all_undergraduates') {
+					$data['fetch_data'] = $this->user_model->userdetails();
+					foreach ($data['fetch_data']->result() as $row) {
+						if ((($row->type) == 'under_graduate') && (($row->post) == 'lecturer')) {
+							$mail->AddBcc($row->email);
+						}
+						foreach ($data["fetch_file_upload_lec"]->result() as $row3) {
+							if ((($row3->category) == $row2->category)) {
+								$mail->AddBcc($row->email);
+							}
+						}
+					}
+				}
+			}
+
+				$data["fetch_cat3"] = $this->user_model->fetch_cat_postgraduate();
+				foreach ($data["fetch_cat3"]->result() as $row2) {
+					if($this->input->post('select_acc')==$row2->category.'_course_coordinator'){
+						$data['fetch_data'] = $this->user_model->userdetails();
+						foreach ($data['fetch_data']->result() as $row) {
+							if((($row->post)=='course_coordinator')&&(($row2->category)==($row->course_name))){
+								$mail->AddBcc($row->email);
+							}
+						}
+
+					}
+					if($this->input->post('select_acc')=='to_all_postgraduates'){
+						$data['fetch_data'] = $this->user_model->userdetails();
+						foreach ($data['fetch_data']->result() as $row) {
+							if((($row->type)=='post_graduate')&&(($row->post)=='lecturer')){
+								$mail->AddBcc($row->email);
+							}
+							foreach ($data["fetch_file_upload_lec"]->result() as $row3) {
+								if((($row3->category)==$row2->category)){
+									$mail->AddBcc($row->email);
+								}
+							}
+						}
+					}
+
+			}
+
+
 
 
 

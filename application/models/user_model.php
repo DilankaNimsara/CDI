@@ -25,9 +25,12 @@ class user_model extends CI_Model
 		$query = $this->db->get('fileupload');
 		return $query;
 	}
+	function getexternal(){
+		$query = $this->db->get('external');
+		return $query;
+	}
 
 	function update_user_account_data($data,$username){
-
         $this->db->where('username', $username);
         $this->db->update('user',$data);
     }

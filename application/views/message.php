@@ -46,25 +46,82 @@
 								<br/>
 
 								<div class="form-group">
+									<label>send group</label>
+									<select class="form-control" name="select_acc" id="tp">
+									<option class="text-muted"></option>
+									<?php
+									if($_SESSION['post']=='qac_head'){
+									?>
+									<option name="select_acc" value="to_all" id="to_all"> To All</option>
+									<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
+									<option name="select_acc" value="to_head_of_institute"  id="to_head_of_institute"> To Head of Institute</option>
+									<option name="select_acc" value="to_external_head"  id="to_external_head"> To External head</option>
+									<option name="select_acc" value="to_postgraduate_head"  id="to_postgraduate_head"> To Postgraduate head</option>
+									<option name="select_acc" value="to_undergraduate_head"  id="to_undergraduate_head"> To Undergraduate head</option>
+									<option name="select_acc" value="to_all_heads"  id="to_all_heads"> To All heads</option>
+									<option name="select_acc" value="to_head_of_institute"  id="to_head_of_institute"> To Head of Institute</option>
+									<?php
+										}elseif (($_SESSION['post']=='head_of_course')&&($_SESSION['type']=='external')){
+										foreach ($fetch_cat->result() as $row) {
+											?>
+											<option name="select_acc" value="<?php echo $row->category ;?>_course_coordinator"  id="ecc"> To <?php echo $row->category ;?> course coordinator</option>
+											<?php
+										}
+										?>
+										<option name="select_acc" value="to_all_externals"  id="to_all_externals"> To all external lecturers</option>
+										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
+										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
+									<?php
+									}elseif (($_SESSION['post']=='head_of_institute')||($_SESSION['post']=='qac')) {
+										?>
+										<option name="select_acc" value="to_all" id="to_all"> To All</option>
+										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
+										<option name="select_acc" value="to_head_of_institute"  id="to_head_of_institute"> To Head of Institute</option>
+										<option name="select_acc" value="to_external_head"  id="to_external_head"> To External head</option>
+										<option name="select_acc" value="to_postgraduate_head"  id="to_postgraduate_head"> To Postgraduate head</option>
+										<option name="select_acc" value="to_undergraduate_head"  id="to_undergraduate_head"> To Undergraduate head</option>
+										<option name="select_acc" value="to_all_heads"  id="to_all_heads"> To All heads</option>
+									    <option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
+										<?php
+									}elseif (($_SESSION['post']=='head_of_course')&&($_SESSION['type']=='under_graduate')) {
+										foreach ($fetch_cat2->result() as $row) {
+											?>
+											<option name="select_acc" value="<?php echo $row->category; ?>_course_coordinator" id="ucc">To <?php echo $row->category; ?> course coordinator
+											</option>
+											<?php
+										}
+										?>
+										<option name="select_acc" value="to_all_undergraduates"  id="to_all_undergraduates"> To all undergraduate lecturers</option>
+										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
+										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
+									<?php
+									}elseif (($_SESSION['post']=='head_of_course')&&($_SESSION['type']=='post_graduate')) {
+										foreach ($fetch_cat3->result() as $row) {
+											?>
+											<option name="select_acc" value="<?php echo $row->category; ?>_course_coordinator" id="ucc">To <?php echo $row->category; ?> course coordinator
+											</option>
+											<?php
+										}
+										?>
+										<option name="select_acc" value="to_all_postgraduates"  id="to_all_postgraduates"> To all postgraduate lecturers</option>
+										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
+										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
+										<?php
+									}
+									?>
+									?>
 
+
+
+								</select>
+									<span class="text-danger"><?php echo form_error('select_acc')?></span>
+								</div>
+								<div class="form-group">
+									<label>Message</label>
 									<textarea rows="5" cols="50" class="form-control" id="message" name="message" placeholder="type here.."> </textarea>
 									<span class="text-danger"><?php echo form_error('message')?></span>
 								</div>
-								<table width="100%">
-									<tr>
-										<td width="60px"><input type="checkbox" name="select_acc" value="to_all" id="to_all"><font color="red"> To All</font></td>
-										<td width="60px"><input type="checkbox" name="select_acc" value="to_qac"  id="to_qac"> To QAC</td>
-										<td width="60px"><input type="checkbox" name="select_acc" value="to_head_of_institute"  id="to_head_of_institute"> To Head of Institute</td>
-									</tr>
-									<tr>
-										<td width="60px"><input type="checkbox" name="select_acc" value="to_external_head"  id="to_external_head"> To External head</td>
-										<td width="60px"><input type="checkbox" name="select_acc" value="to_postgraduate_head"  id="to_postgraduate_head"> To Postgraduate head</td>
-										<td width="60px"><input type="checkbox" name="select_acc" value="to_undergraduate_head"  id="to_undergraduate_head"> To Undergraduate head</td>
-									</tr>
-									<tr>
-										<td colspan="3"><br/><span class="text-danger"> <?php echo $this->session->flashdata('box'); ?></span></span></td>
-									</tr>
-								</table>
+
 								<br/>
 								<center><button type="submit" class="btn btn-primary" name="submit" value="submit"><span class="glyphicon glyphicon-send"></span> Send </button></center>
 								<hr/>
@@ -94,4 +151,5 @@
 <?php include 'footer.php';?>
 </body>
 </html>
+
 
