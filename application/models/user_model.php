@@ -150,8 +150,11 @@ class user_model extends CI_Model
 		return $query;
 	}
 	function fetch_messages_for_announcement(){
+		date_default_timezone_set("Asia/Colombo");
+		$date= date("Y-m-d");
+		$fromDate = date("Y-m-d", strtotime("-2 days"));
+		$this->db->where('date >=', $fromDate);
 		$this->db->order_by('id', 'DESC');
-//		$this->db->order_by('date', 'ASC');
 		$query = $this->db->get("messages");
 		return $query;
 	}

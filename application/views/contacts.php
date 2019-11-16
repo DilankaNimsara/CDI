@@ -24,11 +24,7 @@
 
 			Contacts
 <br>
-			<?php
-			echo $_SESSION['previous_msg'];
-			?>
-
-
+		
 
 
 

@@ -1228,6 +1228,7 @@ class login_controller extends CI_Controller
 		$data["fetch_cat2"] = $this->user_model->fetch_cat();
 		$data["fetch_cat3"] = $this->user_model->fetch_cat_postgraduate();
 		$data["messages"] = $this->user_model->fetch_messages_for_announcement();
+		$data["fetch_file_upload_lecfetch_file_upload_lec"] = $this->user_model->fileupload_count();
 		$this->load->view('message',$data);
 	}
 

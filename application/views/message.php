@@ -302,6 +302,15 @@
 
 										<?php
 									}
+								}elseif(($this->session->userdata('username')==$row->receiver)) {
+										?>
+										<div class="container2">
+											<p><b><font color="#8b0000"><span class="glyphicon glyphicon-user"></span> <?php echo $row->sender; ?></font></b></p>
+											<p><?php echo $row->msg; ?></p>
+											<span class="time-left"><?php echo $row->date; ?></span>
+											<span class="time-right"><?php echo $row->time; ?></span>
+										</div>
+										<?php
 								}
 
 								if (($row->receiver == "to_all")&&($_SESSION['post']!='qac_head')) {
@@ -315,7 +324,6 @@
 										<?php
 								}
 
-							if (($_SESSION['post']=='course_coordinator')&&($_SESSION['type']=='under_graduate')) {
 								foreach ($fetch_cat2->result() as $row2) {
 									if(($_SESSION['course_name']==$row2->category)){
 										if ($row->receiver == 'to_all_undergraduate_'.$row2->category) {
@@ -331,7 +339,7 @@
 										}
 									}
 								}
-							}elseif (($_SESSION['post']=='course_coordinator')&&($_SESSION['type']=='post_graduate')) {
+
 								foreach ($fetch_cat3->result() as $row2) {
 									if(($_SESSION['course_name']==$row2->category)){
 										if ($row->receiver == 'to_all_postgraduate_'.$row2->category) {
@@ -347,7 +355,7 @@
 										}
 									}
 								}
-							}elseif (($_SESSION['post']=='course_coordinator')&&($_SESSION['type']=='external')) {
+
 								foreach ($fetch_cat->result() as $row2) {
 									if (($_SESSION['course_name'] == $row2->category)) {
 										if ($row->receiver == 'to_all_postgraduate_' . $row2->category) {
@@ -365,15 +373,60 @@
 										}
 									}
 								}
-							}
 
+								foreach ($fetch_cat2->result() as $row2) {
+									if (($_SESSION['type'] =='under_graduate')&&($_SESSION['post'] =='course_coordinator')) {
+										if (($row->receiver) == ($row2->category.'_course_coordinator')) {
+											?>
+											<div class="container2">
+												<p><b><font color="#8b0000"><span
+																class="glyphicon glyphicon-user"></span> <?php echo $row->sender; ?>
+														</font></b></p>
+												<p><?php echo $row->msg; ?></p>
+												<span class="time-left"><?php echo $row->date; ?></span>
+												<span class="time-right"><?php echo $row->time; ?></span>
+											</div>
 
+											<?php
+										}
+									}
+								}
 
+								foreach ($fetch_cat3->result() as $row2) {
+									if (($_SESSION['type'] =='post_graduate')&&($_SESSION['post'] =='course_coordinator')) {
+										if (($row->receiver) == ($row2->category.'_course_coordinator')) {
+											?>
+											<div class="container2">
+												<p><b><font color="#8b0000"><span
+																class="glyphicon glyphicon-user"></span> <?php echo $row->sender; ?>
+														</font></b></p>
+												<p><?php echo $row->msg; ?></p>
+												<span class="time-left"><?php echo $row->date; ?></span>
+												<span class="time-right"><?php echo $row->time; ?></span>
+											</div>
 
+											<?php
+										}
+									}
+								}
 
+								foreach ($fetch_cat->result() as $row2) {
+									if (($_SESSION['type'] =='external')&&($_SESSION['post'] =='course_coordinator')) {
+										if (($row->receiver) == ($row2->category.'_course_coordinator')) {
+											?>
+											<div class="container2">
+												<p><b><font color="#8b0000"><span
+																class="glyphicon glyphicon-user"></span> <?php echo $row->sender; ?>
+														</font></b></p>
+												<p><?php echo $row->msg; ?></p>
+												<span class="time-left"><?php echo $row->date; ?></span>
+												<span class="time-right"><?php echo $row->time; ?></span>
+											</div>
 
-
-
+											<?php
+										}
+									}
+								}
 							}
 							?>
 			</div>
@@ -385,5 +438,4 @@
 <?php include 'footer.php';?>
 </body>
 </html>
-
 
