@@ -13,7 +13,7 @@
 		<div class="col-sm-2">
 			<?php include 'sidenav.php';?>
 		</div>
-		<div class="col-sm-10">
+		<div class="col-sm-5">
 			<br/>
 			<?php
 
@@ -41,6 +41,7 @@
 							<div class="form">
 								<hr>
 								<span style="color: midnightblue;" >
+
 						<center><h1>Message</h1></center>
 					</span>
 								<br/>
@@ -48,6 +49,10 @@
 								<div class="form-group">
 									<label>send group</label>
 									<select class="form-control" name="select_acc" id="tp">
+
+
+
+
 									<option class="text-muted"></option>
 									<?php
 									if($_SESSION['post']=='qac_head'){
@@ -76,7 +81,7 @@
 										?>
 										<option name="select_acc" value="to_all" id="to_all"> To All</option>
 										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
-										<option name="select_acc" value="to_head_of_institute"  id="to_head_of_institute"> To Head of Institute</option>
+<!--										<option name="select_acc" value="to_head_of_institute"  id="to_head_of_institute"> To Head of Institute</option>-->
 										<option name="select_acc" value="to_external_head"  id="to_external_head"> To External head</option>
 										<option name="select_acc" value="to_postgraduate_head"  id="to_postgraduate_head"> To Postgraduate head</option>
 										<option name="select_acc" value="to_undergraduate_head"  id="to_undergraduate_head"> To Undergraduate head</option>
@@ -174,12 +179,10 @@
 
 									?>
 
-
-
-
 								</select>
 									<span class="text-danger"><?php echo form_error('select_acc')?></span>
 								</div>
+
 								<div class="form-group">
 									<label>Message</label>
 									<textarea rows="5" cols="50" class="form-control" id="message" name="message" placeholder="type here.."> </textarea>
@@ -202,11 +205,178 @@
 				</div>
 
 			</div>
+		</div>
+		<div class="col-sm-5">
+			<br/>
+			<br/>
+			<h1>Notification</h1>
+			<br/>
+			<div class="ex3">
+							<?php
+							foreach ($messages->result() as $row) {
+								if($_SESSION['type']=='head_of_institute'){
+									if($row->receiver=="to_head_of_institute"){
+										?>
+
+										<div class="container2" >
+											<p><b><font color="#8b0000"><span class="glyphicon glyphicon-user"></span> <?php echo $row->sender;?></font></b></p>
+											<p><?php echo $row->msg;?></p>
+											<span class="time-left"><?php echo $row->date;?></span>
+											<span class="time-right"><?php echo $row->time;?></span>
+										</div>
+
+										<?php
+									}
+								}elseif($_SESSION['post']=='qac_head'){
+									if($row->receiver=="to_qac_head"){
+										?>
+
+										<div class="container2" >
+											<p><b><font color="#8b0000"><span class="glyphicon glyphicon-user"></span> <?php echo $row->sender;?></font></b></p>
+											<p><?php echo $row->msg;?></p>
+											<span class="time-left"><?php echo $row->date;?></span>
+											<span class="time-right"><?php echo $row->time;?></span>
+										</div>
+
+										<?php
+									}
+								}elseif($_SESSION['post']=='qac'){
+									if($row->receiver=="to_qac"){
+										?>
+
+										<div class="container2" >
+											<p><b><font color="#8b0000"><span class="glyphicon glyphicon-user"></span> <?php echo $row->sender;?></font></b></p>
+											<p><?php echo $row->msg;?></p>
+											<span class="time-left"><?php echo $row->date;?></span>
+											<span class="time-right"><?php echo $row->time;?></span>
+										</div>
+
+										<?php
+									}
+								}elseif(($_SESSION['post']=='head_of_course')&&($_SESSION['type']=='external')) {
+										if ($row->receiver == "to_external_head") {
+											?>
+											<div class="container2">
+												<p><b><font color="#8b0000"><span class="glyphicon glyphicon-user"></span> <?php echo $row->sender; ?></font></b></p>
+												<p><?php echo $row->msg; ?></p>
+												<span class="time-left"><?php echo $row->date; ?></span>
+												<span class="time-right"><?php echo $row->time; ?></span>
+											</div>
+
+											<?php
+										}
+								}elseif(($_SESSION['post']=='head_of_course')&&($_SESSION['type']=='under_graduate')) {
+									if ($row->receiver == "to_undergraduate_head") {
+										?>
+										<div class="container2">
+											<p><b><font color="#8b0000"><span class="glyphicon glyphicon-user"></span> <?php echo $row->sender; ?></font></b></p>
+											<p><?php echo $row->msg; ?></p>
+											<span class="time-left"><?php echo $row->date; ?></span>
+											<span class="time-right"><?php echo $row->time; ?></span>
+										</div>
+
+										<?php
+									}
+								}elseif(($_SESSION['post']=='head_of_course')&&($_SESSION['type']=='post_graduate')) {
+									if ($row->receiver == "to_postgraduate_head") {
+										?>
+										<div class="container2">
+											<p><b><font color="#8b0000"><span class="glyphicon glyphicon-user"></span> <?php echo $row->sender; ?></font></b></p>
+											<p><?php echo $row->msg; ?></p>
+											<span class="time-left"><?php echo $row->date; ?></span>
+											<span class="time-right"><?php echo $row->time; ?></span>
+										</div>
+
+										<?php
+									}
+								}elseif($_SESSION['post']=='qac') {
+									if ($row->receiver == "to_qac") {
+										?>
+
+										<div class="container2">
+											<p><b><font color="#8b0000"><span class="glyphicon glyphicon-user"></span> <?php echo $row->sender; ?></font></b></p>
+											<p><?php echo $row->msg; ?></p>
+											<span class="time-left"><?php echo $row->date; ?></span>
+											<span class="time-right"><?php echo $row->time; ?></span>
+										</div>
+
+										<?php
+									}
+								}
+
+								if (($row->receiver == "to_all")&&($_SESSION['post']!='qac_head')) {
+										?>
+										<div class="container2">
+											<p><b><font color="#8b0000"><span class="glyphicon glyphicon-user"></span> <?php echo $row->sender; ?></font></b></p>
+											<p><?php echo $row->msg; ?></p>
+											<span class="time-left"><?php echo $row->date; ?></span>
+											<span class="time-right"><?php echo $row->time; ?></span>
+										</div>
+										<?php
+								}
+
+							if (($_SESSION['post']=='course_coordinator')&&($_SESSION['type']=='under_graduate')) {
+								foreach ($fetch_cat2->result() as $row2) {
+									if(($_SESSION['course_name']==$row2->category)){
+										if ($row->receiver == 'to_all_undergraduate_'.$row2->category) {
+											?>
+											<div class="container2">
+												<p><b><font color="#8b0000"><span class="glyphicon glyphicon-user"></span> <?php echo $row->sender; ?></font></b></p>
+												<p><?php echo $row->msg; ?></p>
+												<span class="time-left"><?php echo $row->date; ?></span>
+												<span class="time-right"><?php echo $row->time; ?></span>
+											</div>
+
+											<?php
+										}
+									}
+								}
+							}elseif (($_SESSION['post']=='course_coordinator')&&($_SESSION['type']=='post_graduate')) {
+								foreach ($fetch_cat3->result() as $row2) {
+									if(($_SESSION['course_name']==$row2->category)){
+										if ($row->receiver == 'to_all_postgraduate_'.$row2->category) {
+											?>
+											<div class="container2">
+												<p><b><font color="#8b0000"><span class="glyphicon glyphicon-user"></span> <?php echo $row->sender; ?></font></b></p>
+												<p><?php echo $row->msg; ?></p>
+												<span class="time-left"><?php echo $row->date; ?></span>
+												<span class="time-right"><?php echo $row->time; ?></span>
+											</div>
+
+											<?php
+										}
+									}
+								}
+							}elseif (($_SESSION['post']=='course_coordinator')&&($_SESSION['type']=='external')) {
+								foreach ($fetch_cat->result() as $row2) {
+									if (($_SESSION['course_name'] == $row2->category)) {
+										if ($row->receiver == 'to_all_postgraduate_' . $row2->category) {
+											?>
+											<div class="container2">
+												<p><b><font color="#8b0000"><span
+																class="glyphicon glyphicon-user"></span> <?php echo $row->sender; ?>
+														</font></b></p>
+												<p><?php echo $row->msg; ?></p>
+												<span class="time-left"><?php echo $row->date; ?></span>
+												<span class="time-right"><?php echo $row->time; ?></span>
+											</div>
+
+											<?php
+										}
+									}
+								}
+							}
 
 
 
 
 
+
+
+
+							}
+							?>
+			</div>
 
 
 		</div>

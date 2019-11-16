@@ -31,7 +31,7 @@ class live_search extends CI_Controller{
       <tr>
       
        <td bgcolor="5CA9F5">' . $row->username . '</td>
-       <td>' . $row->email . '</td>
+       <td> . $row->email . </td>
        <td>' . str_replace('_',' ',$row->type) . '</td>
        <td>' .str_replace('_', ' ',strtoupper( $row->post)) . '</td>
       </tr>
@@ -65,8 +65,8 @@ class live_search extends CI_Controller{
       <tr>
       
        <td bgcolor="5CA9F5">' . $row->username . '</td>
-       <td>' . $row->password . '</td>
-       <td>' . $row->email . '</td>
+       <td> . $row->email .</td>
+       <td><a>' . $row->email . '</a></td>
        <td>' . str_replace('_',' ',$row->type) . '</td>
        <td>' .str_replace('_', ' ',strtoupper( $row->post)) .'<font color="midnightblue" face="Consolas" size="4px"><b> '. $row->course_name . '</b></font></td>
        <td>

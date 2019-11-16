@@ -1227,6 +1227,7 @@ class login_controller extends CI_Controller
 		$data["fetch_cat"] = $this->user_model->getexternal();
 		$data["fetch_cat2"] = $this->user_model->fetch_cat();
 		$data["fetch_cat3"] = $this->user_model->fetch_cat_postgraduate();
+		$data["messages"] = $this->user_model->fetch_messages_for_announcement();
 		$this->load->view('message',$data);
 	}
 
@@ -1437,8 +1438,22 @@ class login_controller extends CI_Controller
 				}
 			}
 
+
 			if($mail->Send()){
-				$this->session->set_flashdata('msg1', 'Your message has been successfully sent .');
+				date_default_timezone_set("Asia/Colombo");
+				$date= date("Y-m-d");
+				$time= date("h:i:sa");
+					$this->load->model('user_model');
+					$data = array(
+						"sender" => $this->session->userdata('username'),
+						"receiver" => $this->input->post('select_acc'),
+						"msg" => $this->input->post("message"),
+						"date" => $date,
+						"time" => $time
+					);
+					$this->user_model->insert_messages($data);
+
+					$this->session->set_flashdata('msg1', 'Your message has been successfully sent .');
 			}else{
 				$this->session->set_flashdata('msg', 'Oops something went wrong! send fail.');
 			}
@@ -1447,7 +1462,9 @@ class login_controller extends CI_Controller
 		}else{
 			$this->send_message();
 		}
+
 	}
+
 
 
 

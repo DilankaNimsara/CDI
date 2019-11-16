@@ -109,6 +109,10 @@ class user_model extends CI_Model
 		}
 	}
 
+	function insert_messages($data){
+		$this->db->insert("messages",$data);
+	}
+
     function insert_file($data,$filename){
 		$this->db->select("file_name");
 		$this->db->from("fileupload");
@@ -143,6 +147,12 @@ class user_model extends CI_Model
     }
 	function fetch_cat_postgraduate(){
 		$query = $this->db->get("postgraduate");
+		return $query;
+	}
+	function fetch_messages_for_announcement(){
+		$this->db->order_by('id', 'DESC');
+//		$this->db->order_by('date', 'ASC');
+		$query = $this->db->get("messages");
 		return $query;
 	}
 

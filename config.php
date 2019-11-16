@@ -97,6 +97,16 @@
 				mysqli_query($link,$sqlex);
 
 
+				$table_msg="CREATE TABLE messages (
+    						id int NOT NULL AUTO_INCREMENT,
+							sender varchar(255) NOT NULL,
+							receiver varchar(255),
+							msg varchar(1000),
+							date date (50),
+							time varchar(50),
+							PRIMARY KEY (id)
+);";
+				mysqli_query($link,$table_msg);
 
 			if(mysqli_query($link,$sql1)){
 				//echo "Your Table Created !!";  
