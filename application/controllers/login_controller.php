@@ -196,8 +196,35 @@ class login_controller extends CI_Controller
 					$this->session->set_userdata('username',$this->input->post("username"));
 				}
 			}
-
             $this->user_model->update_user_account_data($data, $_SESSION['account_username']);
+
+			$this->user_model->update_TYPE($data, $this->input->post("username"));
+
+			include './public/PHPMailer/PHPMailerAutoload.php';
+
+			$mail=new PHPMailer();
+			$mail->isSMTP();
+			$mail->SMTPAuth = true;
+			$mail->SMTPSecure = 'ssl';
+			$mail->Host = 'smtp.gmail.com';
+			$mail->Port = '465';
+			$mail->isHTML();
+			$mail->Username = 'mrdoc.dms@gmail.com';
+			$mail->Password='mrdoc100100100';
+			$mail->setFrom('noreply@example.com');
+			$mail->Subject=$_SESSION['myemail'];
+			$mail->Body='from : '. $this->session->userdata('username').'<br/> Your account has been updated. <br/>
+			Username : '. $this->input->post("username"). '<br/>
+			Password : '.$this->input->post("password").'
+			 <br/>
+			 <br/><center>
+			 Thank you!<br/>
+			 &copy; Copyright - MrDoc<br/>
+			 2019
+			 </center>';
+			$mail->AddAddress($this->input->post('email'));
+			$mail->Send();
+
 			$this->session->set_flashdata('msg1', 'Username <b>'.$_SESSION['account_username']."</b>'s account successfully updated.");
 			if($_SESSION['report']!="report") {
 				redirect(base_url() . "login_controller/manageAccount");
@@ -1128,12 +1155,59 @@ class login_controller extends CI_Controller
 					"course_name" => ' '
 				);
 				$this->user_model->update_TYPE($data, $this->input->post("username"));
+				include './public/PHPMailer/PHPMailerAutoload.php';
+
+				$mail=new PHPMailer();
+				$mail->isSMTP();
+				$mail->SMTPAuth = true;
+				$mail->SMTPSecure = 'ssl';
+				$mail->Host = 'smtp.gmail.com';
+				$mail->Port = '465';
+				$mail->isHTML();
+				$mail->Username = 'mrdoc.dms@gmail.com';
+				$mail->Password='mrdoc100100100';
+				$mail->setFrom('noreply@example.com');
+				$mail->Subject=$_SESSION['myemail'];
+				$mail->Body='from : '. $this->session->userdata('username').'<br/> Your current post has been updated. '.(str_replace(' ', '_', $this->input->post("post"))).' <br/>
+			 <br/>
+			 <br/><center>
+			 Thank you!<br/>
+			 &copy; Copyright - MrDoc<br/>
+			 2019
+			 </center>';
+				$mail->AddAddress($this->input->post('email'));
+				$mail->Send();
 			}else{
 				$data = array(
 					"type" => strtolower((str_replace(' ', '_', $this->input->post("type")))),
 					"post" => strtolower((str_replace(' ', '_', $this->input->post("post"))))
 				);
 				$this->user_model->update_TYPE($data, $this->input->post("username"));
+
+				include './public/PHPMailer/PHPMailerAutoload.php';
+
+				$mail=new PHPMailer();
+				$mail->isSMTP();
+				$mail->SMTPAuth = true;
+				$mail->SMTPSecure = 'ssl';
+				$mail->Host = 'smtp.gmail.com';
+				$mail->Port = '465';
+				$mail->isHTML();
+				$mail->Username = 'mrdoc.dms@gmail.com';
+				$mail->Password='mrdoc100100100';
+				$mail->setFrom('noreply@example.com');
+				$mail->Subject=$_SESSION['myemail'];
+				$mail->Body='from : '. $this->session->userdata('username').'<br/> Your current post has been updated to '.(str_replace(' ', '_', $this->input->post("post"))).'. <br/>
+			 <br/>
+			 <br/><center>
+			 Thank you!<br/>
+			 &copy; Copyright - MrDoc<br/>
+			 2019
+			 </center>';
+				$mail->AddAddress($this->input->post('email'));
+				$mail->Send();
+//			redirect(base_url().'login_controller/refilter');
+
 			}
 
 			$_SESSION['account_username']=$this->input->post('username');
