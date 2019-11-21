@@ -109,6 +109,13 @@
 );";
 				mysqli_query($link,$table_msg);
 
+				$table_backup="CREATE TABLE backup (
+    						id int NOT NULL AUTO_INCREMENT,
+							date varchar (50),
+							backup_name varchar(50),
+							PRIMARY KEY (id)
+				);";
+
 			if(mysqli_query($link,$sql1)){
 				//echo "Your Table Created !!";  
 			}else{
