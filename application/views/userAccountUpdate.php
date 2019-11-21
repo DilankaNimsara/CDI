@@ -63,11 +63,11 @@
 						<input style="color: #0f18d1;" type="text" class="form-control" id="username" name="username" value="<?php echo $row->username;?>" readonly/>
 						<span class="text-danger"><?php echo form_error('username') ?></span>
 					</div>
-					<div class="form-group">
-						<label for="text">Current Password</label>
-						<input style="color: #0f18d1;" type="password" class="form-control" name="cpassword" id="password3" placeholder="Enter password" value="<?php echo $row->password;?>" readonly/>
-						<span toggle="#password3" class="fa fa-fw fa-eye field-icon toggle-password"></span>
-					</div>
+<!--					<div class="form-group">-->
+<!--						<label for="text">Current Password</label>-->
+						<input style="color: #0f18d1;" class="hide" type="password" class="form-control" name="cpassword" id="password3" placeholder="Enter password" value="<?php echo $row->password;?>">
+<!--						<span toggle="#password3" class="fa fa-fw fa-eye field-icon toggle-password"></span>-->
+<!--					</div>-->
 					<div class="form-group">
 						<label for="email">E-mail</label>
 						<input type="email" class="form-control" name="email" id="email" placeholder="Enter E-mail" value="<?php echo $row->email;?>" />

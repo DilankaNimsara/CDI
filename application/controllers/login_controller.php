@@ -531,7 +531,6 @@ class login_controller extends CI_Controller
 
             $this->load->model('user_model');
             $data = array(
-                "id" => rand(0, 100),
                 "category" => $name
             );
             ?>
@@ -1063,7 +1062,6 @@ class login_controller extends CI_Controller
 
 			$this->load->model('user_model');
 			$data = array(
-				"id" => rand(0, 100),
 				"category" => $name
 			);
 			?>
@@ -1098,7 +1096,6 @@ class login_controller extends CI_Controller
 
 			$this->load->model('user_model');
 			$data = array(
-				"id" => rand(0, 100),
 				"category" => $name
 			);
 			?>

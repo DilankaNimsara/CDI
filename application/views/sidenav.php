@@ -64,6 +64,7 @@ $url= basename($actual_link);
 				<li class="<?php if($url == "useraccountupdate" || $url == "user_account_update_validation"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/useraccountupdate"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench"></span>My profile</a></li>
 
 				<li class="<?php if($url == "send_message" || $url == "send_message_accounts"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/send_message"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-comment"></span>Message</a></li>
+				<li class="<?php if($url == "BackUp"){echo 'active';} ?>"><a href="<?php echo base_url();?>Home/BackUp"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cloud-upload"></span>Backup</a></li>
 
 			</ul><br>
 

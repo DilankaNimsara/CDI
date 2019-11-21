@@ -173,6 +173,7 @@ class live_search extends CI_Controller{
        <th>Subject Code</th>
        <th>Author</th>
        <th>Lecturer</th>
+       <th>Type</th>
        <th>Comment</th>
       </tr>
   ';
@@ -190,6 +191,7 @@ class live_search extends CI_Controller{
        <td>' . $row->subject_code . '</td>
        <td>' . $row->author . '</td>
        <td>' . $row->lecturer . '</td>
+       <td>' . str_replace('_',' ',$row->doc_type ). '</td> 
        <td>' . $row->comment . '</td> 
       </tr>
     ';

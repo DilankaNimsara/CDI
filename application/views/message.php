@@ -123,6 +123,7 @@
 											}
 										}
 										?>
+										<option name="select_acc" value="to_postgraduate_head"  id="to_postgraduate_head"> To Postgraduate head</option>
 										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
 										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
 										<?php
@@ -137,6 +138,7 @@
 												}
 										}
 										?>
+										<option name="select_acc" value="to_undergraduate_head"  id="to_undergraduate_head"> To Undergraduate head</option>
 										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
 										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
 										<?php
@@ -150,6 +152,7 @@
 											}
 										}
 										?>
+										<option name="select_acc" value="to_external_head"  id="to_external_head"> To External head</option>
 										<option name="select_acc" value="to_qac"  id="to_qac"> To QAC</option>
 										<option name="select_acc" value="to_qac_head" id="to_qac_head"> To QAC Head </option>
 										<?php
@@ -209,8 +212,9 @@
 		<div class="col-sm-5">
 			<br/>
 			<br/>
-			<h1>Notification</h1>
+			<h1 align="center">Notifications</h1>
 			<br/>
+			<div class="well well-lg tx" ;">
 			<div class="ex3">
 							<?php
 							foreach ($messages->result() as $row) {
@@ -429,6 +433,7 @@
 								}
 							}
 							?>
+			</div>
 			</div>
 
 

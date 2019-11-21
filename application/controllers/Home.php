@@ -21,6 +21,9 @@ class Home extends CI_Controller{
 		$this->load->view('contacts');
 	}
 
+	public function BackUp(){
+		$this->load->view('backup');
+	}
 
 
 

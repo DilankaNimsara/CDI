@@ -43,6 +43,9 @@ li a:hover {
 	border-radius: 0;
 
 }
+.well {
+	background: rgb(47, 47, 47, 0.25);
+}
 
 .container2 {
 	border: 2px solid #dedede;
@@ -63,6 +66,7 @@ div.ex3 {
 	height: 750px;
 	overflow: auto;
 }
+
 .time-right {
 	float: right;
 	color: #aaa;
