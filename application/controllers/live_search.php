@@ -548,10 +548,44 @@ class live_search extends CI_Controller{
 			}
 			$output .= '</table>';
 		}
-
-
 			echo $output;
 		}
+
+	function Fetch_backup()
+	{
+		$output = '';
+		$query = '';
+		$this->load->model('user_model');
+		if ($this->input->post('query')) {
+			$query = $this->input->post('query');
+		}
+		$data = $this->user_model->backup_fetch($query);
+		$output .= '
+		  <div class="table-responsive">
+			 <table class="table table-hover">
+			  <tr bgcolor="white">
+			   <th>Date</th>
+			   <th>File</th>
+			  </tr>
+		  ';
+		if ($data->num_rows() > 0) {
+			foreach ($data->result() as $row) {
+				$output .= '
+			  <tr>
+			   <td>' . $row->date . '</td>
+			   <td>' . $row->backup_name . '</td>
+			  </tr>
+			';
+			}
+		} else {
+			$output .= '<tr>
+       <td colspan="2">No Data Found</td>
+      </tr>';
+		}
+		$output .= '</table>';
+		echo $output;
+	}
+
 
 
 

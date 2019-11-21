@@ -113,6 +113,39 @@ class user_model extends CI_Model
 		$this->db->insert("messages",$data);
 	}
 
+	function buckup_insert($data,$date){
+
+		$this->db->select("*");
+		$this->db->from("backup");
+		$this->db->where('date', $date);
+		$query = $this->db->get();
+		if($query->num_rows()==0){
+			$this->db->insert("backup",$data);
+		}else{
+			$this->session->set_flashdata('msgx', 'Already up to date..');
+		}
+	}
+
+	function backup_fetch($query){
+		$this->db->select("*");
+		$this->db->from("backup");
+		if ($query != '') {
+			$this->db->like('date', $query);
+		}
+		$this->db->order_by('date', 'DESC');
+		return $this->db->get();
+	}
+	function backup_fetch1(){
+		$this->db->select_max('date');
+		return $this->db->get('backup');
+	}
+
+	function autobackupdata(){
+		$this->db->select('action');
+		return $this->db->get('autobackup');
+	}
+
+
     function insert_file($data,$filename){
 		$this->db->select("file_name");
 		$this->db->from("fileupload");
@@ -593,6 +626,11 @@ class user_model extends CI_Model
 	function upload_details(){
 		$query = $this->db->get('fileupload');
 		return $query;
+	}
+
+	function update_action($data){
+		$this->db->where('id',1);
+		$this->db->update("action",$data);
 	}
 
 

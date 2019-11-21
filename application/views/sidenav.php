@@ -51,6 +51,7 @@ $url= basename($actual_link);
 							$url == "insertCat" ||
 							$url == 'reopen_View_cat_details'||
 							$url == 'Post_Graduate'||
+							$url == 'external_deg'||
 							$url == 'add_subjects_cat'||
 							$url == 'External_Deg'){echo 'active';} ?>"><a href="<?php echo base_url()?>login_controller/Document_Settings"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-book"></span> Document Settings</a></li>
 						<?php
@@ -64,7 +65,13 @@ $url= basename($actual_link);
 				<li class="<?php if($url == "useraccountupdate" || $url == "user_account_update_validation"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/useraccountupdate"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench"></span>My profile</a></li>
 
 				<li class="<?php if($url == "send_message" || $url == "send_message_accounts"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/send_message"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-comment"></span>Message</a></li>
-				<li class="<?php if($url == "BackUp"){echo 'active';} ?>"><a href="<?php echo base_url();?>Home/BackUp"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cloud-upload"></span>Backup</a></li>
+				<?php
+				if($this->session->userdata('post')=='qac_head'){
+					?>
+					<li class="<?php if($url == "BackUp"){echo 'active';} ?>"><a href="<?php echo base_url();?>Home/BackUp"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cloud-upload"></span>Backup</a></li>
+					<?php
+				}
+				?>
 
 			</ul><br>
 

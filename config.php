@@ -41,9 +41,10 @@
 		}
 
 		$sql="create database mrdoc121";
-		
+
 		if (mysqli_query($conn,$sql)) {
-			
+
+
 			$link=mysqli_connect("localhost","root","","mrdoc121");
 
 			$sql2 = "CREATE TABLE user(
@@ -53,17 +54,9 @@
 		    email VARCHAR(100) NOT NULL,
 		    post VARCHAR(100) NOT NULL,
 		    course_name VARCHAR(100) NOT NULL
-			)";  
+			)";
 
-			if(mysqli_query($link,$sql2)){
-				//echo "Your Table Created !!";  
-			}else{
-				?>
-				<script>
-		  			alert('Someting went wrong ');
-		        </script>
-		        <?php
-			}
+			mysqli_query($link,$sql2);
 
 			$sql1 = "CREATE TABLE fileupload(
 		    file_name VARCHAR(250) NOT NULL PRIMARY KEY,
@@ -77,56 +70,64 @@
 		    comment VARCHAR(250) NOT NULL,
 		    lecturer VARCHAR(250) NOT NULL,
 		    doc_type VARCHAR(250) NOT NULL
-			)";   
+			)";
+
+			mysqli_query($link,$sql1);
 
 			$sql11 = "CREATE TABLE category_data(
 		    id INT NOT NULL AUTO_INCREMENT ,
-		    category VARCHAR(100) NOT NULL PRIMARY KEY
+		    category VARCHAR(100) NOT NULL ,
+		    PRIMARY KEY (id)
 			)";
+
 			mysqli_query($link,$sql11);
 
-				$sqlpg = "CREATE TABLE postgraduate(
+			$sqlpg = "CREATE TABLE postgraduate(
 		    id INT NOT NULL AUTO_INCREMENT ,
-		    category VARCHAR(100) NOT NULL PRIMARY KEY
+		    category VARCHAR(100) NOT NULL ,
+		    PRIMARY KEY (id)
 			)";
-				mysqli_query($link,$sqlpg);
+			mysqli_query($link,$sqlpg);
 
-				$sqlex = "CREATE TABLE external(
+			$sqlex = "CREATE TABLE external(
 		    id INT NOT NULL AUTO_INCREMENT ,
-		    category VARCHAR(100) NOT NULL PRIMARY KEY
+		    category VARCHAR(100) NOT NULL ,
+		    PRIMARY KEY (id)
 			)";
-				mysqli_query($link,$sqlex);
+			mysqli_query($link,$sqlex);
 
 
-				$table_msg="CREATE TABLE messages (
+			$table_msg="CREATE TABLE messages (
     						id int NOT NULL AUTO_INCREMENT,
 							sender varchar(255) NOT NULL,
 							receiver varchar(255),
 							msg varchar(1000),
-							date date (50),
+							date varchar (50),
 							time varchar(50),
 							PRIMARY KEY (id)
-);";
-				mysqli_query($link,$table_msg);
+							);";
 
-				$table_backup="CREATE TABLE backup (
+			mysqli_query($link,$table_msg);
+
+			$table_backup="CREATE TABLE backup (
     						id int NOT NULL AUTO_INCREMENT,
 							date varchar (50),
 							backup_name varchar(50),
 							PRIMARY KEY (id)
 				);";
 
-			if(mysqli_query($link,$sql1)){
-				//echo "Your Table Created !!";  
-			}else{
-				?>
-				<script>
-		  			alert('Someting went wrong');
-		        </script>
-		        <?php
-				//echo "Someting went wrong";
-			}
-			
+			mysqli_query($link,$table_backup);
+
+			$table_backup="CREATE TABLE autobackup (
+    						id int NOT NULL AUTO_INCREMENT,
+							action varchar (5),
+							PRIMARY KEY (id)
+				);";
+
+			mysqli_query($link,$table_backup);
+
+
+
 			$sql3 = "INSERT INTO user (username,password,type,email,post,course_name) VALUES ('$adminname', '$adminpassword','qac','$email','qac_head','')";
 
 			if(mysqli_query($link,$sql3)){

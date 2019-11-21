@@ -39,11 +39,45 @@ class login_controller extends CI_Controller
 								$_SESSION['myemail']=$row->email;
 								$_SESSION['course_name']='';
 							}
-
-
 						}
 					}
 				}
+				$data['fetch_switch'] = $this->user_model->autobackupdata();
+				foreach ($data['fetch_switch']->result() as $row) {
+					if (($row->action) == 'true') {
+						$_SESSION['action'] = $row->action;
+					}
+				}
+
+				if($_SESSION['action']=='true'){
+					date_default_timezone_set("Asia/Colombo");
+					$date= date("Y-m-d");
+					$data['fetch_file'] = $this->user_model->backup_fetch1();
+					foreach ($data["fetch_file"]->result() as $row) {
+						$Date = $row->date;
+						$backupdata = date('Y-m-d', strtotime($Date. ' + 30 days'));
+						if($backupdata>=$Date){
+							$this->load->helper('url');
+							$this->load->helper('file');
+							$this->load->helper('download');
+							$this->load->library('zip');
+							$this->load->dbutil();
+							$db_format=array('format'=>'zip','filename'=>'mrdoc121.sql');
+							$backup=& $this->dbutil->backup($db_format);
+							$dbname='mrdoc-'.date('Y-m-d').'.zip';
+							$save='./backup/'.$dbname;
+							write_file($save,$backup);
+							$this->load->model('user_model');
+							$data = array(
+								"date" => $date,
+								"backup_name" => $dbname
+							);
+							$this->user_model->buckup_insert($data,$date);
+						}
+					}
+				}
+
+
                 $this->session->set_userdata($session_data);
                 redirect(base_url() . 'login_controller/enter');
                 $this->session->set_userdata('username');
@@ -1536,6 +1570,46 @@ class login_controller extends CI_Controller
 		}
 
 	}
+	public function db_backup()
+	{
+		$this->load->helper('url');
+		$this->load->helper('file');
+		$this->load->helper('download');
+		$this->load->library('zip');
+		$this->load->dbutil();
+		$db_format=array('format'=>'zip','filename'=>'mrdoc121.sql');
+		$backup=& $this->dbutil->backup($db_format);
+		$dbname='mrdoc-'.date('Y-m-d').'.zip';
+		$save='./backup/'.$dbname;
+		if(write_file($save,$backup)){
+			$this->session->set_flashdata('msg1', 'Backup completed');
+			$this->load->model('user_model');
+			date_default_timezone_set("Asia/Colombo");
+			$date= date("Y-m-d");
+			$data = array(
+				"date" => $date,
+				"backup_name" => $dbname
+			);
+			$this->user_model->buckup_insert($data,$date);
+		}else{
+			$this->session->set_flashdata('msg', 'Something went wrong, Try again!');
+		}
+		redirect(base_url().'Home/BackUp');
+//		force_download($dbname,$backup);
+
+	}
+
+	public function check_action(){
+		$this->load->model('user_model');
+		$data = array(
+			"action" => 'false',
+		);
+
+		if($this->input->post('query')) {
+			$query = $this->input->post('query');
+			$this->user_model->update_action($data);
+		}
+	}
 
 
 
@@ -1548,3 +1622,4 @@ class login_controller extends CI_Controller
 
 
 }
+
