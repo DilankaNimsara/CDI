@@ -16,6 +16,8 @@ class login_controller extends CI_Controller
             $password = $this->input->post('password');
 			$this->load->model('user_model');
 
+
+
             if ($this->user_model->can_login($username, $password)) {
                 $session_data = array(
                     'username' => $username,
@@ -42,10 +44,13 @@ class login_controller extends CI_Controller
 						}
 					}
 				}
+
 				$data['fetch_switch'] = $this->user_model->autobackupdata();
 				foreach ($data['fetch_switch']->result() as $row) {
 					if (($row->action) == 'true') {
 						$_SESSION['action'] = $row->action;
+					}else{
+						$_SESSION['action'] = "";
 					}
 				}
 
@@ -56,33 +61,44 @@ class login_controller extends CI_Controller
 					foreach ($data["fetch_file"]->result() as $row) {
 						$Date = $row->date;
 						$backupdata = date('Y-m-d', strtotime($Date. ' + 30 days'));
+
 						if($backupdata>=$Date){
+
 							$this->load->helper('url');
 							$this->load->helper('file');
 							$this->load->helper('download');
 							$this->load->library('zip');
 							$this->load->dbutil();
+
 							$db_format=array('format'=>'zip','filename'=>'mrdoc121.sql');
-							$backup=& $this->dbutil->backup($db_format);
+							$this->dbutil->backup($db_format);
+//							$save='./backup/'.$dbname;
+
 							$dbname='mrdoc-'.date('Y-m-d').'.zip';
-							$save='./backup/'.$dbname;
-							write_file($save,$backup);
+
+							$filename = 'mrdoc-'.date('Y-m-d').'.zip';
+							$path = 'uploads';
+							$this->zip->read_dir($path);
+							$this->zip->archive(FCPATH.'/backup/'.$filename);
+							$this->zip->archive(FCPATH.'/backup/'.$dbname);
+
+//							write_file($save,$backup);
 							$this->load->model('user_model');
 							$data = array(
 								"date" => $date,
-								"backup_name" => $dbname
+								"backup_name_file" => $filename
 							);
 							$this->user_model->buckup_insert($data,$date);
 						}
 					}
 				}
 
-
                 $this->session->set_userdata($session_data);
                 redirect(base_url() . 'login_controller/enter');
                 $this->session->set_userdata('username');
                 $this->session->set_userdata($_SESSION['type']);
                 $this->session->set_userdata('password');
+
             } else {
                 $this->session->set_flashdata('error', 'Invalid Username or Password');
                 redirect(base_url() . 'login_controller/login');
@@ -1577,18 +1593,25 @@ class login_controller extends CI_Controller
 		$this->load->helper('download');
 		$this->load->library('zip');
 		$this->load->dbutil();
+
 		$db_format=array('format'=>'zip','filename'=>'mrdoc121.sql');
-		$backup=& $this->dbutil->backup($db_format);
+		$this->dbutil->backup($db_format);
 		$dbname='mrdoc-'.date('Y-m-d').'.zip';
-		$save='./backup/'.$dbname;
-		if(write_file($save,$backup)){
+//		$save='./backup/'.$dbname;
+
+		$filename = 'mrdoc-'.date('Y-m-d').'.zip';
+		$path = 'uploads';
+		$this->zip->read_dir($path);
+		$this->zip->archive(FCPATH.'/backup/'.$filename);
+//		$this->zip->archive(FCPATH.'/backup/'.$dbname);
+		if($this->zip->archive(FCPATH.'/backup/'.$dbname)){
 			$this->session->set_flashdata('msg1', 'Backup completed');
 			$this->load->model('user_model');
 			date_default_timezone_set("Asia/Colombo");
 			$date= date("Y-m-d");
 			$data = array(
 				"date" => $date,
-				"backup_name" => $dbname
+				"backup_name_file" => $filename
 			);
 			$this->user_model->buckup_insert($data,$date);
 		}else{
@@ -1602,17 +1625,28 @@ class login_controller extends CI_Controller
 	public function check_action(){
 		$this->load->model('user_model');
 		$data = array(
-			"action" => 'false',
+			"action" => $this->input->post('action')
 		);
-
-		if($this->input->post('query')) {
-			$query = $this->input->post('query');
-			$this->user_model->update_action($data);
-		}
+		$this->user_model->update_action($data);
+		$_SESSION['action'] = $this->input->post('action');
 	}
 
 
+	public function download_zip(){
+		$this->load->helper('download');
+    	if($this->input->post('db')){
+			$data   = file_get_contents('./backup/'.$this->input->post('db'));
+			$name   = $this->input->post('db');
+			force_download($name, $data);
+			redirect(base_url().'Home/BackUp');
+		}elseif ($this->input->post('file')){
+			$data   = file_get_contents('./backup/'.$this->input->post('file'));
+			$name   = $this->input->post('file');
+			force_download($name, $data);
+			redirect(base_url().'Home/BackUp');
+		}
 
+	}
 
 
 

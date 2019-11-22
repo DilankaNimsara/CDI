@@ -112,20 +112,23 @@
 			$table_backup="CREATE TABLE backup (
     						id int NOT NULL AUTO_INCREMENT,
 							date varchar (50),
-							backup_name varchar(50),
+							backup_name_file varchar(50),
 							PRIMARY KEY (id)
 				);";
 
 			mysqli_query($link,$table_backup);
 
-			$table_backup="CREATE TABLE autobackup (
-    						id int NOT NULL AUTO_INCREMENT,
+			$table_backup_auto="CREATE TABLE autobackup (
+    						id varchar(1),
 							action varchar (5),
 							PRIMARY KEY (id)
 				);";
 
-			mysqli_query($link,$table_backup);
+			mysqli_query($link,$table_backup_auto);
 
+			$insertvalue = "INSERT INTO autobackup (id,action) VALUES ('1','false')";
+
+			mysqli_query($link,$insertvalue);
 
 
 			$sql3 = "INSERT INTO user (username,password,type,email,post,course_name) VALUES ('$adminname', '$adminpassword','qac','$email','qac_head','')";

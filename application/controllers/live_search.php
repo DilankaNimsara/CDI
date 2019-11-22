@@ -564,8 +564,8 @@ class live_search extends CI_Controller{
 		  <div class="table-responsive">
 			 <table class="table table-hover">
 			  <tr bgcolor="white">
-			   <th>Date</th>
-			   <th>File</th>
+			   <th width="50%">Date</th>
+			   <th width="50%">Backup</th>
 			  </tr>
 		  ';
 		if ($data->num_rows() > 0) {
@@ -573,7 +573,12 @@ class live_search extends CI_Controller{
 				$output .= '
 			  <tr>
 			   <td>' . $row->date . '</td>
-			   <td>' . $row->backup_name . '</td>
+				   <td>
+					   <form method="post" action="'.base_url('login_controller/download_zip').'">
+						   <button class="btn btn-default" name="submit2">' . $row->backup_name_file . '</button>
+						   <input type="text" class="hide" name="file" value="' . $row->backup_name_file . '">
+						</form
+				   </td>
 			  </tr>
 			';
 			}

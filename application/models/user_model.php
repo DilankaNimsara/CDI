@@ -630,7 +630,7 @@ class user_model extends CI_Model
 
 	function update_action($data){
 		$this->db->where('id',1);
-		$this->db->update("action",$data);
+		$this->db->update("autobackup",$data);
 	}
 
 

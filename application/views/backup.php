@@ -43,12 +43,14 @@
 			<?php
 			if($_SESSION['action'] == 'true'){
 				$checked='checked';
+			}elseif($_SESSION['action'] == 'false'){
+				$checked='';
 			}else{
 				$checked='';
 			}
 			?>
 				<label class="switch">
-					<input type="checkbox" id="togBtn" value="false" name="action" <?php echo $checked;?>>
+					<input type="checkbox" id="togBtn" name="action" <?php echo $checked;?>>
 					<span class="slider round"></span>
 				</label>
 
@@ -69,7 +71,7 @@
 					</div>
 				</div>
 				<br/>
-				<div style="width: 50%; font-size: 13px;" id="result"></div>
+				<div style="width: 37%; font-size: 13px;" id="result"></div>
 			</div>
 			<div style="clear:both"></div>
 
@@ -115,20 +117,27 @@
             }
         });
 
-        var switchStatus = false;
+        // var switchStatus = false;
         $("#togBtn").on('change', function() {
             if ($(this).is(':checked')) {
                 switchStatus = $(this).is(':checked');
+                var action='true';
                 alert('Auto update activated ');
                 $.ajax({
                     url:"<?php echo base_url(); ?>login_controller/check_action",
                     method:"POST",
-                    data:{query:query},
+                    data:{action:action},
                 });
             }
             else {
                 switchStatus = $(this).is(':checked');
+                var action='false';
                 alert('Auto update deactivated');
+                $.ajax({
+                    url:"<?php echo base_url(); ?>login_controller/check_action",
+                    method:"POST",
+                    data:{action:action},
+                });
             }
         });
 
