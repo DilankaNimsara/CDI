@@ -12,7 +12,10 @@ $url= basename($actual_link);
 	<meta charset="utf-8">
 	<title>Upload file</title>
     <?php include 'header.php';
-    include 'autologout.php';?>
+    include 'autologout.php';
+	if($this->session->userdata('username') == ''){
+		include 'index.php';
+	}?>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
 </head>
@@ -23,6 +26,15 @@ $url= basename($actual_link);
 			<?php include 'sidenav.php';?>
 		</div>
 		<div class="col-sm-10">
+			<br/>
+			<div class="row">
+				<center>
+					<div class="btn-group btn-group-justified" style="width: 95%;">
+						<a class="btn btn-primary" href="<?php echo base_url('login_controller/uploadFile'); ?>">Single file upload</a>
+						<a href="<?php echo base_url('login_controller/Bulkupload'); ?>" class="btn btn-info">Bulk upload</a>
+					</div>
+				</center>
+			</div>
 			<br/>
 			<?php
 			if($this->session->flashdata('msg')){

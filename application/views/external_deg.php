@@ -4,7 +4,10 @@
 	<meta charset="utf-8">
 	<title>External Degrees</title>
 	<?php include 'header.php';
-	include 'autologout.php';?>
+	include 'autologout.php';
+	if($this->session->userdata('username') == ''){
+		include 'index.php';
+	}?>
 </head>
 <body>
 

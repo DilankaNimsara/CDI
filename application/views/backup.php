@@ -4,7 +4,10 @@
 	<meta charset="utf-8">
 	<title>Backup</title>
 	<?php include 'header.php';
-	include 'autologout.php';?>
+	include 'autologout.php';
+	if($this->session->userdata('username') == ''){
+		include 'index.php';
+	}?>
 </head>
 <body>
 
@@ -122,7 +125,7 @@
             if ($(this).is(':checked')) {
                 switchStatus = $(this).is(':checked');
                 var action='true';
-                alert('Auto update activated ');
+                alert('Auto update activate ');
                 $.ajax({
                     url:"<?php echo base_url(); ?>login_controller/check_action",
                     method:"POST",
@@ -132,7 +135,7 @@
             else {
                 switchStatus = $(this).is(':checked');
                 var action='false';
-                alert('Auto update deactivated');
+                alert('Auto update deactivate');
                 $.ajax({
                     url:"<?php echo base_url(); ?>login_controller/check_action",
                     method:"POST",

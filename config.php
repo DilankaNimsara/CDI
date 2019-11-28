@@ -48,15 +48,24 @@
 			$link=mysqli_connect("localhost","root","","mrdoc121");
 
 			$sql2 = "CREATE TABLE user(
-		    username VARCHAR(20) NOT NULL PRIMARY KEY,
+		    username VARCHAR(20) NOT NULL ,
 		    password VARCHAR(20) NOT NULL,
 		    type VARCHAR(20) NOT NULL,
 		    email VARCHAR(100) NOT NULL,
 		    post VARCHAR(100) NOT NULL,
-		    course_name VARCHAR(100) NOT NULL
+		    course_name VARCHAR(100) NOT NULL,
+		    PRIMARY KEY (username)
 			)";
 
 			mysqli_query($link,$sql2);
+
+			$pin = "CREATE TABLE pin(
+		    id INT NOT NULL AUTO_INCREMENT ,
+		    code VARCHAR(5) NOT NULL,
+		    PRIMARY KEY (id)
+			)";
+
+			mysqli_query($link,$pin);
 
 			$sql1 = "CREATE TABLE fileupload(
 		    file_name VARCHAR(250) NOT NULL PRIMARY KEY,

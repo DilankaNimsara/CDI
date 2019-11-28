@@ -22,7 +22,10 @@
 
 			<!--- type heare---------->
 
-			Contacts
+			Contacts<?php
+
+			echo $_SESSION['id'];
+			?>
 <br>
 
 

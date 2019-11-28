@@ -245,6 +245,7 @@ class live_search extends CI_Controller{
                 <input type="text" class="hide" name="subject_code" value="' . $row->subject_code . '">
                 <input type="text" class="hide" name="subject_name" value="' . $row->subject_name . '">
                 <input type="text" class="hide" name="category" value="' . $_SESSION['x'] . '">
+                
            </form>
        </td>
        <td>

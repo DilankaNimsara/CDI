@@ -326,6 +326,7 @@ class login_controller extends CI_Controller
         $_SESSION['account_email']=$this->input->post('email');
 		$_SESSION['account_post']=$this->input->post('post');
 		$_SESSION['report']=$this->input->post('report');
+		$_SESSION['id']=$this->input->post('id');
 		$_SESSION['course_name']=$this->input->post('course_name');
         $this->load->view('searchdata');
     }
@@ -487,7 +488,7 @@ class login_controller extends CI_Controller
 
 				$mail->Subject='New file Uploaded';
 				$mail->Body=$body;
-				$mail->addAttachment('uploads/'.$up_file_name['file_name']);
+//				$mail->addAttachment('uploads/'.$up_file_name['file_name']);
 				$data['fetch_data'] = $this->user_model->userdetails();
 
 				foreach ($data['fetch_data']->result() as $row) {
@@ -551,6 +552,11 @@ class login_controller extends CI_Controller
 		if($this->input->post("edit")) {
 			redirect(base_url('login_controller/view_edit_file'));
 		}
+
+		if($this->input->post("delete")) {
+			redirect(base_url('login_controller/delete_confirm'));
+		}
+
 
 	}
 	public function delete_uploaded_file(){
@@ -1645,9 +1651,15 @@ class login_controller extends CI_Controller
 			force_download($name, $data);
 			redirect(base_url().'Home/BackUp');
 		}
-
 	}
 
+	public function Bulkupload(){
+		$this->load->view('bulkupload');
+	}
+
+	public function delete_confirm(){
+		$this->load->view('file_delete_confirm');
+	}
 
 
 

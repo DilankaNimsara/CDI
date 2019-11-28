@@ -4,13 +4,18 @@
 	<meta charset="utf-8">
 	<title>Edit</title>
 	<?php include 'header.php';
-	include 'autologout.php';?>
+	include 'autologout.php';
+	if($this->session->userdata('username') == ''){
+		include 'index.php';
+	}?>
 </head>
 <body>
 <div class="container-fluid">
 	<div class="row content">
 		<div class="col-sm-12">
 			<br/>
+
+			function name: download_file
 			<div style="color: wheat;">
 			You are here : <a style="color: wheat;" data-toggle="tooltip" title="Go back" href="<?php echo base_url('Home/viewDocument')?>"> View Document </a>  > Details
 			</div>
@@ -119,9 +124,11 @@
 						<?php
 						if(($_SESSION['type']=='qac')||($_SESSION['type']=='head_of_institute')){
 						?>
+						<form method="post" action="<?php echo base_url();?>login_controller/download_file">
 						<center>
-							<button style="width: 100px;" class=" btn btn-danger delete_data"  id="<?php $_SESSION['file_name'];?>"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+							<button style="width: 100px;" class=" btn btn-danger"  name="delete" value="delete"><span class="glyphicon glyphicon-trash"></span> Delete</button>
 						</center>
+						</form>
 							<?php
 						}
 						?>
@@ -138,15 +145,3 @@
 </html>
 
 
-<script>
-    $(document).ready(function(){
-        $('.delete_data').click(function () {
-            var id = $(this).attr("id");
-            if (confirm("Are you sure, You want to delete this document ")) {
-                window.location = "<?php echo base_url(); ?>login_controller/delete_uploaded_file";
-            } else {
-                return false;
-            }
-        });
-    });
-</script>

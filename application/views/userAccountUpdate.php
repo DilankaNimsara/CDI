@@ -7,6 +7,9 @@
 	<?php
 	include 'autologout.php';
 	include 'header.php';
+	if($this->session->userdata('username') == ''){
+		include 'index.php';
+	}
 	?>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>

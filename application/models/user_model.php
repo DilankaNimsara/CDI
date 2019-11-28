@@ -38,8 +38,8 @@ class user_model extends CI_Model
 	}
 
 	function update_user_account_data($data,$username){
-        $this->db->where('username', $username);
-        $this->db->update('user',$data);
+			$this->db->where('username', $username);
+			$this->db->update('user',$data);
     }
 
     function delete_user_account_data($username){

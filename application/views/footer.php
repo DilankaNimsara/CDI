@@ -1,4 +1,4 @@
-<footer class="container-fluid text-center ">
+<footer class="container-fluid text-center footer ">
 	<div class="footer-copyright text-center py-3">
 		<div class="col-sm-1">
 			<p align="right">

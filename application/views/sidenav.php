@@ -12,12 +12,12 @@ $url= basename($actual_link);
 			<h2 style="color: mediumturquoise;"><span class="glyphicon glyphicon-menu-hamburger"></span> Menu</h2>
 			<ul class="nav nav-pills nav-stacked">
 				<li class="<?php if($url == "index"){echo 'active';} ?>"><a href="<?php echo base_url('Home/index')?>"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-home"></span> Home</a></li>
-				<li class="<?php if($url == "viewDocument" || $url =='view_edit_file'){echo 'active';} ?>"><a href="<?php echo base_url('Home/viewDocument')?>">View Document <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-search"></span></a></li>
+				<li class="<?php if($url == "viewDocument" || $url =='view_edit_file'|| $url =='delete_confirm'){echo 'active';} ?>"><a href="<?php echo base_url('Home/viewDocument')?>">View Document <span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-search"></span></a></li>
 
 				<?php
 				if(($this->session->userdata('type')=='qac')) {
 					?>
-					<li class="<?php if ($url == "uploadFile" || $url == "do_upload") {
+					<li class="<?php if ($url == "uploadFile" || $url == "do_upload" || $url == "Bulkupload") {
 						echo 'active';
 					} ?>"><a href="<?php echo base_url(); ?>login_controller/uploadFile"> Upload Document<span
 								style="font-size:16px;"
