@@ -40,6 +40,7 @@ for ($i = 0; $i < 8; $i++) {
 				</center>
 			</div>
 			<br/>
+			commented on mail function
 			<?php
 			if($this->session->flashdata("msg")){
 				?>

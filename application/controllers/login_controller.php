@@ -183,7 +183,7 @@ class login_controller extends CI_Controller
 			$mail->Body=$body;
 			$mail->AddAddress($this->input->post("email"));
 			if($this->session->flashdata("check")=='check'){
-				$mail->Send();
+//				$mail->Send();
 			}
 
 			redirect(base_url() . "login_controller/userForm");
@@ -1658,7 +1658,56 @@ class login_controller extends CI_Controller
 	}
 
 	public function delete_confirm(){
-		$this->load->view('file_delete_confirm');
+		$this->load->model('user_model');
+		$data["fetch_data"] = $this->user_model->get_pin();
+		$data["fetch_msg"] = $this->user_model->fetch_messages_for_announcement();
+		$this->load->view('file_delete_confirm',$data);
+	}
+
+	public function send_request(){
+		$this->load->model('user_model');
+
+		if($this->input->post('action')=='request_to_delete'){
+			$data = array(
+				"filename" => $this->input->post("file_name"),
+				"actiontype" => $this->input->post("action"),
+				"code" => $this->input->post("pin"),
+				"msg" => 'asdasd'
+			);
+			$this->user_model->insert_pin($data);
+			$this->session->set_flashdata('msg', 'Requested to delete');
+
+		}elseif($this->input->post('action')=='request_pin'){
+			$data = array(
+				"filename" => $this->input->post("file_name"),
+				"actiontype" => $this->input->post("action"),
+				"code" => '#####',
+				"msg" => "message"
+			);
+
+			date_default_timezone_set("Asia/Colombo");
+			$date= date("Y-m-d");
+			$time= date("h:i:sa");
+			$this->load->model('user_model');
+			if($_SESSION['type']=='head_of_institute'){
+				$type='to_qac';
+			}elseif($_SESSION['type']=='qac'){
+				$type='to_head_of_institute';
+			}
+			$data2 = array(
+				"sender" => $this->session->userdata('username'),
+				"receiver" => $type,
+				"msg" => "want to delete ". $this->input->post("file_name").' file. Give permission to delete this file by sending PIN',
+				"date" => $date,
+				"time" => $time
+			);
+			$this->user_model->insert_messages($data2);
+
+			$this->user_model->insert_pin($data);
+			$this->session->set_flashdata('msg', 'Requested pin');
+		}
+		redirect(base_url()."login_controller/delete_confirm");
+
 	}
 
 

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title></title>
+	<title>Delete confirm</title>
 	<?php include 'header.php';
 	include 'autologout.php';
 	if($this->session->userdata('username') == ''){
@@ -18,9 +18,22 @@
 		</div>
 		<div class="col-sm-10">
 			<br/>
-			<div class="alert alert-info">
-				<span class="text-primary">jkkkk</span>
-			</div>
+
+			<?php
+			if($this->session->flashdata("msg")) {
+				?>
+				<div class="alert alert-success">
+					<span class="text-success"> <?php echo $this->session->flashdata("msg"); ?></span>
+				</div>
+				<?php
+			}else{
+				?>
+				<div class="alert alert-info">
+					<span class="text-primary">jkkkk</span>
+				</div>
+			<?php
+			}
+			?>
 		</div>
 			<div class="col-sm-7">
 			<?php
@@ -34,11 +47,22 @@
 //			echo implode($pass);
 			?>
 			<center>
-				<form>
-					<button style="width: 200px;" class=" btn btn-success"> Request PIN</button>
+				<form method="post" action="<?php echo base_url().'login_controller/send_request';?>">
+					<?php if($_SESSION['type']=='qac'){
+						?>
+						<button style="width: 200px;" class=" btn btn-success" name="action" value="request_pin"> Request PIN</button>
+						<?php
+					} else{
+						?>
+						<button style="width: 200px;" class=" btn btn-success" name="action" value="request_pin"> Send PIN</button>
+					<?php
+					};?>
+
 					<br/>
 					<br/>
-					<button style="width: 200px;" class=" btn btn-success"> Request to Delete</button>
+					<button style="width: 200px;" class=" btn btn-success" name="action" value="request_to_delete"> Request to Delete</button>
+					<input type="text" class="hide" name="file_name" value="<?php echo $_SESSION['file_name'];?>">
+					<input type="text" class="hide" name="pin" value="<?php echo implode($pass);?>">
 				</form>
 				<br/>
 				<br/>
@@ -55,8 +79,24 @@
 			</center>
 		</div>
 		<div class="col-sm-3">
-			<label>Received PIN :</label>
-			<input type="text" value=""  style="width: 200px; color: gray;" class="form-control" readonly>
+
+			<?php
+			foreach ($fetch_msg->result() as $row2) {
+				foreach ($fetch_data->result() as $row) {
+					if($_SESSION['type']=='qac'){
+						if (($row->filename==$_SESSION['file_name'])&&(($row2->receiver=='to_qac'))){
+							?>
+							<label>Received PIN :</label>
+							<input type="text" value="<?php echo $row->code ;?>"  style="width: 200px; color: gray;" class="form-control" readonly>
+							<?php
+						}
+					}
+
+				}
+			}
+			?>
+
+
 		</div>
 	</div>
 </div>

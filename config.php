@@ -61,7 +61,10 @@
 
 			$pin = "CREATE TABLE pin(
 		    id INT NOT NULL AUTO_INCREMENT ,
+		    filename VARCHAR(250) NOT NULL,
+		    actiontype VARCHAR(250) NOT NULL,
 		    code VARCHAR(5) NOT NULL,
+		    msg VARCHAR(500) NOT NULL,
 		    PRIMARY KEY (id)
 			)";
 
