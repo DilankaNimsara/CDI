@@ -42,8 +42,15 @@
 							?>
 							<li class="<?php if($url == "useraccountupdate"){echo 'active';} ?>"><a href="<?php echo base_url();?>login_controller/useraccountupdate"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-wrench"></span>My profile</a></li>
 							<li><a href="<?php echo base_url();?>login_controller/send_message"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-comment"></span>Message</a></li>
-							<li><a href="<?php echo base_url();?>Home/BackUp"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-cloud-upload"></span>Backup</a></li>
-
+							<?php
+							if($this->session->userdata('post')=='qac_head') {
+								?>
+								<li><a href="<?php echo base_url(); ?>Home/BackUp"><span style="font-size:16px;"
+																						 class="pull-right hidden-xs showopacity glyphicon glyphicon-cloud-upload"></span>Backup</a>
+								</li>
+								<?php
+							}
+							?>
 						</ul><br>
 					</div>
 				</div>

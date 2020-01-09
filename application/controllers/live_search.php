@@ -50,7 +50,7 @@ class live_search extends CI_Controller{
      <table class="table table-hover">
       <tr bgcolor="white">
        <th>User Name</th>
-       <th>Password</th>
+      
        <th>E-mail</th>
        <th>Type</th>
         <th>Post</th>
@@ -65,7 +65,7 @@ class live_search extends CI_Controller{
       <tr>
       
        <td bgcolor="5CA9F5">' . $row->username . '</td>
-       <td>' . $row->password .'</td>
+      
        <td><a>' . $row->email . '</a></td>
        <td>' . str_replace('_',' ',$row->type) . '</td>
        <td>' .str_replace('_', ' ',strtoupper( $row->post)) .'<font color="midnightblue" face="Consolas" size="4px"><b> '. $row->course_name . '</b></font></td>

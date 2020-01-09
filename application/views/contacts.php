@@ -22,9 +22,9 @@
 
 			<!--- type heare---------->
 
-			Contacts<?php
-
-			echo $_SESSION['id'];
+			Contacts
+			<br/><?php
+			echo md5("123");
 			?>
 <br>
 

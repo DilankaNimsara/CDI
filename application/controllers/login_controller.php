@@ -13,7 +13,9 @@ class login_controller extends CI_Controller
         if ($this->form_validation->run()) {
 
             $username = $this->input->post('username');
-            $password = $this->input->post('password');
+//            $password = $this->input->post('password');
+
+			$password = md5($this->input->post('password'));
 			$this->load->model('user_model');
 
 
@@ -144,11 +146,14 @@ class login_controller extends CI_Controller
 		$this->form_validation->set_rules('post', 'Post', 'required');
 		$this->form_validation->set_rules('type', 'Type', 'required');
 
+		$hashPassword = $this->input->post("password");
+
+
         if ($this->form_validation->run()) {
             $this->load->model('user_model');
             $data = array(
                 "username" => $this->input->post("username"),
-                "password" => $this->input->post("password"),
+                "password" => md5($hashPassword),
                 "type" => $this->input->post("type"),
                 "email" => $this->input->post("email"),
 				"post" => $this->input->post("post"),
@@ -294,9 +299,9 @@ class login_controller extends CI_Controller
 
         $this->form_validation->set_rules('pw', 'Password', 'required');
         $this->form_validation->set_rules('confirm_pw', 'confirm password', 'required|matches[pw]');
-        $pswd=$this->input->post('admin_password');
-        $con_psw=$this->input->post('confirm_pw');
-        $pwd=$this->input->post('pw');
+        $pswd=($this->input->post('admin_password'));
+        $con_psw=md5($this->input->post('confirm_pw'));
+        $pwd=md5($this->input->post('pw'));
         if ($this->form_validation->run()) {
             $this->load->model('user_model');
             if(($pwd == $pswd )&&($con_psw==$pswd)){
@@ -345,7 +350,7 @@ class login_controller extends CI_Controller
             $this->load->model('user_model');
             $data = array(
                 "username" => $this->input->post("username"),
-                "password" => $this->input->post("password"),
+                "password" => md5($this->input->post("password")),
                 "email" => $this->input->post("email")
             );
 
