@@ -18,7 +18,8 @@
 	if(isset($_POST['submit'])){
 
 		$adminname=$_POST['adminname'];
-		$adminpassword=$_POST['adminpassword'];
+		$adminpassword=md5($_POST['adminpassword']);
+		echo $adminname;
 		$email=$_POST['email'];
 
 		if($adminname==""||$adminpassword==""||$email==""){
@@ -49,7 +50,7 @@
 
 			$sql2 = "CREATE TABLE user(
 		    username VARCHAR(20) NOT NULL ,
-		    password VARCHAR(20) NOT NULL,
+		    password VARCHAR(50) NOT NULL,
 		    type VARCHAR(20) NOT NULL,
 		    email VARCHAR(100) NOT NULL,
 		    post VARCHAR(100) NOT NULL,
@@ -141,6 +142,7 @@
 			$insertvalue = "INSERT INTO autobackup (id,action) VALUES ('1','false')";
 
 			mysqli_query($link,$insertvalue);
+
 
 
 			$sql3 = "INSERT INTO user (username,password,type,email,post,course_name) VALUES ('$adminname', '$adminpassword','qac','$email','qac_head','')";
