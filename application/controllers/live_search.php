@@ -608,7 +608,6 @@ class live_search extends CI_Controller{
       <tr bgcolor="white">
       <th>Download</th>
        <th>File Name (View)</th>
-       <th>Date Created</th>
        <th>Category</th>
        <th>Year</th>
        <th>Semester</th>
@@ -618,6 +617,7 @@ class live_search extends CI_Controller{
        <th>Lecturer</th>
        <th>Type</th>
        <th>Comment</th>
+       <th>Restore</th>
       </tr>
   ';
 	if ($data->num_rows() > 0) {
@@ -625,8 +625,7 @@ class live_search extends CI_Controller{
 			$output .= '
       <tr>
        <td><a href="'. base_url("login_controller/direct_download/". $row->file_name) .'"><center><span style="color: #0b0b0b;" class="glyphicon glyphicon-download-alt"></span></center></a></td>
-       <td><a href="'. base_url("login_controller/editFile/". $row->file_name) .'">' . $row->file_name . '</a></td>
-       <td>' . $row->date_created . '</td>
+       <td>' . $row->file_name . '</a></td>
        <td>' . $row->category . '</td>
        <td>' . $row->year . '</td>
        <td>' . $row->semester . '</td>
@@ -636,12 +635,18 @@ class live_search extends CI_Controller{
        <td>' . $row->lecturer . '</td>
        <td>' . str_replace('_',' ',$row->doc_type ). '</td> 
        <td>' . $row->comment . '</td> 
+       <td>
+       		<form method="post" action="'.base_url("login_controller/Restore").'">
+       			<input type="text" class="hide" name="filename" value="'.$row->file_name.'">
+       			<button class="btn btn-danger btn-sm" name="submit" value="submit">Restore</button>
+			</form>
+       </td> 
       </tr>
     ';
 		}
 	} else {
 		$output .= '<tr>
-       <td colspan="11">No Data Found</td>
+       <td colspan="12">No Data Found</td>
       </tr>';
 	}
 	$output .= '</table>';

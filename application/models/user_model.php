@@ -25,6 +25,13 @@ class user_model extends CI_Model
 		$query = $this->db->get('fileupload');
 		return $query;
 	}
+
+	function trash_details($file_name){
+		$this->db->where('file_name', $file_name);
+		$query = $this->db->get('trash');
+		return $query;
+	}
+
 	function getfileupload(){
 		$this->db->select("*");
 		$this->db->from("fileupload");
@@ -63,8 +70,17 @@ class user_model extends CI_Model
 		$this->db->delete('fileupload');
 	}
 
+	function deleteFilestrash($name){
+		$this->db->where("file_name",$name);
+		$this->db->delete('trash');
+	}
+
 	function trashed_Files($data){
 		$this->db->insert("trash",$data);
+	}
+
+	function insert_file_restore($data){
+		$this->db->insert("fileupload",$data);
 	}
 
     function update_data($data,$username){

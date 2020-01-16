@@ -553,7 +553,7 @@ class login_controller extends CI_Controller
 	public function delete_uploaded_file(){
 		$this->load->model('user_model');
 		$file = 'uploads/'.$_SESSION['file_name'];
-		$newfile = './Trash/'.$_SESSION['file_name'];
+		$newfile = './uploads/Trash/'.$_SESSION['file_name'];
 		copy($file, $newfile);
 
 		$data["fetch_data"] = $this->user_model->fileupload_count($_SESSION['file_name']);
@@ -1720,6 +1720,41 @@ class login_controller extends CI_Controller
 			$this->session->set_flashdata('msg', 'Requested pin');
 		}
 		redirect(base_url()."login_controller/delete_confirm");
+
+	}
+
+	public function Restore(){
+		$file_name = $this->input->post("filename");
+
+		$this->load->model('user_model');
+		$file = 'uploads/Trash/'.$file_name;
+		$newfile = './uploads/'.$file_name;
+		copy($file, $newfile);
+
+		$data["fetch_data"] = $this->user_model->trash_details($file_name);
+		foreach ($data["fetch_data"]->result() as $row) {
+
+
+			$dta = array(
+				"file_name" => $row->file_name,
+				"date_created" => $row->date_created,
+				"category" => $row->category,
+				"year" => $row->year,
+				"semester" => $row->semester,
+				"academic_year" => $row->academic_year,
+				"subject_code" => $row->subject_code,
+				"author" => $row->author,
+				"comment" => $row->comment,
+				"lecturer" => $row->lecturer,
+				"doc_type" =>  $row->doc_type
+			);
+		}
+
+		$this->user_model->insert_file_restore($dta);
+		unlink("uploads/Trash/".$file_name);
+		$this->user_model->deleteFilestrash($file_name);
+		redirect(base_url('Home/Trash'));
+
 
 	}
 
