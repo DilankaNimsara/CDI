@@ -592,6 +592,61 @@ class live_search extends CI_Controller{
 		echo $output;
 	}
 
+	function Fetch_Trash()
+{
+	$output = '';
+	$query = '';
+	$this->load->model('user_model');
+	if ($this->input->post('query')) {
+		$query = $this->input->post('query');
+	}
+
+	$data = $this->user_model->fetch_trash_doc($query);
+	$output .= '
+  <div class="table-responsive">
+     <table class="table table-hover">
+      <tr bgcolor="white">
+      <th>Download</th>
+       <th>File Name (View)</th>
+       <th>Date Created</th>
+       <th>Category</th>
+       <th>Year</th>
+       <th>Semester</th>
+       <th>Academic year</th>
+       <th>Subject Code</th>
+       <th>Author</th>
+       <th>Lecturer</th>
+       <th>Type</th>
+       <th>Comment</th>
+      </tr>
+  ';
+	if ($data->num_rows() > 0) {
+		foreach ($data->result() as $row) {
+			$output .= '
+      <tr>
+       <td><a href="'. base_url("login_controller/direct_download/". $row->file_name) .'"><center><span style="color: #0b0b0b;" class="glyphicon glyphicon-download-alt"></span></center></a></td>
+       <td><a href="'. base_url("login_controller/editFile/". $row->file_name) .'">' . $row->file_name . '</a></td>
+       <td>' . $row->date_created . '</td>
+       <td>' . $row->category . '</td>
+       <td>' . $row->year . '</td>
+       <td>' . $row->semester . '</td>
+       <td>' . $row->academic_year . '</td>
+       <td>' . $row->subject_code . '</td>
+       <td>' . $row->author . '</td>
+       <td>' . $row->lecturer . '</td>
+       <td>' . str_replace('_',' ',$row->doc_type ). '</td> 
+       <td>' . $row->comment . '</td> 
+      </tr>
+    ';
+		}
+	} else {
+		$output .= '<tr>
+       <td colspan="11">No Data Found</td>
+      </tr>';
+	}
+	$output .= '</table>';
+	echo $output;
+}
 
 
 

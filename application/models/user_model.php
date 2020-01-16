@@ -63,6 +63,10 @@ class user_model extends CI_Model
 		$this->db->delete('fileupload');
 	}
 
+	function trashed_Files($data){
+		$this->db->insert("trash",$data);
+	}
+
     function update_data($data,$username){
         $this->db->where('username', $username);
         $this->db->update("user",$data);
@@ -410,7 +414,17 @@ class user_model extends CI_Model
         return $this->db->get();
     }
 
-    function fetch_data_cat_table($cat){
+	function fetch_trash_doc($query)
+	{
+		$this->db->select("*");
+		$this->db->from("trash");
+		$this->db->join('user', 'trash.lecturer = user.username');
+		$this->db->like('file_name', $query);
+		$this->db->order_by('file_name', 'ASC');
+		return $this->db->get();
+	}
+
+	function fetch_data_cat_table($cat){
         $this->db->order_by('year', 'ASC');
         $this->db->order_by('semester', 'ASC');
         $this->db->order_by('subject_code', 'ASC');

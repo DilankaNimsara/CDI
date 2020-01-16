@@ -144,6 +144,23 @@
 			mysqli_query($link,$insertvalue);
 
 
+			$tr = "CREATE TABLE trash(
+		    file_name VARCHAR(250) NOT NULL PRIMARY KEY,
+		    date_created VARCHAR(30) NOT NULL,
+		    category VARCHAR(100) NOT NULL,
+		    year INT NOT NULL,
+		    semester VARCHAR(30) NOT NULL,
+		    academic_year VARCHAR(70) NOT NULL,
+		    subject_code VARCHAR(70) NOT NULL,
+		    author VARCHAR(10) NOT NULL,
+		    comment VARCHAR(250) NOT NULL,
+		    lecturer VARCHAR(250) NOT NULL,
+		    doc_type VARCHAR(250) NOT NULL
+			)";
+
+			mysqli_query($link,$tr);
+
+
 
 			$sql3 = "INSERT INTO user (username,password,type,email,post,course_name) VALUES ('$adminname', '$adminpassword','qac','$email','qac_head','')";
 

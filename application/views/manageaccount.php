@@ -48,6 +48,8 @@
 								<li><a href="<?php echo base_url(); ?>Home/BackUp"><span style="font-size:16px;"
 																						 class="pull-right hidden-xs showopacity glyphicon glyphicon-cloud-upload"></span>Backup</a>
 								</li>
+
+								<li class="<?php if($url == "Trash"){echo 'active';} ?>"><a href="<?php echo base_url();?>Home/Trash"><span style="font-size:16px;" class="pull-right hidden-xs showopacity glyphicon glyphicon-trash"></span>Trash</a></li>
 								<?php
 							}
 							?>

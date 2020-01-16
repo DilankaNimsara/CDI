@@ -25,6 +25,9 @@ class Home extends CI_Controller{
 		$this->load->view('backup');
 	}
 
+	public function Trash(){
+		$this->load->view('Trash');
+	}
 
 
 

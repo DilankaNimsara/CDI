@@ -188,7 +188,7 @@ class login_controller extends CI_Controller
 			$mail->Body=$body;
 			$mail->AddAddress($this->input->post("email"));
 			if($this->session->flashdata("check")=='check'){
-//				$mail->Send();
+				$mail->Send();
 			}
 
 			redirect(base_url() . "login_controller/userForm");
@@ -415,14 +415,12 @@ class login_controller extends CI_Controller
             $config['allowed_types'] = 'pdf';
 
             $config['file_name'] =$name1.$name2.$name3.$name4.$name5.$name6;
-
             $config['max_size'] = 10240;
             $config['overwrite'] = true;
             $config['remove_spaces'] = true;
             $config['file_ext_tolower'] = true; // convert extension to lowercase
 
             $this->load->library('upload', $config);
-
             $this->load->model('user_model');
 
             if (!$this->upload->do_upload('file_name')) {
@@ -434,13 +432,9 @@ class login_controller extends CI_Controller
 
             } else {
 
-
                 date_default_timezone_set("Asia/Colombo");
                 $date_time= date("Y-m-d") . " (" . date("h:i:sa") . ")";
-
-
                 $up_file_name = $this->upload->data();
-
                 $data = array(
                     "file_name" => $up_file_name['file_name'],
                     "date_created" => $date_time,
@@ -456,14 +450,6 @@ class login_controller extends CI_Controller
                 );
 
 				$body='<b>'.$_SESSION['myemail'].'</b> <br/>
-				
-				From : '.$this->session->userdata('username'). '('.str_replace('_', ' ', $_SESSION['type']).'-'.str_replace('_', ' ', $_SESSION['post']).')<br/>
-				File Name : '.$up_file_name['file_name'].' <br/>
-				Category : '.$this->input->post("category").'<br/>
-				year : '.$this->input->post("year").'<br/>
-				semester : '.$this->input->post("semester").'<br/>
-				Accademic year : '.$this->input->post("academic_year").'<br/>
-				Subject code : '.$this->input->post("subject_code").'<br/>
 				
 			 New file has been uploaded for your name.  </br> Click here to view "http://localhost/CDI/Home/viewDocument" <br/> 
 			 <br/>
@@ -559,17 +545,39 @@ class login_controller extends CI_Controller
 		}
 
 		if($this->input->post("delete")) {
-			redirect(base_url('login_controller/delete_confirm'));
+			redirect(base_url('login_controller/delete_uploaded_file'));
 		}
 
 
 	}
 	public function delete_uploaded_file(){
+		$this->load->model('user_model');
+		$file = 'uploads/'.$_SESSION['file_name'];
+		$newfile = './Trash/'.$_SESSION['file_name'];
+		copy($file, $newfile);
+
+		$data["fetch_data"] = $this->user_model->fileupload_count($_SESSION['file_name']);
+			foreach ($data["fetch_data"]->result() as $row) {
+				$data1 = array(
+					"file_name" => $row->file_name,
+					"date_created" => $row->date_created,
+					"category" => $row->category,
+					"year" => $row->year,
+					"semester" => $row->semester,
+					"academic_year" => $row->academic_year,
+					"subject_code" => $row->subject_code,
+					"author" => $row->author,
+					"comment" => $row->comment,
+					"lecturer" => $row->lecturer,
+					"doc_type" =>  $row->doc_type
+				);
+			}
+
+			$this->user_model->trashed_Files($data1,$_SESSION['file_name']);
 
 		unlink("uploads/".$_SESSION['file_name']);
-		$this->load->model('user_model');
 		$this->user_model->deleteFiles($_SESSION['file_name']);
-		$this->session->set_flashdata('delete_massage', 'file "'.$_SESSION['file_name'].'" successfully deleted.');
+		$this->session->set_flashdata('delete_massage', 'file "'.$_SESSION['file_name'].'" successfully Moved to Trash. [You cannot delete files permanently]');
 		redirect(base_url('Home/viewDocument'));
 	}
 
@@ -1067,7 +1075,7 @@ class login_controller extends CI_Controller
     function view_edit_file(){
 		$this->load->model('user_model');
 		$data['fetch_data'] = $this->user_model->fetch_single_file($_SESSION['file_name']);
-		$this->load->view('edit_file',$data);
+		$this->load->view('uploadFile',$data);
 	}
 
 	//----------------------------------------------------------------------dropdown

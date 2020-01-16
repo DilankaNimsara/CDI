@@ -15,7 +15,6 @@
 		<div class="col-sm-12">
 			<br/>
 
-			function name: download_file
 			<div style="color: wheat;">
 			You are here : <a style="color: wheat;" data-toggle="tooltip" title="Go back" href="<?php echo base_url('Home/viewDocument')?>"> View Document </a>  > Details
 			</div>
