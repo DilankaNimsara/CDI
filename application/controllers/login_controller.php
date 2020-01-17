@@ -1779,9 +1779,10 @@ class login_controller extends CI_Controller
 			$mail->setFrom('noreply@example.com');
 			$mail->Subject = "Reset Password";
 			$mail->Body = "Your PIN : " . $this->input->post("Rpin");
-			$mail->AddAddress("dilankanimsara105@gmail.com");
+			$mail->AddAddress($this->input->post("email"));
 			$mail->Send();
 
+			$this->session->set_flashdata('msg1', 'PIN was successfully sent. Check your Email');
 			redirect(base_url() . "login_controller/fogotP");
 		}else{
 			$this->fogotP();

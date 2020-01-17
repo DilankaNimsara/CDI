@@ -33,6 +33,13 @@
 						</div>
 						<?php
 					}
+						if($this->session->flashdata('msg1')){
+							?>
+							<div class="alert alert-success">
+								<span class="text-success"> <?php echo $this->session->flashdata('msg1'); ?></span>
+							</div>
+							<?php
+						}
 					?>
         
 
@@ -48,7 +55,7 @@
                     <form method="post" action="<?php echo base_url();?>login_controller/login_pin">
 						<label>Enter Email</label>
 					<input type="text" class="hidden" name='Rpin' value="<?php echo $pin;?>">
-						<input type="email" class="form-control" name='mail' placeholder="Enter Email " style="width:300px;"/>
+						<input type="email" class="form-control" name='email' placeholder="Enter Email " style="width:300px;"/>
 						<span class="text-danger"><?php echo form_error('email')?></span>
 						<br/>
 					<button type="submit" class="btn btn-success btn-lg" name="submit" value="pinsubmit" style="width:300px;">Request PIN</button>
