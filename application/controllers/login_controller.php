@@ -404,8 +404,8 @@ class login_controller extends CI_Controller
 		if ($this->form_validation->run()) {
 
 				$name1=$this->input->post("category");
-				$name2=$this->input->post("year").'y';
-				$name3=$this->input->post("semester");
+//				$name2=$this->input->post("year").'y';
+//				$name3=$this->input->post("semester");
 				$name4=$this->input->post("subject_code");
 				$name5=$this->input->post("lecturer");
 				$name6=$this->input->post("academic_year");
@@ -414,7 +414,7 @@ class login_controller extends CI_Controller
             $config['upload_path'] = './uploads/';
             $config['allowed_types'] = 'pdf';
 
-            $config['file_name'] =$name1.$name2.$name3.$name4.$name5.$name6;
+            $config['file_name'] =$name1.$name4.$name5.$name6;
             $config['max_size'] = 10240;
             $config['overwrite'] = true;
             $config['remove_spaces'] = true;
@@ -1757,6 +1757,134 @@ class login_controller extends CI_Controller
 
 
 	}
+
+	public function login_pin(){
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('email', 'Email', 'required');
+
+
+		if ($this->form_validation->run()) {
+			include './public/PHPMailer/PHPMailerAutoload.php';
+			$_SESSION['Rpin'] = $this->input->post("Rpin");
+
+			$mail = new PHPMailer();
+			$mail->isSMTP();
+			$mail->SMTPAuth = true;
+			$mail->SMTPSecure = 'ssl';
+			$mail->Host = 'smtp.gmail.com';
+			$mail->Port = '465';
+			$mail->isHTML();
+			$mail->Username = 'mrdoc.dms@gmail.com';
+			$mail->Password = 'mrdoc100100100';
+			$mail->setFrom('noreply@example.com');
+			$mail->Subject = "Reset Password";
+			$mail->Body = "Your PIN : " . $this->input->post("Rpin");
+			$mail->AddAddress("dilankanimsara105@gmail.com");
+			$mail->Send();
+
+			redirect(base_url() . "login_controller/fogotP");
+		}else{
+			$this->fogotP();
+		}
+	}
+
+
+	public function check_pin(){
+
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('pin', 'pin', 'required');
+
+		if ($this->form_validation->run()) {
+			if($_SESSION['Rpin']==$this->input->post("pin")){
+				redirect(base_url()."login_controller/changeP");
+			}
+			else{
+				$this->session->set_flashdata('msg', 'Invalid PIN');
+				redirect(base_url()."login_controller/fogotP");
+			}
+		}else{
+			$this->fogotP();
+		}
+
+	}
+
+	public function fogotP(){
+		$this->load->view('fogotpwd');
+
+	}
+	public function changeP(){
+		$this->load->view('changepwd');
+	}
+
+	public function change_pwd(){
+
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('npassword', 'Password', 'required');
+		$this->form_validation->set_rules('cpassword', 'confirm password', 'required|matches[password]');
+
+		if ($this->form_validation->run()) {
+			$this->load->model('user_model');
+
+			$password=md5($this->input->post("npassword"));
+
+			$data = array(
+				"username" => $this->input->post("username"),
+				"password" => $password
+			);
+
+			$this->user_model->update_user_account_data($data,$this->input->post("username"));
+			redirect(base_url()."login_controller/login");
+		}else{
+			$this->changeP();
+		}
+
+
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

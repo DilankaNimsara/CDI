@@ -130,9 +130,16 @@ input:checked + .slider:before {
 	display: table;
 }
 div.ex3 {
+	 background-color: transparent;
+	 width: 100%;
+	 height: 750px;
+	 overflow: auto;
+ }
+
+div.ex33forguid {
 	background-color: transparent;
 	width: 100%;
-	height: 750px;
+	height: 100%;
 	overflow: auto;
 }
 
