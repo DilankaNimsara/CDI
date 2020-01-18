@@ -663,13 +663,19 @@ class user_model extends CI_Model
 		$this->db->update("autobackup",$data);
 	}
 
-	function insert_pin($data){
-		$this->db->insert("pin",$data);
+	function get_email($email){
+			$this->db->where('email', $email);
+			$query = $this->db->get('user');
+			if($query->num_rows() > 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 	}
 
-	function get_pin(){
-		return $this->db->get('pin');
-	}
 
 
 

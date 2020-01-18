@@ -1670,59 +1670,6 @@ class login_controller extends CI_Controller
 		$this->load->view('bulkupload');
 	}
 
-	public function delete_confirm(){
-		$this->load->model('user_model');
-		$data["fetch_data"] = $this->user_model->get_pin();
-		$data["fetch_msg"] = $this->user_model->fetch_messages_for_announcement();
-		$this->load->view('file_delete_confirm',$data);
-	}
-
-	public function send_request(){
-		$this->load->model('user_model');
-
-		if($this->input->post('action')=='request_to_delete'){
-			$data = array(
-				"filename" => $this->input->post("file_name"),
-				"actiontype" => $this->input->post("action"),
-				"code" => $this->input->post("pin"),
-				"msg" => 'asdasd'
-			);
-			$this->user_model->insert_pin($data);
-			$this->session->set_flashdata('msg', 'Requested to delete');
-
-		}elseif($this->input->post('action')=='request_pin'){
-			$data = array(
-				"filename" => $this->input->post("file_name"),
-				"actiontype" => $this->input->post("action"),
-				"code" => '#####',
-				"msg" => "message"
-			);
-
-			date_default_timezone_set("Asia/Colombo");
-			$date= date("Y-m-d");
-			$time= date("h:i:sa");
-			$this->load->model('user_model');
-			if($_SESSION['type']=='head_of_institute'){
-				$type='to_qac';
-			}elseif($_SESSION['type']=='qac'){
-				$type='to_head_of_institute';
-			}
-			$data2 = array(
-				"sender" => $this->session->userdata('username'),
-				"receiver" => $type,
-				"msg" => "want to delete ". $this->input->post("file_name").' file. Give permission to delete this file by sending PIN',
-				"date" => $date,
-				"time" => $time
-			);
-			$this->user_model->insert_messages($data2);
-
-			$this->user_model->insert_pin($data);
-			$this->session->set_flashdata('msg', 'Requested pin');
-		}
-		redirect(base_url()."login_controller/delete_confirm");
-
-	}
-
 	public function Restore(){
 		$file_name = $this->input->post("filename");
 
@@ -1761,29 +1708,38 @@ class login_controller extends CI_Controller
 	public function login_pin(){
 		$this->load->library('form_validation');
 		$this->form_validation->set_rules('email', 'Email', 'required');
-
+		$this->load->model('user_model');
 
 		if ($this->form_validation->run()) {
-			include './public/PHPMailer/PHPMailerAutoload.php';
-			$_SESSION['Rpin'] = $this->input->post("Rpin");
 
-			$mail = new PHPMailer();
-			$mail->isSMTP();
-			$mail->SMTPAuth = true;
-			$mail->SMTPSecure = 'ssl';
-			$mail->Host = 'smtp.gmail.com';
-			$mail->Port = '465';
-			$mail->isHTML();
-			$mail->Username = 'mrdoc.dms@gmail.com';
-			$mail->Password = 'mrdoc100100100';
-			$mail->setFrom('noreply@example.com');
-			$mail->Subject = "Reset Password";
-			$mail->Body = "Your PIN : " . $this->input->post("Rpin");
-			$mail->AddAddress($this->input->post("email"));
-			$mail->Send();
+			$email1=$this->input->post("email");
+			if ($this->user_model->get_email($email1)) {
 
-			$this->session->set_flashdata('msg1', 'PIN was successfully sent. Check your Email');
-			redirect(base_url() . "login_controller/fogotP");
+				include './public/PHPMailer/PHPMailerAutoload.php';
+				$_SESSION['Rpin'] = $this->input->post("Rpin");
+
+				$mail = new PHPMailer();
+				$mail->isSMTP();
+				$mail->SMTPAuth = true;
+				$mail->SMTPSecure = 'ssl';
+				$mail->Host = 'smtp.gmail.com';
+				$mail->Port = '465';
+				$mail->isHTML();
+				$mail->Username = 'mrdoc.dms@gmail.com';
+				$mail->Password = 'mrdoc100100100';
+				$mail->setFrom('noreply@example.com');
+				$mail->Subject = "Reset Password";
+				$mail->Body = "Your PIN : " . $this->input->post("Rpin");
+				$mail->AddAddress($this->input->post("email"));
+				$mail->Send();
+
+				$this->session->set_flashdata('msg1', 'PIN was successfully sent. Check your Email');
+				redirect(base_url() . "login_controller/fogotP");
+			} else{
+				$this->session->set_flashdata('msg2', 'This email cannot found in Mrdoc database.');
+				$this->fogotP();
+			}
+
 		}else{
 			$this->fogotP();
 		}
