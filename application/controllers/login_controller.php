@@ -1780,7 +1780,7 @@ class login_controller extends CI_Controller
 
 		$this->form_validation->set_rules('username', 'Username', 'required');
 		$this->form_validation->set_rules('npassword', 'Password', 'required');
-		$this->form_validation->set_rules('cpassword', 'confirm password', 'required|matches[password]');
+		$this->form_validation->set_rules('cpassword', 'confirm password', 'required|matches[npassword]');
 
 		if ($this->form_validation->run()) {
 			$this->load->model('user_model');
