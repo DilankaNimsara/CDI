@@ -545,6 +545,7 @@ class login_controller extends CI_Controller
 		}
 
 		if($this->input->post("delete")) {
+			$_SESSION['file_name_to_delete']=$this->input->post("filenametodelete");
 			redirect(base_url('login_controller/delete_uploaded_file'));
 		}
 
@@ -552,11 +553,12 @@ class login_controller extends CI_Controller
 	}
 	public function delete_uploaded_file(){
 		$this->load->model('user_model');
-		$file = 'uploads/'.$_SESSION['file_name'];
-		$newfile = './uploads/Trash/'.$_SESSION['file_name'];
+		$file = 'uploads/'.$_SESSION['file_name_to_delete'];
+		$newfile = './uploads/Trash/'.$_SESSION['file_name_to_delete'];
 		copy($file, $newfile);
 
-		$data["fetch_data"] = $this->user_model->fileupload_count($_SESSION['file_name']);
+		$data["fetch_data"] = $this->user_model->fetch_file_to_delete($_SESSION['file_name_to_delete']);
+
 			foreach ($data["fetch_data"]->result() as $row) {
 				$data1 = array(
 					"file_name" => $row->file_name,
@@ -571,13 +573,15 @@ class login_controller extends CI_Controller
 					"lecturer" => $row->lecturer,
 					"doc_type" =>  $row->doc_type
 				);
+
 			}
 
-			$this->user_model->trashed_Files($data1,$_SESSION['file_name']);
 
-		unlink("uploads/".$_SESSION['file_name']);
-		$this->user_model->deleteFiles($_SESSION['file_name']);
-		$this->session->set_flashdata('delete_massage', 'file "'.$_SESSION['file_name'].'" successfully Moved to Trash. [You cannot delete files permanently]');
+		$this->user_model->trashed_Files($data1,$_SESSION['file_name_to_delete']);
+		unlink("uploads/".$_SESSION['file_name_to_delete']);
+		$this->user_model->deleteFiles($_SESSION['file_name_to_delete']);
+		$this->session->set_flashdata('delete_massage', 'file "'.$_SESSION['file_name_to_delete'].'" successfully Moved to Trash. [You cannot delete files permanently]');
+		unset($_SESSION['file_name_to_delete']);
 		redirect(base_url('Home/viewDocument'));
 	}
 

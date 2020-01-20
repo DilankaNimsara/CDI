@@ -124,6 +124,7 @@
 						if(($_SESSION['type']=='qac')||($_SESSION['type']=='head_of_institute')){
 						?>
 						<form method="post" action="<?php echo base_url();?>login_controller/download_file">
+							<input type="text" class="hide" name="filenametodelete" value="<?php echo $_SESSION['file_name']; ?>">
 						<center>
 							<button style="width: 100px;" class=" btn btn-danger"  name="delete" value="delete"><span class="glyphicon glyphicon-trash"></span> Delete</button>
 						</center>

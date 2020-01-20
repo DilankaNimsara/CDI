@@ -26,6 +26,13 @@ class user_model extends CI_Model
 		return $query;
 	}
 
+	function fetch_file_to_delete($fiel){
+		$this->db->where('file_name', $fiel);
+		$query = $this->db->get('fileupload');
+
+		return $query;
+	}
+
 	function trash_details($file_name){
 		$this->db->where('file_name', $file_name);
 		$query = $this->db->get('trash');
