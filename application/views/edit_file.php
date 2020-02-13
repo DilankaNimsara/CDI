@@ -30,8 +30,6 @@
 
 			<br/>
 
-
-
 			<div class="container" style="margin-left:auto; width: 600px ">
 				<div class="form">
 			<form method="post" action="<?php echo base_url();?>login_controller/#">
@@ -74,9 +72,7 @@
 					</div>
 					<?php
 				}
-
 				}
-
 				?>
 
 

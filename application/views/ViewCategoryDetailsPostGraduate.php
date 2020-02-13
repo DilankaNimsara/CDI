@@ -159,11 +159,6 @@
 									<span class="text-danger"><?php echo form_error('subject_name')?></span>
 								</div>
 								<div class="form-group">
-									<label for="username">Subject Code</label>
-									<input type="text" class="form-control" id="subject_code" name="subject_code" placeholder="Enter Subject Code"/>
-									<span class="text-danger"><?php echo form_error('subject_code')?></span>
-								</div>
-								<div class="form-group">
 									<label for="username">Year</label>
 									<select class="form-control" name="year">
 										<option class="text-muted"></option>
@@ -182,6 +177,12 @@
 										<option name="semester" value="2sem">2nd semester</option>
 									</select>
 									<span class="text-danger"><?php echo form_error('semester')?></span>
+								</div>
+
+								<div class="form-group">
+									<label for="username">Subject Code</label>
+									<input type="text" class="form-control" id="subject_code" name="subject_code" placeholder="Enter Subject Code"/>
+									<span class="text-danger"><?php echo form_error('subject_code')?></span>
 								</div>
 
 								<input type="text" class="hide" value="<?php echo $_SESSION['pg']; ?>" name="category" id="<?php echo $_SESSION['pg']; ?>">

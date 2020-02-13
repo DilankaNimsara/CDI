@@ -77,7 +77,7 @@
 						<span class="text-danger"><?php echo form_error('email') ?></span>
 					</div>
 					<div class="form-group">
-						<label for="password">New Password / Current Password</label>
+						<label for="password">Password</label>
 						<input type="password" class="form-control" name="password" id="password2" placeholder="Enter password"/>
 						<span toggle="#password2" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 						<span class="text-danger"><?php echo form_error('password') ?></span>

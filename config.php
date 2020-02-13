@@ -160,6 +160,14 @@
 
 			mysqli_query($link,$tr);
 
+			$table_comment="CREATE TABLE commentsT (
+    						id int NOT NULL AUTO_INCREMENT,
+							filename varchar (250),
+							commit varchar(1000),
+							PRIMARY KEY (id)
+				);";
+
+			mysqli_query($link,$table_comment);
 
 
 			$sql3 = "INSERT INTO user (username,password,type,email,post,course_name) VALUES ('$adminname', '$adminpassword','qac','$email','qac_head','')";

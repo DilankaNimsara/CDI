@@ -13,6 +13,7 @@
 <div class="container-fluid">
 	<div class="row content">
 		<div class="col-sm-12">
+			<div class="col-sm-6">
 			<br/>
 
 			<div style="color: wheat;">
@@ -21,6 +22,9 @@
 			<br/>
 			<h4><a href="<?php echo base_url();?>Home/viewDocument"><span style="color: white";> Go Back </span><span style="color: white;" class="glyphicon glyphicon-triangle-left"></span></a></h4>
 			<br/>
+
+
+
 			<center>
 			<h2><?php echo $_SESSION['file_name'];?></h2>
 			</center>
@@ -135,7 +139,40 @@
 					</td>
 				</tr>
 			</table>
+			</div>
 
+			<div class="col-sm-3">
+				<form method="post" action="<?php echo base_url();?>login_controller/submit_commit">
+					<h1 align="center">Add comments</h1>
+					<br/>
+					<center>
+						<textarea rows="5" cols="50" class="form-control" id="commit" name="commit"> </textarea>
+						<input type="text" class="hide" name="filenametosubit" value="<?php echo $_SESSION['file_name']; ?>">
+						<span class="text-danger"><?php echo form_error('commit')?></span>
+						<br/>
+						<button style="width: 100px;" class=" btn btn-success"  name="submit" value="Submit"> Submit </button>
+					</center>
+				</form>
+			</div>
+
+			<div class="col-sm-3">
+
+				<h1 align="center">Comments</h1>
+				<br/>
+				<div class="well well-lg tx" ;">
+				<div class="ex3">
+					<?php
+					foreach ($user_data2->result()as $row) {
+					?>
+					<div class="container2" >
+						<p><?php echo $row->commit;?></p>
+					</div>
+					<?php
+					}
+					?>
+				</div>
+
+			</div>
 
 		</div>
 	</div>
