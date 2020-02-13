@@ -96,7 +96,7 @@
 
 			<br/>
 
-			<table align="center" width="400px">
+			<table align="center" width="250px">
 				<tr>
 					<td>
 						<form method="post" action="<?php echo base_url();?>login_controller/download_file">
@@ -105,24 +105,24 @@
 							</center>
 						</form>
 					</td>
-					<td>
-						<?php
-						if(($_SESSION['type']=='qac')||($_SESSION['type']=='head_of_institute')){
-							?>
-							<form method="post" action="<?php echo base_url();?>login_controller/download_file">
-								<center>
-									<button style="width: 100px;" class="btn btn-primary" name="edit" value="<?php echo $_SESSION['file_name'];?>"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-								</center>
-							</form>
-						<?php
-						}else{
-							?>
-							<button style="width: 200px;" class="btn btn-primary" name="" value=""><span class="glyphicon glyphicon-edit"></span> Add Comment</button>
-						<?php
-						}
-						?>
+<!--					<td>-->
+<!--						--><?php
+//						if(($_SESSION['type']=='qac')||($_SESSION['type']=='head_of_institute')){
+//							?>
+<!--							<form method="post" action="--><?php //echo base_url();?><!--login_controller/download_file">-->
+<!--								<center>-->
+<!--									<button style="width: 100px;" class="btn btn-primary" name="edit" value="--><?php //echo $_SESSION['file_name'];?><!--"><span class="glyphicon glyphicon-edit"></span> Edit</button>-->
+<!--								</center>-->
+<!--							</form>-->
+<!--						--><?php
+//						}else{
+//							?>
+<!--							<button style="width: 200px;" class="btn btn-primary" name="" value=""><span class="glyphicon glyphicon-edit"></span> Add Comment</button>-->
+<!--						--><?php
+//						}
+//						?>
 
-					</td>
+<!--					</td>-->
 					<td align="right">
 						<?php
 						if(($_SESSION['type']=='qac')||($_SESSION['type']=='head_of_institute')){

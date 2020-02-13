@@ -414,13 +414,13 @@ class login_controller extends CI_Controller
 //				$name3=$this->input->post("semester");
 			$name4 = $this->input->post("subject_code");
 			$name5 = $this->input->post("lecturer");
-			$name6 = $this->input->post("academic_year");
+//			$name6 = $this->input->post("academic_year");
 
 
 			$config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'pdf';
 
-			$config['file_name'] = $name4 . $name5 . $name6;
+			$config['file_name'] = $name4 . $name5;
 			$config['max_size'] = 10240;
 			$config['overwrite'] = true;
 			$config['remove_spaces'] = true;
@@ -557,7 +557,7 @@ class login_controller extends CI_Controller
 			force_download($name, $data);
 		}
 		if ($this->input->post("edit")) {
-			redirect(base_url('login_controller/view_edit_file'));
+			redirect(base_url('login_controller/edit_uploaded_files'));
 		}
 
 		if ($this->input->post("delete")) {
@@ -565,7 +565,12 @@ class login_controller extends CI_Controller
 			redirect(base_url('login_controller/delete_uploaded_file'));
 		}
 
+	}
 
+	public function edit_uploaded_files(){
+		$this->load->model('user_model');
+		$data['fetch_data'] = $this->user_model->fetch_single_file($_SESSION['file_name']);
+		$this->load->view('edit_file', $data);
 	}
 
 	public function delete_uploaded_file()

@@ -48,7 +48,7 @@
 					</div>
 					<div class="form-group">
 						<label>Year</label>
-						<input type="text" name="year" class="form-control" style="color: midnightblue;" value="<?php echo $row->year;?>" readonly>
+						<input type="text" name="year" class="form-control" style="color: midnightblue;" value="<?php echo $row->year;?>"readonly >
 					</div>
 					<div class="form-group">
 						<label>Semester</label>

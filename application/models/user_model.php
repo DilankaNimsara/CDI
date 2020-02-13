@@ -742,6 +742,7 @@ class user_model extends CI_Model
 	function getcommits($filename)
 	{
 		$this->db->where('filename', $filename);
+		$this->db->order_by('id', 'DESC');
 		$query = $this->db->get('commentst');
 		return $query;
 	}
