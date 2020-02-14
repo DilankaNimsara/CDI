@@ -71,6 +71,7 @@ $url= basename($actual_link);
 									<option name="doc_type" value="under_graduate">Under Graduate</option>
 									<option name="doc_type" value="post_graduate">Post Graduate</option>
 									<option name="doc_type" value="external">External</option>
+									<option name="doc_type" value="other">Other</option>
 								</select>
 								<span class="text-danger"><?php echo form_error('type')?></span>
 							</td>
@@ -147,17 +148,17 @@ $url= basename($actual_link);
 									<label>Lecturer</label>
 							</td>
 							<td width="75%">
-								<select class="form-control" name="lecturer"">
+								<select class="form-control" name="lecturer" id="lec">
 									<option class="text-muted"></option>
-								<?php
-								if ($fetch_data->num_rows() > 0) {
-									foreach ($fetch_data->result() as $row) {
-										?>
-										<option name="lecturer"><?php echo $row->username;?></option>
-								<?php
-									}
-								}
-								?>
+<!--								--><?php
+//								if ($fetch_data->num_rows() > 0) {
+//									foreach ($fetch_data->result() as $row) {
+//										?>
+<!--										<option name="lecturer">--><?php //echo $row->username;?><!--</option>-->
+<!--								--><?php
+//									}
+//								}
+//								?>
 								</select>
 								<span class="text-danger"><?php echo form_error('lecturer')?></span>
 							</td>
@@ -207,7 +208,7 @@ $url= basename($actual_link);
 
         $('#tp').change(function(){
             var account_type = $('#tp').val();
-            if(account_type != '')
+            if(account_type != 'other')
             {
                 $.ajax({
                     url:"<?php echo base_url(); ?>login_controller/fetch_category_TYPE",
@@ -216,9 +217,31 @@ $url= basename($actual_link);
                     success:function(data)
                     {
                         $('#category_data').html(data);
-                       }
+						$('#yr').html('<option value="#"></option>');
+						$('#subject_code').html('<option value="#"></option>');
+						$('#sem').html('<option value="#"></option>');
+						$('#lec').html('<option value="#"></option>');
+					}
                 });
+
+                var username="user";
+				$.ajax({
+					url:"<?php echo base_url(); ?>login_controller/fetch_users",
+					method:"POST",
+					data:{username:username},
+					success:function(data)
+					{
+						$('#lec').html(data);
+					}
+				});
             }
+			if(account_type == 'other'){
+				$('#yr').html('<option value="null">-</option>');
+				$('#subject_code').html('<option value="null">-</option>');
+				$('#sem').html('<option value="null">-</option>');
+				$('#category_data').html('<option value="null">-</option>');
+				$('#lec').html('<option value="null">-</option>');
+			}
         });
 
         $('#category_data').change(function(){

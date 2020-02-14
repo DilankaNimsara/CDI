@@ -8,6 +8,7 @@
 	if($this->session->userdata('username') == ''){
 		include 'index.php';
 	}?>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
 </head>
 <body>
 <div class="container-fluid">
@@ -127,18 +128,58 @@
 						<?php
 						if(($_SESSION['type']=='qac')||($_SESSION['type']=='head_of_institute')){
 						?>
-						<form method="post" action="<?php echo base_url();?>login_controller/download_file">
-							<input type="text" class="hide" name="filenametodelete" value="<?php echo $_SESSION['file_name']; ?>">
-						<center>
-							<button style="width: 100px;" class=" btn btn-danger"  name="delete" value="delete"><span class="glyphicon glyphicon-trash"></span> Delete</button>
-						</center>
-						</form>
+<!--						<form method="post" action="--><?php //echo base_url();?><!--login_controller/download_file">-->
+<!--							<input type="text" class="hide" name="filenametodelete" value="--><?php //echo $_SESSION['file_name']; ?><!--">-->
+<!--						<center>-->
+							<button style="width: 100px;" class=" btn btn-danger"  name="delete" value="delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span> Delete</button>
+<!--						</center>-->
+<!--						</form>-->
 							<?php
 						}
 						?>
 					</td>
 				</tr>
 			</table>
+
+				<!---------------------------------------------------------delete pop up-------------------------->
+				<div class="modal fade" id="delete" role="dialog">
+					<div class="modal-dialog">
+
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Delete</h4>
+							</div>
+							<div class="modal-body">
+
+								<form method="post" action="<?php echo base_url();?>login_controller/delete_conform_file">
+									<div class="form-group">
+										<label>Password</label>
+										<input type="password" class="form-control" id="pw" name="pw" placeholder="Enter admin password">
+										<span toggle="#pw" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+										<span class="text-danger"><?php echo form_error('pw')?></span>
+									</div>
+									<div class="form-group">
+										<label>Confirm Password</label>
+										<input type="password" class="form-control" id="confirm_pw" name="confirm_pw" placeholder="Re-enter admin password"/>
+										<span toggle="#confirm_pw" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+										<span class="text-danger"><?php echo form_error('confirm_pw')?></span>
+									</div>
+									<input type="text" class="hide" name="admin_password" value="<?php echo $this->session->userdata('password');?>" >
+									<input type="text" class="hide" name="filenametodelete" value="<?php echo $_SESSION['file_name'];?>" >
+									<center>
+										<button type="submit" class="btn btn-danger" name="delete" value="Delete">Delete</button>
+									</center>
+								</form>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+							</div>
+						</div>
+
+					</div>
+				</div>
+
 			</div>
 
 			<div class="col-sm-3">
@@ -181,4 +222,19 @@
 </body>
 </html>
 
+
+<script>
+	$(document).ready(function(){
+		$(".toggle-password").click(function() {
+
+			$(this).toggleClass("fa-eye fa-eye-slash");
+				var input = $($(this).attr("toggle"));
+				if (input.attr("type") == "password") {
+				input.attr("type", "text");
+				} else {
+				input.attr("type", "password");
+				}
+		});
+	});
+</script>
 

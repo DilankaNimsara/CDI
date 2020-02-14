@@ -19,7 +19,7 @@
 
 		$adminname=$_POST['adminname'];
 		$adminpassword=md5($_POST['adminpassword']);
-		echo $adminname;
+//		echo $adminname;
 		$email=$_POST['email'];
 
 		if($adminname==""||$adminpassword==""||$email==""){

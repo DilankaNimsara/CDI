@@ -344,6 +344,7 @@ class user_model extends CI_Model
 		return $output;
 	}
 
+
 	function fetch_subject_year($year, $category_name)
 	{
 		$this->db->where('year', $year);
@@ -428,7 +429,7 @@ class user_model extends CI_Model
 	{
 		$this->db->select("*");
 		$this->db->from("fileupload");
-		$this->db->join('user', 'fileupload.lecturer = user.username');
+		$this->db->join('user', 'fileupload.lecturer = user.username','left');
 		if (($currant_type == 'qac') || ($currant_type == 'head_of_institute')) {
 
 		} elseif (($currant_type == 'under_graduate') && ($currant_post == 'head_of_course')) {
@@ -693,7 +694,7 @@ class user_model extends CI_Model
 			$query = $this->db->get('category_data');
 			$output = '<option value=""></option>';
 			foreach ($query->result() as $row) {
-				$output .= '<option value="' . $row->category . '">' . $row->category . '</option>';
+				$output .= '<option value="' . $row->category . '">' . str_replace('_', ' ',$row->category) . '</option>';
 			}
 			return $output;
 		}
@@ -702,6 +703,18 @@ class user_model extends CI_Model
 		foreach ($query->result() as $row) {
 			$output .= '<option value="' . $row->category . '">' . $row->category . '</option>';
 		}
+		return $output;
+	}
+
+	function ftusers()
+	{
+
+		$this->db->order_by('username', 'ASC');
+			$query = $this->db->get('user');
+			$output = '<option value=""></option>';
+			foreach ($query->result() as $row) {
+				$output .= '<option value="' . $row->username . '">' . $row->username . '</option>';
+			}
 		return $output;
 	}
 

@@ -22,7 +22,6 @@ if ($this->session->userdata('username') != '') {
                     window.location = "<?php echo base_url(); ?>login_controller/logout";
                     return false;
                 } else {
-                    //JUST ADDED AS A VISUAL CONFIRMATION
                     console.log(currentTime + " - " + pastTime + " - " + minPast + " min past");
                 }
             }

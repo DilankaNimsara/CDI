@@ -412,15 +412,28 @@ class login_controller extends CI_Controller
 //			$name1 = $this->input->post("category");
 //				$name2=$this->input->post("year").'y';
 //				$name3=$this->input->post("semester");
-			$name4 = $this->input->post("subject_code");
-			$name5 = $this->input->post("lecturer");
+			if($this->input->post("year")==0){
+				$alphabet = 'abcdefghijklmnopqrstuvwxyz';
+				$pass = array();
+				$alphaLength = strlen($alphabet) - 1;
+				for ($i = 0; $i < 6; $i++) {
+					$n = rand(0, $alphaLength);
+					$pass[] = $alphabet[$n];
+				}
+				$fileName=implode($pass);
+			}else{
+				$name4 = $this->input->post("subject_code");
+				$name5 = $this->input->post("lecturer");
+				$fileName=$name4 . $name5;
+			}
+
 //			$name6 = $this->input->post("academic_year");
 
 
 			$config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'pdf';
 
-			$config['file_name'] = $name4 . $name5;
+			$config['file_name'] = $fileName;
 			$config['max_size'] = 10240;
 			$config['overwrite'] = true;
 			$config['remove_spaces'] = true;
@@ -432,9 +445,9 @@ class login_controller extends CI_Controller
 			if (!$this->upload->do_upload('file_name')) {
 
 				$this->load->model('user_model');
-				$data["fetch_data"] = $this->user_model->userdetails();
+//				$data["fetch_data"] = $this->user_model->userdetails();
 				$this->session->set_flashdata('errorx', $this->upload->display_errors());
-				$this->load->view('uploadfile', $data);
+				$this->load->view('uploadfile'/*, $data*/);
 
 			} else {
 
@@ -560,8 +573,7 @@ class login_controller extends CI_Controller
 			redirect(base_url('login_controller/edit_uploaded_files'));
 		}
 
-		if ($this->input->post("delete")) {
-			$_SESSION['file_name_to_delete'] = $this->input->post("filenametodelete");
+		if ($_SESSION['file_name_to_delete']) {
 			redirect(base_url('login_controller/delete_uploaded_file'));
 		}
 
@@ -1279,11 +1291,21 @@ class login_controller extends CI_Controller
 
 	public function fetch_category_TYPE()
 	{
+		$this->load->model('user_model');
 		if ($this->input->post('account_type')) {
-			$this->load->model('user_model');
 			echo $this->user_model->fetch_category_type($this->input->post('account_type'));
 		}
+		echo $this->user_model->userdetails();
+
 	}
+
+	public function fetch_users()
+	{
+		$this->load->model('user_model');
+		echo $this->user_model->ftusers();
+
+	}
+
 
 	public function update_post()
 	{
@@ -1913,6 +1935,46 @@ class login_controller extends CI_Controller
 		}
 
 	}
+
+
+	public function delete_conform_file()
+	{
+
+		$this->load->library('form_validation');
+
+		$this->form_validation->set_rules('pw', 'Password', 'required');
+		$this->form_validation->set_rules('confirm_pw', 'confirm password', 'required|matches[pw]');
+		$pswd = ($this->input->post('admin_password'));
+		$con_psw = md5($this->input->post('confirm_pw'));
+		$pwd = md5($this->input->post('pw'));
+		if ($this->form_validation->run()) {
+			$this->load->model('user_model');
+			if (($pwd == $pswd) && ($con_psw == $pswd)) {
+				$_SESSION['file_name_to_delete'] = $this->input->post("filenametodelete");
+				redirect(base_url() . "login_controller/download_file");
+			} else {
+				$this->session->set_flashdata('msg', 'Invalid password!');
+				$this->reopen_editFile();
+			}
+		} else {
+			$this->reopen_editFile();
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

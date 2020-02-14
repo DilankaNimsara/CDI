@@ -25,7 +25,7 @@ $url= basename($actual_link);
 		<ul class="nav navbar-nav" >
 			<li class="<?php if($url == "index"){echo 'active';} ?>"><a href="<?php echo site_url('Home/index');?>" style="color: white">Home</a></li>
 			<li class="<?php if($url == "USG"){echo 'active';} ?>"><a href="<?php echo site_url('Home/USG');?>" style="color: white">User Guide</a></li>
-			<li class="<?php if($url == "Contacts"){echo 'active';} ?>"><a href="<?php echo site_url('Home/Contacts');?>" style="color: white" >Contacts</a></li>
+<!--			<li class="--><?php //if($url == "Contacts"){echo 'active';} ?><!--"><a href="--><?php //echo site_url('Home/Contacts');?><!--" style="color: white" >Contacts</a></li>-->
 		</ul>
 
 		<ul class="nav navbar-nav navbar-right">
