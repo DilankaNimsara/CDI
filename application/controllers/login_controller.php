@@ -395,7 +395,7 @@ class login_controller extends CI_Controller
 
 	public function do_upload()
 	{
-		//$this->load->helper(array('form', 'url'));
+
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('academic_year', 'Academic Year', 'required');
@@ -409,31 +409,23 @@ class login_controller extends CI_Controller
 
 		if ($this->form_validation->run()) {
 
-//			$name1 = $this->input->post("category");
-//				$name2=$this->input->post("year").'y';
-//				$name3=$this->input->post("semester");
 			if($this->input->post("year")==0){
-				$alphabet = 'abcdefghijklmnopqrstuvwxyz';
+				$alphabet = '0123456789';
 				$pass = array();
 				$alphaLength = strlen($alphabet) - 1;
-				for ($i = 0; $i < 6; $i++) {
+				for ($i = 0; $i < 3; $i++) {
 					$n = rand(0, $alphaLength);
 					$pass[] = $alphabet[$n];
 				}
-				$fileName=implode($pass);
 			}else{
 				$name4 = $this->input->post("subject_code");
 				$name5 = $this->input->post("lecturer");
 				$fileName=$name4 . $name5;
+				$config['file_name'] = $fileName;
 			}
-
-//			$name6 = $this->input->post("academic_year");
-
 
 			$config['upload_path'] = './uploads/';
 			$config['allowed_types'] = 'pdf';
-
-			$config['file_name'] = $fileName;
 			$config['max_size'] = 10240;
 			$config['overwrite'] = true;
 			$config['remove_spaces'] = true;
@@ -523,7 +515,6 @@ class login_controller extends CI_Controller
 	{
 		$this->load->model('user_model');
 		$data["fetch_data"] = $this->user_model->userdetails();
-		// $this->load->helper(array('form', 'url'));
 		$this->load->view('uploadfile', $data);
 	}
 
@@ -1960,19 +1951,6 @@ class login_controller extends CI_Controller
 			$this->reopen_editFile();
 		}
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

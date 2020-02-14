@@ -475,7 +475,7 @@ class user_model extends CI_Model
 	{
 		$this->db->select("*");
 		$this->db->from("trash");
-		$this->db->join('user', 'trash.lecturer = user.username');
+		$this->db->join('user', 'trash.lecturer = user.username','left');
 		$this->db->like('file_name', $query);
 		$this->db->order_by('file_name', 'ASC');
 		return $this->db->get();
