@@ -210,6 +210,7 @@ $url= basename($actual_link);
             var account_type = $('#tp').val();
             if(account_type != 'other')
             {
+
                 $.ajax({
                     url:"<?php echo base_url(); ?>login_controller/fetch_category_TYPE",
                     method:"POST",
@@ -223,6 +224,7 @@ $url= basename($actual_link);
 						$('#lec').html('<option></option>');
 					}
                 });
+
 
 				$.ajax({
 					url:"<?php echo base_url(); ?>login_controller/fetch_users",
