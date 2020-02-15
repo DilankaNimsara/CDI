@@ -654,10 +654,7 @@ class live_search extends CI_Controller{
 }
 
 
-//***********************************************************************************************************************
-
-
-	function fd()
+	public function fetchMyDoc()
 	{
 		$output = '';
 		$query = '';
@@ -665,14 +662,40 @@ class live_search extends CI_Controller{
 		if ($this->input->post('query')) {
 			$query = $this->input->post('query');
 		}
+		$currant_type=$_SESSION['type'];
+		$currant_post=$_SESSION['post'];
+		$course_name=$_SESSION['course_name'];
 
-		$data = $this->user_model->fetch_doc_mult($query);
+		if($currant_type=='under_graduate'){
+			$_SESSION['doc_type']='under_graduate';
+		}elseif ($currant_type=='post_graduate'){
+			$_SESSION['doc_type']='post_graduate';
+		}elseif ($currant_type=='external'){
+			$_SESSION['doc_type']='external';
+		}else{
+			$_SESSION['doc_type']='';
+		}
 
+
+		$document_type=$_SESSION['doc_type'];
+
+		$data = $this->user_model->fetch_docmy($query,$document_type);
 		$output .= '
   <div class="table-responsive">
      <table class="table table-hover">
       <tr bgcolor="white">
-      
+      <th>Download</th>
+       <th>File Name (View)</th>
+       <th>Date Created</th>
+       <th>Category</th>
+       <th>Year</th>
+       <th>Semester</th>
+       <th>Academic year</th>
+       <th>Subject Code</th>
+       <th>Author</th>
+       <th>Lecturer</th>
+       <th>Type</th>
+       <th>Comment</th>
       </tr>
   ';
 		if ($data->num_rows() > 0) {
@@ -680,7 +703,8 @@ class live_search extends CI_Controller{
 				$output .= '
       <tr>
        <td><a href="'. base_url("login_controller/direct_download/". $row->file_name) .'"><center><span style="color: #0b0b0b;" class="glyphicon glyphicon-download-alt"></span></center></a></td>
-       <td>' . $row->file_name . '</a></td>
+       <td><a href="'. base_url("login_controller/editFile/". $row->file_name) .'">' . $row->file_name . '</a></td>
+       <td>' . $row->date_created . '</td>
        <td>' . $row->category . '</td>
        <td>' . $row->year . '</td>
        <td>' . $row->semester . '</td>
@@ -690,28 +714,17 @@ class live_search extends CI_Controller{
        <td>' . $row->lecturer . '</td>
        <td>' . str_replace('_',' ',$row->doc_type ). '</td> 
        <td>' . $row->comment . '</td> 
-       <td>
-       		<form method="post" action="'.base_url("login_controller/Restore").'">
-       			<input type="text" class="hide" name="filename" value="'.$row->file_name.'">
-       			<button class="btn btn-danger btn-sm" name="submit" value="submit">Restore</button>
-			</form>
-       </td> 
       </tr>
     ';
 			}
 		} else {
 			$output .= '<tr>
-       <td colspan="12">No Data Found</td>
+       <td colspan="11">No Data Found</td>
       </tr>';
 		}
 		$output .= '</table>';
 		echo $output;
 	}
-
-
-
-
-
 
 
 

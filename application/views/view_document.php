@@ -29,7 +29,8 @@
 		}
 		?>
 		<div class="container">
-			<table>
+			<form method="post" action="<?php echo base_url(); ?>login_controller/search_multiples">
+			<table >
 				<tr>
 					<th width="20%" >Course</th>
 					<th width="5%"></th>
@@ -38,6 +39,8 @@
 					<th width="20%" >Year</th>
 					<th width="5%"></th>
 					<th width="20%" >Semester</th>
+					<th width="5%"></th>
+					<th width="20%" ></th>
 
 				</tr>
 				<tr>
@@ -50,6 +53,7 @@
 							<option name="doc_type" value="other">Other</option>
 						</select>
 					</td>
+
 					<td width="5%"></td>
 					<td width="20%">
 						<select class="form-control" name="category" id="category_data">
@@ -62,21 +66,31 @@
 							<option class="text-muted"></option>
 						</select>
 					</td>
+
 					<td width="5%"></td>
 					<td width="20%">
 						<select class="form-control" name="semester" id="sem">
 							<option class="text-muted"></option>
 						</select>
 					</td>
+
 					<td width="5%"></td>
-					<td>
-						<form method="post" action="<?php echo base_url(); ?>login_controller/search_multiples">
-							<button class="btn btn-default" type="submit" value="Submit">Search</button>
-						</form>
+					<td >
+						<button class="btn btn-default" type="submit" value="Submit">Search</button>
 					</td>
+
 				</tr>
+				<th width="20%" ><span style="font-size: 12px;" class="text-danger"><?php echo form_error('doc_type')?></span></th>
+				<th width="5%"></th>
+				<th width="20%" ><span style="font-size: 12px;" class="text-danger"><?php echo form_error('category')?></span></th>
+				<th width="5%"></th>
+				<th width="20%" ><span style="font-size: 12px;" class="text-danger"><?php echo form_error('year')?></span></th>
+				<th width="5%"></th>
+				<th width="5%"><span style="font-size: 12px;" class="text-danger"><?php echo form_error('semester')?></span></th>
+				<th width="20%" ></th>
 
 			</table>
+			</form>
 
 		</div>
 
@@ -91,6 +105,21 @@
             <div style="width: 100%; font-size: 13px;" id="result"></div>
         </div>
         <div style="clear:both"></div>
+
+		<h1>MY Documents</h1>
+
+		<div class="container ">
+			<div class="form-group">
+				<div class="input-group">
+					<span class="input-group-addon" style="height: 50px;">Search</span>
+					<input type="text" name="search_mydocs" id="search_mydocs" placeholder="Search..." class="form-control" style="width: 350px;" />
+				</div>
+			</div>
+			<br/>
+			<div style="width: 100%; font-size: 13px;" id="result2"></div>
+		</div>
+		<div style="clear:both"></div>
+
 	</div>
 	</div>
 </div>
@@ -103,6 +132,7 @@
     $(document).ready(function(){
 
         load_data();
+		load_data_mydoc();
 
         function load_data(query)
         {
@@ -130,6 +160,33 @@
             }
         });
 
+        // *********************************
+		function load_data_mydoc(query1)
+		{
+			$.ajax({
+				url:"<?php echo base_url(); ?>live_search/fetchMyDoc",
+				method:"POST",
+				data:{query:query1},
+				success:function(data1){
+
+					$('#result2').html(data1);
+
+				}
+			})
+		}
+
+		$('#search_mydocs').keyup(function(){
+			var search1 = $(this).val();
+			if(search1 != '')
+			{
+				load_data_mydoc(search1);
+			}
+			else
+			{
+				load_data_mydoc();
+			}
+		});
+// ****************************
 		$('#tp').change(function(){
 			var account_type = $('#tp').val();
 			if(account_type != '')
@@ -154,12 +211,11 @@
 				});
 			}
 			if(account_type == 'other'){
-				$('#yr').html('<option value="null">-</option>');
-				$('#sem').html('<option value="null">-</option>');
-				$('#category_data').html('<option value="null">-</option>');
+				$('#yr').html('<option name="year" value=""  >-</option>');
+				$('#sem').html('<option name="semester"value="">-</option>');
+				$('#category_data').html('<option name="category" value="">-</option>');
 			}
 		});
-
 
     });
 </script>

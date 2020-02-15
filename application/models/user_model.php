@@ -430,6 +430,7 @@ class user_model extends CI_Model
 		$this->db->select("*");
 		$this->db->from("fileupload");
 		$this->db->join('user', 'fileupload.lecturer = user.username','left');
+
 		if (($currant_type == 'qac') || ($currant_type == 'head_of_institute')) {
 
 		} elseif (($currant_type == 'under_graduate') && ($currant_post == 'head_of_course')) {
@@ -466,6 +467,7 @@ class user_model extends CI_Model
 			$this->db->where('username', $this->session->userdata('username'));
 
 		}
+
 		$this->db->like('file_name', $query);
 		$this->db->order_by('file_name', 'ASC');
 		return $this->db->get();
@@ -760,16 +762,17 @@ class user_model extends CI_Model
 		return $query;
 	}
 
-	function fetch_doc_mult($query)
+	function fetch_docmy($query,$document_type)
 	{
 		$this->db->select("*");
 		$this->db->from("fileupload");
 		$this->db->join('user', 'fileupload.lecturer = user.username','left');
+		$this->db->where('doc_type !=', $document_type);
+		$this->db->where('username', $this->session->userdata('username'));
 		$this->db->like('file_name', $query);
 		$this->db->order_by('file_name', 'ASC');
 		return $this->db->get();
 	}
-
 
 
 

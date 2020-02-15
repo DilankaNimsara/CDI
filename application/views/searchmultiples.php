@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Contacts</title>
+	<title>Search Multiples</title>
 	<?php include 'header.php';
 	include 'autologout.php';?>
 </head>
@@ -19,28 +19,6 @@
 			}?>
 		</div>
 		<div class="col-sm-10">
-
-			<!--- type heare---------->
-
-			Contacts
-			<br/><?php
-			echo md5("123");
-			?>
-<br>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

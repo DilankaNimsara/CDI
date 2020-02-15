@@ -17,8 +17,8 @@ class Home extends CI_Controller{
 	}
 
 	//------------------------------------------------------------User Guide page
-	public function Contacts(){
-		$this->load->view('contacts');
+	public function SearchMultiplevalues(){
+		$this->load->view('searchmultiples');
 	}
 
 	public function BackUp(){

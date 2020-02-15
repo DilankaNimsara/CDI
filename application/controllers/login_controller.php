@@ -1951,21 +1951,27 @@ class login_controller extends CI_Controller
 	function search_multiples(){
 
 		$this->load->library('form_validation');
-		$this->form_validation->set_rules('username', 'Username', 'required');
-		$this->form_validation->set_rules('password', 'Password', 'required');
+		$this->form_validation->set_rules('doc_type', 'Document type', 'required');
+		$this->form_validation->set_rules('category', 'Category', 'required');
+		$this->form_validation->set_rules('year', 'Year', 'required');
+		$this->form_validation->set_rules('semester', 'Semester', 'required');
 
+		if ($this->form_validation->run()) {
+			$this->load->model('user_model');
 
+			$this->input->post('doc_type');
+			$this->input->post('category');
+			$this->input->post('year');
+			$this->input->post('semester');
 
-		$this->input->post('doc_type');
-		$this->input->post('category');
-		$this->input->post('year');
-		$this->input->post('semester');
-
-		if($this->input->post('doc_type')=='' && $this->input->post('category')=='' && $this->input->post('year')==''&& $this->input->post('semester')==''){
-			$this->viewDocument();
 		}else{
-			redirect(base_url("Home/Contacts"));
+			$this->viewDocument();
 		}
+
+
+
+
+
 	}
 
 
