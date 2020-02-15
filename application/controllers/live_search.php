@@ -198,7 +198,7 @@ class live_search extends CI_Controller{
             }
         } else {
             $output .= '<tr>
-       <td colspan="11">No Data Found</td>
+       <td colspan="12">No Data Found</td>
       </tr>';
         }
         $output .= '</table>';
@@ -719,7 +719,7 @@ class live_search extends CI_Controller{
 			}
 		} else {
 			$output .= '<tr>
-       <td colspan="11">No Data Found</td>
+       <td colspan="12">No Data Found</td>
       </tr>';
 		}
 		$output .= '</table>';

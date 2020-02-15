@@ -17,7 +17,11 @@
 	</div>
 	<div class="col-sm-10 text-left">
 		<!-- content -->
-
+		<br/>
+		<a href="#alldocs"><h4 style="color: midnightblue">1) ALL DOCUMENTS</h4></a>
+		<a href="#mydoc"><h4 style="color: midnightblue">2) MY DOCUMENTS (Other Courses)</h4></a>
+		<br/>
+		<a id="alldocs"><h1 style="color: midnightblue">1) ALL DOCUMENTS</h1></a>
         <br/>
 		<?php
 		if($this->session->flashdata('delete_massage')){
@@ -106,19 +110,34 @@
         </div>
         <div style="clear:both"></div>
 
-		<h1>MY Documents</h1>
+		<?php
+			if(($_SESSION['type']=='external' || $_SESSION['type']=='under_graduate' || $_SESSION['type']=='post_graduate')&&($_SESSION['post']=="lecturer")){
+				?>
 
-		<div class="container ">
-			<div class="form-group">
-				<div class="input-group">
-					<span class="input-group-addon" style="height: 50px;">Search</span>
-					<input type="text" name="search_mydocs" id="search_mydocs" placeholder="Search..." class="form-control" style="width: 350px;" />
+		<?php
+			}else{
+				?>
+				<a id="mydoc">
+					<h1 style="color: midnightblue">2) MY DOCUMENTS (Other Courses)</h1>
+				</a>
+
+				<div class="container ">
+					<div class="form-group">
+						<div class="input-group">
+							<span class="input-group-addon" style="height: 50px;">Search</span>
+							<input type="text" name="search_mydocs" id="search_mydocs" placeholder="Search..." class="form-control" style="width: 350px;" />
+						</div>
+					</div>
+					<br/>
+					<div style="width: 100%; font-size: 13px;" id="result2"></div>
 				</div>
-			</div>
-			<br/>
-			<div style="width: 100%; font-size: 13px;" id="result2"></div>
-		</div>
-		<div style="clear:both"></div>
+				<div style="clear:both"></div>
+				<br/>
+				<br/>
+		<?php
+			}
+		?>
+
 
 	</div>
 	</div>
@@ -160,7 +179,6 @@
             }
         });
 
-        // *********************************
 		function load_data_mydoc(query1)
 		{
 			$.ajax({
@@ -186,7 +204,7 @@
 				load_data_mydoc();
 			}
 		});
-// ****************************
+
 		$('#tp').change(function(){
 			var account_type = $('#tp').val();
 			if(account_type != '')
