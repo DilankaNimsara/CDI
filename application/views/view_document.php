@@ -28,6 +28,58 @@
 			<?php
 		}
 		?>
+		<div class="container">
+			<table>
+				<tr>
+					<th width="20%" >Course</th>
+					<th width="5%"></th>
+					<th width="20%" >Category</th>
+					<th width="5%"></th>
+					<th width="20%" >Year</th>
+					<th width="5%"></th>
+					<th width="20%" >Semester</th>
+
+				</tr>
+				<tr>
+					<td width="20%" >
+						<select class="form-control" name="doc_type" id="tp">
+							<option class="text-muted"></option>
+							<option name="doc_type" value="under_graduate">Under Graduate</option>
+							<option name="doc_type" value="post_graduate">Post Graduate</option>
+							<option name="doc_type" value="external">External</option>
+							<option name="doc_type" value="other">Other</option>
+						</select>
+					</td>
+					<td width="5%"></td>
+					<td width="20%">
+						<select class="form-control" name="category" id="category_data">
+							<option class="text-muted"></option>
+						</select>
+					</td>
+					<td width="5%"></td>
+					<td width="20%">
+						<select class="form-control" name="year" id="yr">
+							<option class="text-muted"></option>
+						</select>
+					</td>
+					<td width="5%"></td>
+					<td width="20%">
+						<select class="form-control" name="semester" id="sem">
+							<option class="text-muted"></option>
+						</select>
+					</td>
+					<td width="5%"></td>
+					<td>
+						<form method="post" action="<?php echo base_url(); ?>login_controller/search_multiples">
+							<button class="btn btn-default" type="submit" value="Submit">Search</button>
+						</form>
+					</td>
+				</tr>
+
+			</table>
+
+		</div>
+
         <div class="container ">
             <div class="form-group">
                 <div class="input-group">
@@ -77,6 +129,38 @@
                 load_data();
             }
         });
+
+		$('#tp').change(function(){
+			var account_type = $('#tp').val();
+			if(account_type != '')
+			{
+				$.ajax({
+					url:"<?php echo base_url(); ?>login_controller/fetch_category_TYPE",
+					method:"POST",
+					data:{account_type:account_type},
+					success:function(data){
+						$('#category_data').html(data);
+						$('#yr').html('<option class="text-muted" name="year" value=""></option>'+
+							'<option name="year" value="1" >1st year</option>'+
+							'<option name="year" value="2" >2nd year</option>'+
+							'<option name="year" value="3" >3rd year</option>' +
+							'<option name="year" value="4" >4th year</option>'
+						);
+						$('#sem').html('<option name="semester"value=""></option>'+
+						'<option name="semester" value="1sem">1st semester</option>'+
+						'<option name="semester" value="2sem">2nd semester</option>'
+						);
+					}
+				});
+			}
+			if(account_type == 'other'){
+				$('#yr').html('<option value="null">-</option>');
+				$('#sem').html('<option value="null">-</option>');
+				$('#category_data').html('<option value="null">-</option>');
+			}
+		});
+
+
     });
 </script>
 

@@ -654,6 +654,59 @@ class live_search extends CI_Controller{
 }
 
 
+//***********************************************************************************************************************
+
+
+	function fd()
+	{
+		$output = '';
+		$query = '';
+		$this->load->model('user_model');
+		if ($this->input->post('query')) {
+			$query = $this->input->post('query');
+		}
+
+		$data = $this->user_model->fetch_doc_mult($query);
+
+		$output .= '
+  <div class="table-responsive">
+     <table class="table table-hover">
+      <tr bgcolor="white">
+      
+      </tr>
+  ';
+		if ($data->num_rows() > 0) {
+			foreach ($data->result() as $row) {
+				$output .= '
+      <tr>
+       <td><a href="'. base_url("login_controller/direct_download/". $row->file_name) .'"><center><span style="color: #0b0b0b;" class="glyphicon glyphicon-download-alt"></span></center></a></td>
+       <td>' . $row->file_name . '</a></td>
+       <td>' . $row->category . '</td>
+       <td>' . $row->year . '</td>
+       <td>' . $row->semester . '</td>
+       <td>' . $row->academic_year . '</td>
+       <td>' . $row->subject_code . '</td>
+       <td>' . $row->author . '</td>
+       <td>' . $row->lecturer . '</td>
+       <td>' . str_replace('_',' ',$row->doc_type ). '</td> 
+       <td>' . $row->comment . '</td> 
+       <td>
+       		<form method="post" action="'.base_url("login_controller/Restore").'">
+       			<input type="text" class="hide" name="filename" value="'.$row->file_name.'">
+       			<button class="btn btn-danger btn-sm" name="submit" value="submit">Restore</button>
+			</form>
+       </td> 
+      </tr>
+    ';
+			}
+		} else {
+			$output .= '<tr>
+       <td colspan="12">No Data Found</td>
+      </tr>';
+		}
+		$output .= '</table>';
+		echo $output;
+	}
 
 
 

@@ -701,7 +701,7 @@ class user_model extends CI_Model
 		$query = $this->db->get($type);
 		$output = '<option value=""></option>';
 		foreach ($query->result() as $row) {
-			$output .= '<option value="' . $row->category . '">' . $row->category . '</option>';
+			$output .= '<option value="' . $row->category . '">' . str_replace('_', ' ',$row->category ). '</option>';
 		}
 		return $output;
 	}
@@ -713,7 +713,7 @@ class user_model extends CI_Model
 			$query = $this->db->get('user');
 			$output = '<option value=""></option>';
 			foreach ($query->result() as $row) {
-				$output .= '<option value="' . $row->username . '">' . $row->username . '</option>';
+				$output .= '<option value="' . $row->username . '">' . str_replace('_', ' ',$row->username) . '</option>';
 			}
 		return $output;
 	}
@@ -759,6 +759,17 @@ class user_model extends CI_Model
 		$query = $this->db->get('commentst');
 		return $query;
 	}
+
+	function fetch_doc_mult($query)
+	{
+		$this->db->select("*");
+		$this->db->from("fileupload");
+		$this->db->join('user', 'fileupload.lecturer = user.username','left');
+		$this->db->like('file_name', $query);
+		$this->db->order_by('file_name', 'ASC');
+		return $this->db->get();
+	}
+
 
 
 

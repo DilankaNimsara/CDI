@@ -410,13 +410,7 @@ class login_controller extends CI_Controller
 		if ($this->form_validation->run()) {
 
 			if($this->input->post("year")==0){
-				$alphabet = '0123456789';
-				$pass = array();
-				$alphaLength = strlen($alphabet) - 1;
-				for ($i = 0; $i < 3; $i++) {
-					$n = rand(0, $alphaLength);
-					$pass[] = $alphabet[$n];
-				}
+
 			}else{
 				$name4 = $this->input->post("subject_code");
 				$name5 = $this->input->post("lecturer");
@@ -1286,7 +1280,6 @@ class login_controller extends CI_Controller
 		if ($this->input->post('account_type')) {
 			echo $this->user_model->fetch_category_type($this->input->post('account_type'));
 		}
-		echo $this->user_model->userdetails();
 
 	}
 
@@ -1949,6 +1942,29 @@ class login_controller extends CI_Controller
 			}
 		} else {
 			$this->reopen_editFile();
+		}
+	}
+	public function viewDocument(){
+		$this->load->view('view_document');
+	}
+
+	function search_multiples(){
+
+		$this->load->library('form_validation');
+		$this->form_validation->set_rules('username', 'Username', 'required');
+		$this->form_validation->set_rules('password', 'Password', 'required');
+
+
+
+		$this->input->post('doc_type');
+		$this->input->post('category');
+		$this->input->post('year');
+		$this->input->post('semester');
+
+		if($this->input->post('doc_type')=='' && $this->input->post('category')=='' && $this->input->post('year')==''&& $this->input->post('semester')==''){
+			$this->viewDocument();
+		}else{
+			redirect(base_url("Home/Contacts"));
 		}
 	}
 

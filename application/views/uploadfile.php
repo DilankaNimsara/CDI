@@ -205,7 +205,7 @@ $url= basename($actual_link);
 
 <script>
     $(document).ready(function(){
-
+		var username="";
         $('#tp').change(function(){
             var account_type = $('#tp').val();
             if(account_type != 'other')
@@ -217,14 +217,13 @@ $url= basename($actual_link);
                     success:function(data)
                     {
                         $('#category_data').html(data);
-						$('#yr').html('<option value="#"></option>');
-						$('#subject_code').html('<option value="#"></option>');
-						$('#sem').html('<option value="#"></option>');
-						$('#lec').html('<option value="#"></option>');
+						$('#yr').html('<option></option>');
+						$('#subject_code').html('<option></option>');
+						$('#sem').html('<option></option>');
+						$('#lec').html('<option></option>');
 					}
                 });
 
-                var username="user";
 				$.ajax({
 					url:"<?php echo base_url(); ?>login_controller/fetch_users",
 					method:"POST",
@@ -266,6 +265,16 @@ $url= basename($actual_link);
                     }
                 });
             }
+
+			$.ajax({
+				url:"<?php echo base_url(); ?>login_controller/fetch_users",
+				method:"POST",
+				data:{username:username},
+				success:function(data)
+				{
+					$('#lec').html(data);
+				}
+			});
         });
 
         $('#yr').change(function(){
@@ -286,6 +295,15 @@ $url= basename($actual_link);
                     }
                 });
             }
+			$.ajax({
+				url:"<?php echo base_url(); ?>login_controller/fetch_users",
+				method:"POST",
+				data:{username:username},
+				success:function(data)
+				{
+					$('#lec').html(data);
+				}
+			});
         });
 
         $('#sem').change(function(){
@@ -304,7 +322,17 @@ $url= basename($actual_link);
                     }
                 });
             }
+
         });
+		$.ajax({
+			url:"<?php echo base_url(); ?>login_controller/fetch_users",
+			method:"POST",
+			data:{username:username},
+			success:function(data)
+			{
+				$('#lec').html(data);
+			}
+		});
 
     });
 </script>
