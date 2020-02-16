@@ -16,7 +16,6 @@ class Home extends CI_Controller{
 		$this->load->view('userGuide');
 	}
 
-	//------------------------------------------------------------User Guide page
 	public function SearchMultiplevalues(){
 		$this->load->view('searchmultiples');
 	}

@@ -1958,10 +1958,12 @@ class login_controller extends CI_Controller
 		if ($this->form_validation->run()) {
 			$this->load->model('user_model');
 
-			$this->input->post('doc_type');
-			$this->input->post('category');
-			$this->input->post('year');
-			$this->input->post('semester');
+			$_SESSION['search_multiples_doctype']=$this->input->post('doc_type');
+			$_SESSION['search_multiples_category']=$this->input->post('category');
+			$_SESSION['search_multiples_year']=$this->input->post('year');
+			$_SESSION['search_multiples_semester']=$this->input->post('semester');
+
+			redirect(base_url().'Home/SearchMultiplevalues');
 
 		}else{
 			$this->viewDocument();

@@ -774,6 +774,24 @@ class user_model extends CI_Model
 		return $this->db->get();
 	}
 
+	function SearchMultiplevalues($query)
+	{
+		$this->db->select("*");
+		$this->db->from("fileupload");
+		$this->db->join('user', 'fileupload.lecturer = user.username','left');
+
+		if(($_SESSION['search_multiples_category']&&$_SESSION['search_multiples_year']&&$_SESSION['search_multiples_semester'])!="-"){
+			$this->db->where('doc_type', $_SESSION['search_multiples_doctype']);
+			$this->db->where('category', $_SESSION['search_multiples_category']);
+			$this->db->where('year', $_SESSION['search_multiples_year']);
+			$this->db->where('semester', $_SESSION['search_multiples_semester']);
+		}
+		$this->db->where('doc_type', $_SESSION['search_multiples_doctype']);
+		$this->db->like('file_name', $query);
+		$this->db->order_by('file_name', 'ASC');
+		return $this->db->get();
+	}
+
 
 
 }
