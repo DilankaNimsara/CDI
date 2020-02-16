@@ -227,8 +227,7 @@ class login_controller extends CI_Controller
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('username', 'Username', 'required');
-		$this->form_validation->set_rules('email', 'E mail', 'trim|required|valid_email
-		');
+		$this->form_validation->set_rules('email', 'E mail', 'trim|required|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'required');
 		$this->form_validation->set_rules('con_password', 'confirm password', 'required|matches[password]');
 
@@ -240,7 +239,7 @@ class login_controller extends CI_Controller
 				"type" => strtolower((str_replace(' ', '_', $this->input->post("type")))),
 				"post" => strtolower((str_replace(' ', '_', $this->input->post("post")))),
 				"username" => $this->input->post("username"),
-				"password" => $this->input->post("password"),
+				"password" => md5($this->input->post("password")),
 				"email" => $this->input->post("email")
 			);
 
@@ -550,7 +549,7 @@ class login_controller extends CI_Controller
 	{
 		$this->load->helper('download');
 		if ($this->input->post("submit")) {
-			$data = file_get_contents('./uploads/' . $this->input->post("submit"));
+			$data = file_get_contents('update_and_delete_user_accounts' . $this->input->post("submit"));
 			$name = $this->input->post("submit");
 			force_download($name, $data);
 		}

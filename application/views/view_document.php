@@ -17,10 +17,33 @@
 	</div>
 	<div class="col-sm-10 text-left">
 		<!-- content -->
-		<br/>
-		<a href="#alldocs"><h4 style="color: midnightblue">1) ALL DOCUMENTS</h4></a>
-		<a href="#mydoc"><h4 style="color: midnightblue">2) MY DOCUMENTS (Other Courses)</h4></a>
-		<br/>
+		<?php
+		if(($_SESSION['type']=='external' || $_SESSION['type']=='under_graduate' || $_SESSION['type']=='post_graduate')&&($_SESSION['post']=="lecturer")){
+			?>
+
+			<?php
+		}else {
+			?>
+			<br/>
+			<a href="#alldocs"><h4 style="color: midnightblue">1) ALL DOCUMENTS</h4></a>
+			<a href="#mydoc"><h4 style="color: midnightblue">2) MY DOCUMENTS
+					<?php
+					if($_SESSION['type']=='qac'){
+						?>
+						</h4>
+						<?php
+					}else{
+						?>
+						(Other Courses)</h4></a>
+						<?php
+					}
+					?>
+
+			<br/>
+
+			<?php
+		}
+		?>
 		<a id="alldocs"><h1 style="color: midnightblue">1) ALL DOCUMENTS</h1></a>
         <br/>
 		<?php
@@ -118,8 +141,16 @@
 			}else{
 				?>
 				<a id="mydoc">
-					<h1 style="color: midnightblue">2) MY DOCUMENTS (Other Courses)</h1>
+					<h1 style="color: midnightblue">2) MY DOCUMENTS <?php
+						if($_SESSION['type']!='qac'){
+						?>(Other Courses)
+
+					<?php
+					}
+					?>
+				</h1>
 				</a>
+
 
 				<div class="container ">
 					<div class="form-group">

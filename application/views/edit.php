@@ -42,36 +42,37 @@
 				<td><?php echo $row->date_created;?></td>
 				<td></td>
 			</tr>
-			<tr height="30px">
-				<td>Category</td>
-				<td> : </td>
-				<td><?php echo $row->category;?></td>
-			</tr>
-			<tr height="30px">
-				<td>Year</td>
-				<td> : </td>
-				<td><?php echo $row->year;?></td>
-			</tr>
-			<tr height="30px">
-				<td>Semester</td>
-				<td> : </td>
-				<td><?php echo $row->semester;?></td>
-			</tr>
-			<tr height="30px">
-				<td>Academic Year </td>
-				<td> : </td>
-				<td><?php echo $row->academic_year;?></td>
-			</tr>
-			<tr height="30px">
-				<td>Subject Code</td>
-				<td> : </td>
-				<td><?php echo $row->subject_code;?></td>
-			</tr>
-			<tr height="30px">
-				<td>Lecturer</td>
-				<td> : </td>
-				<td><?php echo $row->lecturer;?></td>
-			</tr>
+					<?php
+					if($row->doc_type!="other"){
+						?>
+						<tr height="30px">
+							<td>Year</td>
+							<td> : </td>
+							<td><?php echo $row->year;?></td>
+						</tr>
+						<tr height="30px">
+							<td>Semester</td>
+							<td> : </td>
+							<td><?php echo $row->semester;?></td>
+						</tr>
+						<tr height="30px">
+							<td>Academic Year </td>
+							<td> : </td>
+							<td><?php echo $row->academic_year;?></td>
+						</tr>
+						<tr height="30px">
+							<td>Subject Code</td>
+							<td> : </td>
+							<td><?php echo $row->subject_code;?></td>
+						</tr>
+						<tr height="30px">
+							<td>Lecturer</td>
+							<td> : </td>
+							<td><?php echo $row->lecturer;?></td>
+						</tr>
+						<?php
+					}
+					?>
 			<tr height="30px">
 				<td>Document Type</td>
 				<td> : </td>
@@ -108,7 +109,7 @@
 					</td>
 					<td align="right">
 						<?php
-						if(($_SESSION['type']=='qac')||($_SESSION['type']=='head_of_institute')){
+						if(($_SESSION['post']=='qac_head')||($_SESSION['type']=='head_of_institute')){
 						?>
 							<button style="width: 100px;" class=" btn btn-danger"  name="delete" value="delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span> Delete</button>
 							<?php
@@ -196,8 +197,9 @@
 	</div>
 </div>
 <div class="col-sm-12">
-<?php include 'footer.php';?>
+
 </div>
+<?php include 'footer.php';?>
 </body>
 </html>
 

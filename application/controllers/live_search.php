@@ -174,7 +174,6 @@ class live_search extends CI_Controller{
        <th>Author</th>
        <th>Lecturer</th>
        <th>Type</th>
-       <th>Comment</th>
       </tr>
   ';
         if ($data->num_rows() > 0) {
@@ -192,13 +191,12 @@ class live_search extends CI_Controller{
        <td>' . $row->author . '</td>
        <td>' . $row->lecturer . '</td>
        <td>' . str_replace('_',' ',$row->doc_type ). '</td> 
-       <td>' . $row->comment . '</td> 
       </tr>
     ';
             }
         } else {
             $output .= '<tr>
-       <td colspan="12">No Data Found</td>
+       <td colspan="11">No Data Found</td>
       </tr>';
         }
         $output .= '</table>';
@@ -695,7 +693,6 @@ class live_search extends CI_Controller{
        <th>Author</th>
        <th>Lecturer</th>
        <th>Type</th>
-       <th>Comment</th>
       </tr>
   ';
 		if ($data->num_rows() > 0) {
@@ -713,13 +710,13 @@ class live_search extends CI_Controller{
        <td>' . $row->author . '</td>
        <td>' . $row->lecturer . '</td>
        <td>' . str_replace('_',' ',$row->doc_type ). '</td> 
-       <td>' . $row->comment . '</td> 
+       
       </tr>
     ';
 			}
 		} else {
 			$output .= '<tr>
-       <td colspan="12">No Data Found</td>
+       <td colspan="11">No Data Found</td>
       </tr>';
 		}
 		$output .= '</table>';
