@@ -413,7 +413,8 @@ class login_controller extends CI_Controller
 			}else{
 				$name4 = $this->input->post("subject_code");
 				$name5 = $this->input->post("lecturer");
-				$fileName=$name4 . $name5;
+				$name1 = $this->input->post("academic_year");
+				$fileName=$name4 . $name5 . $name1;
 				$config['file_name'] = $fileName;
 			}
 
@@ -434,6 +435,7 @@ class login_controller extends CI_Controller
 				$this->session->set_flashdata('errorx', $this->upload->display_errors());
 				$this->load->view('uploadfile'/*, $data*/);
 
+				redirect(base_url());
 			} else {
 
 				date_default_timezone_set("Asia/Colombo");
@@ -1969,10 +1971,136 @@ class login_controller extends CI_Controller
 			$this->viewDocument();
 		}
 
+	}
 
+	public function bulk_upload() {
 
+		$this->load->library('form_validation');
 
+		$this->form_validation->set_rules('doc_type', 'Type', 'required');
+		$this->form_validation->set_rules('category', 'Category', 'required');
+		$this->form_validation->set_rules('academic_year', 'Academic Year', 'required');
 
+		if ($this->form_validation->run()){
+
+			$count = count($_FILES['files']['name']);
+
+			for($i=0;$i<$count;$i++){
+				if(!empty($_FILES['files']['name'][$i])){
+
+					$_FILES['file']['name'] = $_FILES['files']['name'][$i];
+					$_FILES['file']['type'] = $_FILES['files']['type'][$i];
+					$_FILES['file']['tmp_name'] = $_FILES['files']['tmp_name'][$i];
+					$_FILES['file']['error'] = $_FILES['files']['error'][$i];
+					$_FILES['file']['size'] = $_FILES['files']['size'][$i];
+
+					$config['upload_path'] = './uploads/';
+					$config['allowed_types'] = 'pdf';
+					$config['max_size'] = 10240;
+					$config['overwrite'] = true;
+					$config['remove_spaces'] = true;
+
+					$this->load->library('upload',$config);
+					$this->load->model('user_model');
+
+					if($this->upload->do_upload('file')){
+						$uploadData = $this->upload->data();
+						$filename = $uploadData['file_name'];
+
+						$name=str_split($filename);
+
+						$length=count($name);
+						$lecturer="";
+						$extention="";
+						$code="";
+
+						for($j=4;$j<$length-4;$j++){
+							$lecturer=$lecturer.$name[$j];
+						}
+						for($j=$length-4;$j<$length;$j++){
+							$extention=$extention.$name[$j];
+						}
+						for($j=0;$j<4;$j++){
+							$code=$code.$name[$j];
+						}
+
+						echo "ada";
+
+							$key1=$name[0];
+							$key2=$name[1];
+
+							$year=0;
+							$sem="";
+
+							switch($key1){
+								case 1:
+									$year=1;
+									break;
+								case 2:
+									$year=2;
+									break;
+								case 3:
+									$year=3;
+									break;
+								case 4:
+									$year=4;
+									break;
+							}
+
+							switch($key2){
+								case 1:
+									$sem="1sem";
+									break;
+								case 2:
+									$sem="2sem";
+									break;
+							}
+
+						$data["data_subjects"] = $this->user_model->getfilename($this->input->post("category"));
+
+						$subjectname="";
+						foreach ($data["data_subjects"]->result() as $row) {
+							$subjectname = $row->subject_code;
+							break;
+						}
+
+						$sname=str_split($subjectname);
+						$lengthsubject=count($sname);
+						$sub="";
+
+						for($j=0;$j<$lengthsubject-4;$j++){
+							$sub=$sub.$sname[$j];
+						}
+
+						$finalname=$sub.$code.$lecturer.$this->input->post("academic_year").$extention;
+
+						$data1['totalFiles'][] = $finalname;
+						date_default_timezone_set("Asia/Colombo");
+							$date_time= date("Y-m-d") . " (" . date("h:i:sa") . ")";
+
+							$data = array(
+								"file_name" => $finalname,
+								"date_created" => $date_time,
+								"category" => $this->input->post("category"),
+								"year" => $year,
+								"semester" => $sem,
+								"academic_year" => $this->input->post("academic_year"),
+								"subject_code" => $sub.$code,
+								"author" => $this->session->userdata('username'),
+								"comment" => "",
+								"lecturer" => $lecturer,
+								"doc_type" => $this->input->post("doc_type")
+							);
+							$this->user_model->insert_file($data,$filename);
+					}
+				}
+			}
+
+			redirect(base_url('login_controller/bulkupload'));
+		}
+		else{
+			$this->bulk_upload();
+		}
 	}
 
 

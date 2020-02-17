@@ -455,15 +455,15 @@ class user_model extends CI_Model
 			$this->db->where('category', $course_name);
 
 		} elseif (($currant_type == 'under_graduate') && ($currant_post == 'lecturer')) {
-			$this->db->where('type', 'under_graduate');
+//			$this->db->where('type', 'under_graduate');
 			$this->db->where('username', $this->session->userdata('username'));
 
 		} elseif (($currant_type == 'post_graduate') && ($currant_post == 'lecturer')) {
-			$this->db->where('type', 'post_graduate');
+//			$this->db->where('type', 'post_graduate');
 			$this->db->where('username', $this->session->userdata('username'));
 
 		} elseif (($currant_type == 'external') && ($currant_post == 'lecturer')) {
-			$this->db->where('type', 'external');
+//			$this->db->where('type', 'external');
 			$this->db->where('username', $this->session->userdata('username'));
 
 		}
@@ -489,6 +489,11 @@ class user_model extends CI_Model
 		$this->db->order_by('semester', 'ASC');
 		$this->db->order_by('subject_code', 'ASC');
 		$query = $this->db->get($cat);
+		return $query;
+	}
+	function getfilename($table)
+	{
+		$query = $this->db->get($table);
 		return $query;
 	}
 

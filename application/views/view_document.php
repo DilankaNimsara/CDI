@@ -25,8 +25,8 @@
 		}else {
 			?>
 			<br/>
-			<a href="#alldocs"><h4 style="color: midnightblue">1) ALL DOCUMENTS</h4></a>
-			<a href="#mydoc"><h4 style="color: midnightblue">2) MY DOCUMENTS
+			<a href="#alldocs"><h4 style="color: midnightblue"> ALL DOCUMENTS</h4></a>
+			<a href="#mydoc"><h4 style="color: midnightblue"> MY DOCUMENTS
 					<?php
 					if($_SESSION['type']=='qac'){
 						?>
@@ -44,7 +44,7 @@
 			<?php
 		}
 		?>
-		<a id="alldocs"><h1 style="color: midnightblue">1) ALL DOCUMENTS</h1></a>
+		<a id="alldocs"><h1 style="color: midnightblue"> ALL DOCUMENTS</h1></a>
         <br/>
 		<?php
 		if($this->session->flashdata('delete_massage')){
@@ -152,7 +152,7 @@
 			}else{
 				?>
 				<a id="mydoc">
-					<h1 style="color: midnightblue">2) MY DOCUMENTS <?php
+					<h1 style="color: midnightblue"> MY DOCUMENTS <?php
 						if($_SESSION['type']!='qac'){
 						?>(Other Courses)
 
