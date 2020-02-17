@@ -2024,8 +2024,6 @@ class login_controller extends CI_Controller
 							$code=$code.$name[$j];
 						}
 
-						echo "ada";
-
 							$key1=$name[0];
 							$key2=$name[1];
 
@@ -2087,7 +2085,7 @@ class login_controller extends CI_Controller
 								"academic_year" => $this->input->post("academic_year"),
 								"subject_code" => $sub.$code,
 								"author" => $this->session->userdata('username'),
-								"comment" => "",
+								"comment" => $this->input->post('comment'),
 								"lecturer" => $lecturer,
 								"doc_type" => $this->input->post("doc_type")
 							);
@@ -2096,12 +2094,13 @@ class login_controller extends CI_Controller
 				}
 			}
 
-			redirect(base_url('login_controller/bulkupload'));
+			redirect(base_url('login_controller/Bulkupload'));
 		}
 		else{
-			$this->bulk_upload();
+			$this->Bulkupload();
 		}
 	}
+
 
 
 

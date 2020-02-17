@@ -115,6 +115,14 @@ $url= basename($actual_link);
 		</td>
 		</tr>
 
+		<tr>
+			<td width="25%" height="65px">
+				<label>Comments</label>
+			</td>
+			<td width="75%" height="160px">
+				<textarea rows="5" cols="50" class="form-control" id="comment" name="comment"> </textarea>
+			</td>
+		</tr>
 		</table>
 
 		<br/>
