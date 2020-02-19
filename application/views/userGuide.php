@@ -23,7 +23,8 @@
 		<div class="col-sm-10">
 			<div class="well well-lg tx;">
 			<div class="ex33forguid">
-				<div style="color: whitesmoke;">
+				<!-- <div style="color: whitesmoke;"> -->
+				<div style="color:midnightblue">
 					<h1><center>User Guide</center></h1>
 					<h1><center>Mr.Doc - Document Management System</center></h1>
 					<h3>Introduction</h3>
@@ -38,7 +39,7 @@
 					</p>
 
 					<h3>QAC and QAC staff</h3>
-					<ul>
+					<ul style="color:midnightblue">
 						<li>Create accounts.</li>
 						<li>Upload documents.</li>
 						<li>View documents.</li>
@@ -53,7 +54,7 @@
 					</ul>
 
 					<h3>Head of Institute</h3>
-					<ul>
+					<ul style="color:midnightblue">
 						<li>Have access to all documents.</li>
 						<li>Make comments.</li>
 						<li>Download documents.</li>
@@ -61,28 +62,28 @@
 					</ul>
 
 					<h3>Head of Courses</h3>
-					<ul>
+					<ul style="color:midnightblue">
 						<li>All documents of relevant degree program can be viewed(eg: Undergraduate)</li>
 						<li>Download documents.</li>
 						<li>Send messages(notifications) to all users of the relevant degree program.</li>
 					</ul>
 
 					<h3>Course coordinators</h3>
-					<ul>
+					<ul style="color:midnightblue">
 						<li>All documents of relevant courses.</li>
 						<li>Make comments in the documents.</li>
 						<li>Send messages(notifications) to all users of course.</li>
 					</ul>
 
 					<h3>Lecturers</h3>
-					<ul>
+					<ul style="color:midnightblue">
 						<li>View documents.</li>
 						<li>Download documents.</li>
 						<li>Add comments.</li>
 					</ul>
 
 					<h3>Minimum pc requirements</h3>
-					<ul>
+					<ul style="color:midnightblue">
 						<li>The machine should be connected to the wifi.</li>
 					</ul>
 
@@ -128,10 +129,10 @@
 
 					<center><img width="75%" src="<?php echo base_url();?>/public/img/img6.PNG"></center>
 
+</div>
 
 
 
-				</div>
 			</div>
 		</div>
 	</div>

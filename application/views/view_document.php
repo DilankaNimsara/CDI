@@ -95,8 +95,12 @@
 							</td>
 							<td width="5%"></td>
 							<td width="20%">
-								<select class="form-control" name="year" id="yr">
+								<select class="form-control" name="year" >
 									<option class="text-muted"></option>
+									<option name="year" value="1">1st year</option>
+									<option name="year" value="2">2nd year</option>
+									<option name="year" value="3">3rd year</option>
+									<option name="year" value="4">4th year</option>
 								</select>
 							</td>
 

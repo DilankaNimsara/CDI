@@ -87,6 +87,7 @@ for ($i = 0; $i < 8; $i++) {
 						<label >Course</label>
 						<select class="form-control" name="course_name" id="cat4dropdown">
 						</select>
+						<span class="text-danger"><?php echo form_error('course_name')?></span>
 					</div>
 					<div class="form-group">
 						<label for="username">Username</label>

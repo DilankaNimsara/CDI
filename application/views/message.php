@@ -70,7 +70,8 @@
 									<option name="select_acc" value="to_all_heads"  id="to_all_heads"> To All heads</option>
 									<option name="select_acc" value="to_head_of_institute"  id="to_head_of_institute"> To Head of Institute</option>
 									<?php
-										}elseif (($_SESSION['post']=='head_of_course')&&($_SESSION['type']=='external')){
+										}
+									elseif (($_SESSION['post']=='head_of_course')&&($_SESSION['type']=='external')){
 										foreach ($fetch_cat->result() as $row) {
 											?>
 											<option name="select_acc" value="<?php echo $row->category ;?>_course_coordinator"  id="ecc"> To <?php echo $row->category ;?> course coordinator</option>

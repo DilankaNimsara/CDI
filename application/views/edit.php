@@ -109,7 +109,7 @@
 					</td>
 					<td align="right">
 						<?php
-						if(($_SESSION['post']=='qac_head')||($_SESSION['type']=='head_of_institute')){
+						if(($_SESSION['post']=='qac_head')){
 						?>
 							<button style="width: 100px;" class=" btn btn-danger"  name="delete" value="delete" data-toggle="modal" data-target="#delete"><span class="glyphicon glyphicon-trash"></span> Delete</button>
 							<?php

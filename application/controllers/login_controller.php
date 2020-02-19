@@ -144,6 +144,7 @@ class login_controller extends CI_Controller
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('post', 'Post', 'required');
 		$this->form_validation->set_rules('type', 'Type', 'required');
+		$this->form_validation->set_rules('course_name', 'course name', 'required');
 
 		$hashPassword = $this->input->post("password");
 
@@ -1855,7 +1856,7 @@ class login_controller extends CI_Controller
 		$this->load->library('form_validation');
 
 		$this->form_validation->set_rules('pin', 'pin', 'required');
-		$this->session->set_flashdata('msg', 'Invalid PIN');
+
 		if ($this->form_validation->run()) {
 			if ($_SESSION['Rpin'] == $this->input->post("pin")) {
 				redirect(base_url() . "login_controller/changeP");
